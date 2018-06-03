@@ -1,0 +1,43 @@
+/* btn */
+
+.forma {
+    width: 600px;
+}
+
+.navbar {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    a {
+        color: aliceblue;
+    }
+    .dropdown-menu {
+        .dropdown-item {
+            color: #dc143c;
+        }
+    }
+    .nav {
+        .nav-item {
+            i {
+                color: aliceblue;
+                font-size: 40px;
+            }
+        }
+    }
+    form {
+        input {
+            width: 400px;
+        }
+        .btn {
+            border: 1px solid #dc143c;
+        }
+        .btn-outline-success {
+            i {
+                color: aliceblue;
+            }
+            &:hover {
+                background-color: #dc143c;
+            }
+        }
+    }
+}
