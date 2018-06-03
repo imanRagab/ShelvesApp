@@ -30,8 +30,92 @@
                 }
             }
         }
+        article {
+            position: absolute;
+            color: #00FFBB;
+            top: 30%;
+            width: 30%;
+            ;
+        }
     }
-    .log {
-        top: 0;
+}
+
+.log {
+    bottom: 10%;
+    z-index: 2;
+    position: absolute;
+    left: 45%;
+    .btn {
+        background-color: transparent;
+        border: 1px solid aliceblue;
+        padding: 5 30px 5 30px;
+        color: aliceblue;
+        &:hover {
+            background-color: aliceblue;
+            color: red;
+        }
+        &:active {
+            background-color: aliceblue;
+        }
     }
+}
+
+.down {
+    bottom: 0%;
+    z-index: 2;
+    position: absolute;
+    left: 48%;
+}
+
+i {
+    position: relative;
+    display: inline-block;
+    font-size: 45px;
+    cursor: pointer;
+    margin: 15px 30px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    z-index: 1;
+    color: #fff;
+}
+
+i:after {
+    position: absolute;
+    pointer-events: none;
+    width: 90%;
+    height: 90%;
+    border-radius: 50%;
+    content: '';
+    box-sizing: content-box;
+}
+
+.log i {
+    background: rgba(255, 255, 255, 0.1);
+    transition: background 0.2s, color 0.2s;
+}
+
+i:after {
+    top: -5px;
+    left: -5px;
+    padding: 7px;
+    box-shadow: 0 0 0 4px #fff;
+    transition: transform 0.2s, opacity 0.2s;
+    transform: scale(.8);
+    opacity: 0;
+}
+
+
+/* Effect 1a - Ring out */
+
+i:hover {
+    background: rgba(255, 255, 255, 1);
+    color: #333;
+}
+
+i:hover:after {
+    transform: scale(1);
+    opacity: 1;
 }
