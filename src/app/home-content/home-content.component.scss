@@ -1,0 +1,31 @@
+.card {
+    height: 100%;
+    .img-fluid {
+        height: 300px;
+        width: 100%;
+    }
+}
+
+.peach {
+    background: linear-gradient(40deg, #ffd86f, #dc3545)!important;
+    border: none;
+}
+
+.viewMoreBtn {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.card-body {
+    .badge {
+        background-color: crimson;
+    }
+}
+
+.card-footer {
+    i {
+        color: crimson;
+        font-size: 20px;
+    }
+}

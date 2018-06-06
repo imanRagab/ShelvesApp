@@ -9,19 +9,28 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HomeContentComponent } from './home-content/home-content.component';
-
+import { FooterComponent } from './footer/footer.component';
+import { UserComponent } from './user/user.component';
+import { SignInComponent } from './user/sign-in/sign-in.component';
+import { SignUpComponent } from './user/sign-up/sign-up.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
     NavBarComponent,
-    HomeContentComponent
+    HomeContentComponent,
+    FooterComponent,
+    UserComponent,
+    SignUpComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    
+    
 
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
