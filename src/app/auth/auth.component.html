@@ -1,0 +1,56 @@
+<div>
+  <div>
+    <div>
+
+      <div>
+        <h1>{{ title }}</h1>
+        <p>
+          <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>
+          <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a>
+        </p>
+        <form [formGroup]="authForm" (ngSubmit)="submitForm()">
+          <fieldset [disabled]="isSubmitting">
+            <fieldset>
+              <input
+                formControlName="name"
+                placeholder="name"
+                type="text"
+                *ngIf="authType == 'register'" name="name"/>
+            </fieldset>
+            <fieldset>
+              <input
+                formControlName="email"
+                placeholder="Email"
+                type="text" name="email"/>
+            </fieldset>
+            <fieldset>
+              <input
+                formControlName="password"
+                placeholder="Password"
+                type="password" name="password"/>
+            </fieldset>
+            <fieldset>
+            <input
+                formControlName="password_confirmation"
+                placeholder="confirm password"
+                type="password"
+                *ngIf="authType == 'register'" name="password_confirmation"/>
+            </fieldset>
+            <fieldset>
+              <select
+                  formControlName="role"
+                  *ngIf="authType == 'register'" name="role">
+                  <option>Book store</option>
+                  <option>Normal user</option>
+              </select>
+              </fieldset>
+            <button [disabled]="!authForm.valid" type="submit">
+              {{ title }}
+            </button>
+          </fieldset>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

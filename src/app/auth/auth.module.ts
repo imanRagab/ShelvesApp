@@ -1,10 +1,24 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
+import { AuthComponent } from './auth.component';
+import { SharedModule } from '../shared';
+import { AppRoutingModule } from '../app-routing.module';
 
 @NgModule({
   imports: [
-    CommonModule
+    SharedModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
-  declarations: []
+  declarations: [
+    AuthComponent
+  ],
+  providers: [
+  ]
 })
-export class AuthModule { }
+export class AuthModule {}
