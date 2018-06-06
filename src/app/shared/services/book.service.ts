@@ -18,14 +18,14 @@ export class BookService {
   ) { }
 
   // get book data
-  getBook(book: Book): Observable<Book> {
-    const route = `/api/books/${book.id}`;
+  getBook(id :number): Observable<Book> {
+    const route = `/api/books/${id}`;
     return this.apiService.get(route);
   }
 
   // delete book
-  deleteBook(book :Book) {
-    const route = `/api/books/${book.id}`;
+  deleteBook(id :number) {
+    const route = `/api/books/${id}`;
     return this.apiService.delete(route);
   }
 
