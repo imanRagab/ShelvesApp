@@ -122,3 +122,7 @@ i:hover:after {
     transform: scale(1);
     opacity: 1;
 }
+
+.modal-open {
+    z-index: 9999;
+}
