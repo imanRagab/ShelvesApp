@@ -5,6 +5,8 @@ import { AuthComponent } from './auth/auth.component';
 import { ShowComponent } from './book/show/show.component';
 import { CreateComponent } from './book/create/create.component';
 
+import {HomeContentComponent} from './home-content/home-content.component'
+
 const routes: Routes = [
   {
     path: '' , 
@@ -26,6 +28,11 @@ const routes: Routes = [
     path: 'books/:id',
     component: ShowComponent
   },
+  {
+    path: "HomeContent" , 
+    component : HomeContentComponent
+  }
+
 ];
 
 @NgModule({

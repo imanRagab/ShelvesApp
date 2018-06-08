@@ -1,49 +1,73 @@
-<!--  Nav Bar -->
-<nav class="navbar navbar-expand-lg navbar-light">
-    <a href="index.html" class="mt-3 ml-5">
-        <img src="/assets/images/wS-8.png" width="110px" height="80px" alt="logo">
-    </a>
+<div class="container">
+    <div class="row">
+        <!--Navbar-->
+        <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark  rgba-red-strong fixed-top " [containerInside]="true">
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-    <!-- Search Form -->
-    <div class="forma ml-5 my-4  ">
-        <form class="form-inline  justify-content-end">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search your book" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
-        </form>
-    </div>
+            <!-- Navbar brand -->
+            <logo>
+                <a class="navbar-brand" href="index.html">
+                    <img src="assets/images/wS-8.png" width="110px" height="80px" alt="">
+                </a>
+            </logo>
 
-    <!-- /Search Form -->
-    <div class="collapse navbar-collapse justify-content-end mr-5 " id="navbarSupportedContent">
+            <!-- Collapsible content -->
+            <links>
+
+                <!-- Links -->
+                <ul class="navbar-nav mr-auto  ">
+                    <li class="nav-item active ">
+                        <a class="nav-link waves-light" mdbWavesEffect>Home<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown " dropdown>
+                        <a dropdownToggle mdbWavesEffect class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+                Categories<span class="caret"></span></a>
+                        <div *dropdownMenu class="dropdown-menu dropdown " role="menu">
+                            <div class="col-lg-4">
+                                <a class="dropdown-item waves-light" mdbWavesEffect href="#">Action</a>
+                                <a class="dropdown-item waves-light" mdbWavesEffect href="#">Adventure</a>
+                                <a class="dropdown-item waves-light" mdbWavesEffect href="#">Romance</a>
+
+                            </div>
+                            <div class="col-lg-4">
+                                <a class="dropdown-item waves-light" mdbWavesEffect href="#">Cookbooks</a>
+                                <a class="dropdown-item waves-light" mdbWavesEffect href="#">History</a>
+                                <a class="dropdown-item waves-light" mdbWavesEffect href="#">Poetry</a>
+
+                            </div>
+                            <div class="col-lg-4">
+                                <a class="dropdown-item waves-light" mdbWavesEffect href="#">Mystery</a>
+                                <a class="dropdown-item waves-light" mdbWavesEffect href="#">Encyclopedia</a>
+                                <a class="dropdown-item waves-light" mdbWavesEffect href="#">  Relegios</a>
+
+                            </div>
+                        </div>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-light" mdbWavesEffect>Stores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-light" mdbWavesEffect>Contact</a>
+                    </li>
+
+                    <!-- Dropdown -->
 
 
-        <ul class="nav navbar-navmr-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Categories
-        </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Shops</a>
-            </li>
+                </ul>
+                <!-- Links -->
 
-            <li class="nav-item">
-                <a class="nav-link " href="#">Contacts</a>
-            </li>
-            <li class="nav-item">
+                <!-- Search form -->
+                <form class="form-inline waves-light" mdbWavesEffect>
+                    <div class="md-form mt-0 mr-5">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Search Your Book">
+                    </div>
+
+                </form>
                 <i class="fa fa-user-circle"></i>
-            </li>
-        </ul>
+            </links>
+            <!-- Collapsible content -->
 
+        </mdb-navbar>
+        <!--/.Navbar-->
     </div>
-
-</nav>
-<!--  Nav Bar -->
+</div>
