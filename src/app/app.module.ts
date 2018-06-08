@@ -8,12 +8,20 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+
+import { AuthModule } from './auth/auth.module';
+import { BookModule } from './book/book.module';
+
+
+import {
+  SharedModule
+} from './shared';
+
 import { HomeContentComponent } from './home-content/home-content.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserComponent } from './user/user.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
-import { ForgetPasswordComponent } from './user/forget-password/forget-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,15 +32,15 @@ import { ForgetPasswordComponent } from './user/forget-password/forget-password.
     FooterComponent,
     UserComponent,
     SignUpComponent,
-    SignInComponent,
-    ForgetPasswordComponent
+    SignInComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MDBBootstrapModule.forRoot(),
-    
-    
+    SharedModule ,
+    AuthModule,
+    BookModule,   
+    MDBBootstrapModule.forRoot(), 
 
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
