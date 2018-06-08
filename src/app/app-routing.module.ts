@@ -4,7 +4,7 @@ import {HomeComponent} from './home/home.component';
 import {HomeContentComponent} from './home-content/home-content.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
-// import { UserComponent } from './user/user.component';
+import { ForgetPasswordComponent } from './user/forget-password/forget-password.component';
 
 const routes: Routes = [
   {
@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path:"Signup",
     component : SignUpComponent
+  },
+  {
+    path:"ForgetPassword",
+    component:ForgetPasswordComponent
   }
 ]
 

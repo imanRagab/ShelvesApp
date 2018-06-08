@@ -23,3 +23,9 @@
     background: linear-gradient(40deg, #ffd86f, #dc3545)!important;
     border: none;
 }
+
+.modal {
+    .modal-body {
+        width: 50%;
+    }
+}
