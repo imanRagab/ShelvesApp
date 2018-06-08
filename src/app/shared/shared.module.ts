@@ -9,7 +9,9 @@ import { HttpTokenInterceptor } from './interceptors/http-token-interceptor';
 import {
     JwtService,
     ApiService,
-    UserService
+    UserService,
+    BookService,
+    CategoryService
 } from './services';
 
 @NgModule({
@@ -23,6 +25,8 @@ import {
     JwtService,
     ApiService,
     UserService,
+    BookService,
+    CategoryService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpTokenInterceptor,

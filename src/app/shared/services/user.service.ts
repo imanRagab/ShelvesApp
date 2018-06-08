@@ -33,9 +33,11 @@ export class UserService {
   populate() {
     // If JWT detected, attempt to get & store user's info
     if (this.jwtService.getToken()) {
-      this.apiService.get('/user')
+      this.apiService.get('/users')
       .subscribe(
-        data => this.setAuth(data.user, data.auth_token),
+        data => {
+          this.setAuth(data.user);
+        },
         err => this.purgeAuth()
       );
     } else {
@@ -44,7 +46,7 @@ export class UserService {
     }
   }
 
-  setAuth(user: User, token: string) {
+  setAuth(user: User, token = this.jwtService.getToken()) {
     // Save JWT sent from server in localstorage
     this.jwtService.saveToken(token);
     // Set current user data into observable

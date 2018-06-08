@@ -6,4 +6,5 @@ export interface User {
     profile_picture: string;
     gender: string;
     role: string;
+    rate: number;
 }

@@ -1,0 +1,73 @@
+<div>
+  <div>
+    <div>
+
+      <div>
+        <form [formGroup]="bookForm" (ngSubmit)="createBook()">
+          <fieldset>
+            <fieldset>
+              <input
+                formControlName="name"
+                placeholder="name"
+                type="text"
+                name="name"/>
+            </fieldset>
+            <fieldset>
+              <select
+                formControlName="category_id"
+                name="category_id">
+                <option *ngFor="let category of categories" value="{{ category.id }}">
+                  {{ category.name }}
+                </option>
+                </select>
+            </fieldset>
+            <fieldset>
+              <textarea
+                formControlName="description"
+                name="description"></textarea>
+              </fieldset>
+              <fieldset>
+                <input
+                  formControlName="book_images_files"
+                  placeholder="name"
+                  type="file"
+                  name="book_images_files"
+                  multiple 
+                  (change)="onFileChange($event)"/>
+              </fieldset>
+              <fieldset>
+                <select
+                  formControlName="transcation"
+                  name="transcation"
+                  *ngIf="!isBookStore"
+                  (change)="onTransactionChange()">
+                  <option>Free Share</option>
+                  <option>Exchange</option>
+                  <option>Sell By Bids</option>
+                </select>
+              </fieldset>
+              <fieldset>
+                <input
+                  formControlName="price"
+                  type="number"
+                  name="price"
+                  *ngIf="isBookStore || isBids"/>
+              </fieldset>
+              <fieldset>
+                <input
+                  formControlName="quantity"
+                  type="number"
+                  name="quantity"
+                  *ngIf="isBookStore"/>
+              </fieldset>
+            <button type="submit">
+              Create
+            </button>
+          </fieldset>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+

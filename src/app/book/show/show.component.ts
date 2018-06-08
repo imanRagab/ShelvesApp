@@ -28,27 +28,26 @@ export class ShowComponent implements OnInit {
 
   ngOnInit() {
 
+    // this.userService.populate();
     // get book id from url
     const book_id = parseInt(this.route.snapshot.paramMap.get('id'));
 
     // get book data
     this.bookService.getBook(book_id).subscribe(
       result => {
-        this.book = result;
+        this.book = result['book'];
         console.log(this.book);
+        // Load the current user's data
+        this.userService.currentUser.subscribe(
+          (userData: User) => {
+            this.currentUser = userData;
+            this.canModify = (this.currentUser.id === this.book.user[0].id);
+          }
+        );
       },
       error => {
         console.log(error);
        }
-    );
-
-    // Load the current user's data
-    this.userService.currentUser.subscribe(
-      (userData: User) => {
-        this.currentUser = userData;
-        this.canModify = (this.currentUser.id === this.book.user.id);
-      }
-    );
+    );    
   }
-
 }

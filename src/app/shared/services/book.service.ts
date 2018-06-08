@@ -3,7 +3,7 @@ import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 import { Book } from '../models/book.model';
 import { HttpParams } from '@angular/common/http';
-import { Observable, observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { map } from 'rxjs/operators';
 
@@ -30,26 +30,26 @@ export class BookService {
   }
 
   // update book
-  updateBook(book :Book): Observable<Book> {
-    const route = `/api/books/${book.id}`;
-    return this.apiService.put(route, book);
+  updateBook(book :object): Observable<Book> {
+    const route = `/api/books/${book['id']}`;
+    return this.apiService.put(route, {book: book});
   }
 
   //create book
-  createBook(book :Book): Observable<Book> {
+  createBook(book :object): Observable<Book> {
     const route = `/api/books`;
-    return this.apiService.post(route, book);
+    return this.apiService.post(route, {book: book});
   }
 
   //get latest books
   getLatest(): Observable<Array<Book>> {
     const route = `/api/books/latest_books`;
-    return this.apiService.post(route);
+    return this.apiService.get(route);
   }
 
   //get recommended books
   getRecommended(): Observable<Array<Book>> {
     const route = `/api/books/recommended_books`;
-    return this.apiService.post(route);
+    return this.apiService.get(route);
   }
 }
