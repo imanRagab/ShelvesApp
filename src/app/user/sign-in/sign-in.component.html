@@ -30,6 +30,7 @@
             <!-- Login form -->
             <p>Not a member? <a routerLink="/Signup">SignUp</a></p>
             <!-- <a routerLink="/ForgetPassword">Forgot Your Password?</a> -->
+
             <a (click)="basicModal.show()">Forget Your Password?</a>
 
             <div mdbModal #basicModal="mdb-modal" class="modal fade mt-5" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
