@@ -44,10 +44,10 @@ const routes: Routes = [
     path:"Signup",
     component : SignUpComponent
   },
-  {
-    path:"ForgetPassword",
-    component:ForgetPasswordComponent
-  }
+  // {
+  //   path:"ForgetPassword",
+  //   component:ForgetPasswordComponent
+  // }
 
 ];
 

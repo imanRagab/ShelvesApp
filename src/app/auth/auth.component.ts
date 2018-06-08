@@ -6,7 +6,8 @@ import { UserService } from '../shared';
 
 @Component({
   selector: 'app-auth-page',
-  templateUrl: './auth.component.html'
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
   authType: String = '';
@@ -23,7 +24,7 @@ export class AuthComponent implements OnInit {
   ) {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
-      'email': ['', Validators.required],
+      'email': ['', [Validators.required, Validators.email]],
       'password': ['', Validators.required]
     });
   }
@@ -36,9 +37,9 @@ export class AuthComponent implements OnInit {
       this.title = (this.authType === 'login') ? 'Sign in' : 'Sign up';
       // add form control for username if this is the register page
       if (this.authType === 'register') {
-        this.authForm.addControl('password_confirmation', new FormControl());
-        this.authForm.addControl('name', new FormControl(Validators.required));
-        this.authForm.addControl('role', new FormControl(Validators.required));
+        this.authForm.addControl('password_confirmation', new FormControl('',Validators.required));
+        this.authForm.addControl('name', new FormControl('',Validators.required));
+        this.authForm.addControl('role', new FormControl('',Validators.required));
       }
     });
   }

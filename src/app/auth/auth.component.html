@@ -1,56 +1,82 @@
-<div>
-  <div>
-    <div>
+<div class="container mt-5 animated bounceInUp">
+  <div class="row d-flex justify-content-center">
+      <!--Card-->
+      <div class="card card-cascade p-5  col-lg-8 col-md-4 ">
 
-      <div>
-        <h1>{{ title }}</h1>
-        <p>
-          <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>
-          <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a>
-        </p>
-        <form [formGroup]="authForm" (ngSubmit)="submitForm()">
-          <fieldset [disabled]="isSubmitting">
-            <fieldset>
-              <input
-                formControlName="name"
-                placeholder="name"
-                type="text"
-                *ngIf="authType == 'register'" name="name"/>
-            </fieldset>
-            <fieldset>
-              <input
-                formControlName="email"
-                placeholder="Email"
-                type="text" name="email"/>
-            </fieldset>
-            <fieldset>
-              <input
-                formControlName="password"
-                placeholder="Password"
-                type="password" name="password"/>
-            </fieldset>
-            <fieldset>
-            <input
-                formControlName="password_confirmation"
-                placeholder="confirm password"
-                type="password"
-                *ngIf="authType == 'register'" name="password_confirmation"/>
-            </fieldset>
-            <fieldset>
-              <select
+          <!-- Login form -->
+          <div class="signTitle">
+              <h3 class="text-center mb-4">{{ title }}</h3>
+
+          </div>
+          <form [formGroup]="authForm" (ngSubmit)="submitForm()">
+
+              <div class="md-form" *ngIf="authType == 'register'">
+                  <i class="fa fa-user prefix grey-text"></i>
+                  <input type="text" formControlName="name" id="name" class="form-control" mdbInputDirective>
+                  <label for="name">Your name</label>
+              </div>
+
+              <div class="md-form">
+                  <i class="fa fa-envelope prefix grey-text"></i>
+                  <input type="text" formControlName="email" id="email" class="form-control" mdbInputDirective>
+                  <label for="email">Your email</label>
+              </div>
+              <div class="md-form">
+                  <i class="fa fa-lock prefix grey-text"></i>
+                  <input type="password" formControlName="password" id="password" class="form-control" mdbInputDirective>
+                  <label for="orangeForm-pass">Your password</label>
+              </div>
+              <div class="md-form" *ngIf="authType == 'register'" >
+                  <i class="fa fa-lock prefix grey-text"></i>
+                  <input type="password" formControlName="password_confirmation" id="password_confirmation" class=" form-control" mdbInputDirective>
+                  <label for="password_confirmation">Confirm password</label>
+              </div>
+              <div class="md-form" *ngIf="authType == 'register'" >
+                <select
                   formControlName="role"
-                  *ngIf="authType == 'register'" name="role">
+                  *ngIf="authType == 'register'" name="role" id="role" class="form-control" mdbInputDirective>
                   <option>Book store</option>
                   <option>Normal user</option>
-              </select>
-              </fieldset>
-            <button [disabled]="!authForm.valid" type="submit">
-              {{ title }}
-            </button>
-          </fieldset>
-        </form>
-      </div>
+                </select>
+                <label for="role">Type of user</label>
+                </div>
 
-    </div>
+              <div class="text-center viewMoreBtn">
+                  <input type="submit" [disabled]="!authForm.valid" class="btn peach waves-light" mdbWavesEffect value="{{ title }}">
+              </div>
+
+          </form>
+
+          <p *ngIf="authType == 'register'">Have An Account? <a routerLink="/login">Sign In</a></p>
+          <p *ngIf="authType == 'login'">Not a member? <a routerLink="/register">Sign Up</a></p>
+          <a *ngIf="authType == 'login'" (click)="basicModal.show()">Forget Your Password?</a>
+          <div mdbModal #basicModal="mdb-modal" class="modal fade mt-5" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                <span aria-hidden="true">×</span>
+            </button>
+                        <h4 class="modal-title w-100" id="myModalLabel">Reset Your Password</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter your e-mail address below and we will send you a private message containing a link that will help you to create a new password</p>
+                        <form>
+                            <div class="md-form">
+                                <i class="fa fa-envelope prefix"></i>
+                                <input mdbInputDirective data-error="wrong email" data-success="valid email" minLength="8" maxLength="25" type="email" class="form-control" id="form9" name="email" mdbInputDirective>
+                                <label for="form9">Type your e-mail</label>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer viewMoreBtn">
+                        <button type="button" class="btn peach relative waves-light" mdbWavesEffect>Reset Password</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <!--/.Card-->
   </div>
 </div>
