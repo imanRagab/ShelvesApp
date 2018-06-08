@@ -1,0 +1,64 @@
+<div class="container mt-5 animated bounceInUp">
+    <div class="row d-flex justify-content-center">
+        <!--Card-->
+        <div class="card card-cascade p-5  col-lg-8 col-md-4 ">
+
+            <!-- Login form -->
+            <div class="signTitle">
+                <h3 class="text-center mb-4">Sign in</h3>
+
+            </div>
+            <form [formGroup]="loginForm">
+
+                <div class="md-form">
+                    <i class="fa fa-envelope prefix grey-text"></i>
+                    <input type="text" formControlName="defaultFormEmail" id="defaultForm-email" class="form-control" mdbInputDirective>
+                    <label for="defaultForm-email">Your email</label>
+                </div>
+
+                <div class="md-form">
+                    <i class="fa fa-lock prefix grey-text"></i>
+                    <input type="password" formControlName="defaultFormPass" id="defaultForm-pass" class="form-control" mdbInputDirective>
+                    <label for="defaultForm-pass">Your password</label>
+                </div>
+
+                <div class="text-center viewMoreBtn">
+                    <input type="submit" class="btn peach  waves-light" mdbWavesEffect value="Login">
+                </div>
+
+            </form>
+            <!-- Login form -->
+            <p>Not a member? <a routerLink="/Signup">SignUp</a></p>
+            <!-- <a routerLink="/ForgetPassword">Forgot Your Password?</a> -->
+            <a (click)="basicModal.show()">Forget Your Password?</a>
+
+            <div mdbModal #basicModal="mdb-modal" class="modal fade mt-5" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                    <span aria-hidden="true">×</span>
+                </button>
+                            <h4 class="modal-title w-100" id="myModalLabel">Reset Your Password</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Enter your e-mail address below and we will send you a private message containing a link that will help you to create a new password</p>
+                            <form>
+                                <div class="md-form">
+                                    <i class="fa fa-envelope prefix"></i>
+                                    <input mdbInputDirective data-error="wrong email" data-success="valid email" minLength="8" maxLength="25" type="email" class="form-control" id="form9" name="email" mdbInputDirective>
+                                    <label for="form9">Type your e-mail</label>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer viewMoreBtn">
+                            <button type="button" class="btn peach relative waves-light" mdbWavesEffect>Reset Password</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/.Card-->
+    </div>
+</div>

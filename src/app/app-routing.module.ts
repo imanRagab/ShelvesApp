@@ -6,6 +6,9 @@ import { ShowComponent } from './book/show/show.component';
 import { CreateComponent } from './book/create/create.component';
 
 import {HomeContentComponent} from './home-content/home-content.component'
+import { SignInComponent } from './user/sign-in/sign-in.component';
+import { SignUpComponent } from './user/sign-up/sign-up.component';
+import { ForgetPasswordComponent } from './user/forget-password/forget-password.component';
 
 const routes: Routes = [
   {
@@ -31,9 +34,23 @@ const routes: Routes = [
   {
     path: "HomeContent" , 
     component : HomeContentComponent
+  },
+    
+  {
+    path:"SignIn",
+    component : SignInComponent
+  },
+  {
+    path:"Signup",
+    component : SignUpComponent
+  },
+  {
+    path:"ForgetPassword",
+    component:ForgetPasswordComponent
   }
 
 ];
+
 
 @NgModule({
   imports: [
