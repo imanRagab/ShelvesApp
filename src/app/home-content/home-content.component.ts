@@ -16,16 +16,30 @@ export class HomeContentComponent implements OnInit {
 
   latestBooks: Array<Book>;
   recommendedBooks: Array<Book>;
+  currentUser: User;
+  userLoggedIn: Boolean;
   constructor(
-    private bookService: BookService
+    private bookService: BookService,
+    private userService: UserService
   ) { 
   }
 
   ngOnInit() {
+
+    this.userLoggedIn = false;
+    // Load the current user's data
+    this.userService.currentUser.subscribe(
+      (userData: User) => {
+        this.currentUser = userData;
+        if(this.currentUser.name) {
+          this.userLoggedIn = true;
+          this.getRecommendedBooks();
+        }
+      }
+    );   
     this.recommendedBooks = [];
     this.latestBooks = [];
     this.getLatestBooks();
-    this.getRecommendedBooks();
   }
 
   // get latest books list
