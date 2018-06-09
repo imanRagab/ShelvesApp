@@ -14,7 +14,7 @@ export class CategoryService {
 
   //get books categories 
   getCategories(): Observable<Array<Category>> {
-    const route = `/api/categories`;
+    const route = `/category/categories`;
     return this.apiService.get(route);
   }
 }

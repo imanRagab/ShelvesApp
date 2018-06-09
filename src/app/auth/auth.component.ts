@@ -15,7 +15,7 @@ export class AuthComponent implements OnInit {
   // errors: Errors = {errors: {}};
   isSubmitting = false;
   authForm: FormGroup;
-
+  resetPasswordForm: FormGroup;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -26,6 +26,9 @@ export class AuthComponent implements OnInit {
     this.authForm = this.fb.group({
       'email': ['', [Validators.required, Validators.email]],
       'password': ['', Validators.required]
+    });
+    this.resetPasswordForm = this.fb.group({
+      'email': ['', [Validators.required, Validators.email]]
     });
   }
 
@@ -44,6 +47,7 @@ export class AuthComponent implements OnInit {
     });
   }
 
+  // submit login/register form
   submitForm() {
     this.isSubmitting = true;
     // this.errors = {errors: {}};
@@ -58,6 +62,21 @@ export class AuthComponent implements OnInit {
       err => {
         // this.errors = err;
         this.isSubmitting = false;
+      }
+    );
+  }
+
+  // submit reset password form
+  resetPassword() {
+
+    this.userService.resetPassword(this.resetPasswordForm.value).subscribe(
+      result => {
+        console.log(result)
+        alert(result)
+      },
+      error => {
+        console.log(error)
+        alert("Error in email");
       }
     );
   }

@@ -19,37 +19,37 @@ export class BookService {
 
   // get book data
   getBook(id :number): Observable<Book> {
-    const route = `/api/books/${id}`;
+    const route = `/book/books/${id}`;
     return this.apiService.get(route);
   }
 
   // delete book
   deleteBook(id :number) {
-    const route = `/api/books/${id}`;
+    const route = `/book/books/${id}`;
     return this.apiService.delete(route);
   }
 
   // update book
   updateBook(book :object): Observable<Book> {
-    const route = `/api/books/${book['id']}`;
+    const route = `/book/books/${book['id']}`;
     return this.apiService.put(route, {book: book});
   }
 
   //create book
   createBook(book :object): Observable<Book> {
-    const route = `/api/books`;
+    const route = `/book/books/`;
     return this.apiService.post(route, {book: book});
   }
 
   //get latest books
   getLatest(): Observable<Array<Book>> {
-    const route = `/api/books/latest_books`;
+    const route = `/book/books/latest_books`;
     return this.apiService.get(route);
   }
 
   //get recommended books
   getRecommended(): Observable<Array<Book>> {
-    const route = `/api/books/recommended_books`;
+    const route = `/book/books/recommended_books`;
     return this.apiService.get(route);
   }
 }

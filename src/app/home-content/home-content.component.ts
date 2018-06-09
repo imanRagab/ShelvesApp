@@ -14,9 +14,7 @@ import {
 })
 export class HomeContentComponent implements OnInit {
 
-  firstLatestBooks: Array<Book>;
-  secondLatestBooks: Array<Book>;
-  thirdLatestBooks: Array<Book>;
+  latestBooks: Array<Book>;
   constructor(
     private bookService: BookService
   ) { 
@@ -24,6 +22,7 @@ export class HomeContentComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getLatestBooks();
   }
 
   // get latest books list
@@ -31,25 +30,13 @@ export class HomeContentComponent implements OnInit {
 
     this.bookService.getLatest().subscribe(
       result => {
-        result = result['data'];
-          for(let i = 0; i < result.length; i++){
-            if(i <= result.length/3)
-              {
-                this.firstLatestBooks.push(result[i]);
-              }
-            else if(i <= result.length*2/3)
-              {
-
-                this.secondLatestBooks.push(result[i]);
-              }
-            else
-              {
-                this.thirdLatestBooks.push(result[i]);
-              }
-          }
+        console.log(result)
+        result = result['books'];
+        console.log(result[0]['book_images'][0]['image'].url)
+        this.latestBooks = result;
       },
       error => {
-
+        console.log(error);
       }
     );
   }
