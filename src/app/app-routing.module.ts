@@ -25,6 +25,10 @@ const routes: Routes = [
     component: CreateComponent
   },
   {
+    path: 'books/edit/:id',
+    component: CreateComponent
+  },
+  {
     path: 'books/:id',
     component: ShowComponent
   },
