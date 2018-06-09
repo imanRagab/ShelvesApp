@@ -69,4 +69,9 @@ export class NavBarComponent implements OnInit {
       );
     }
 
+    // logout current user
+    logout() {
+      this.userService.purgeAuth();
+    }
+
 }

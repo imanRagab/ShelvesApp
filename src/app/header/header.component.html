@@ -26,7 +26,7 @@
                     </div>
                 </article>
             </div>
-            <div class="log p-3">
+            <div class="log p-3" *ngIf="!userLoggedIn">
                 <button type="button" class="btn mr-4" routerLink="/login">
           SignIn
         </button>

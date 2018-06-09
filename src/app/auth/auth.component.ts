@@ -71,11 +71,10 @@ export class AuthComponent implements OnInit {
 
     this.userService.resetPassword(this.resetPasswordForm.value).subscribe(
       result => {
-        console.log(result)
-        alert(result)
+        alert(result.message)
       },
       error => {
-        console.log(error)
+        // console.log(error)
         alert("Error in email");
       }
     );
