@@ -11,7 +11,7 @@ import { UserService } from '../../shared';
 })
 export class SignInComponent implements OnInit {
 
-
+  loginForm;
   isSubmitting = false;
   authForm: FormGroup;
   constructor(
@@ -21,6 +21,7 @@ export class SignInComponent implements OnInit {
     private fb: FormBuilder
   ) {
    }
+
 
   ngOnInit() {
   }

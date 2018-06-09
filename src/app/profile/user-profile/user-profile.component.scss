@@ -1,0 +1,35 @@
+.author-box {
+    height: 600px;
+    margin-top: -100px;
+    .rounded-circle {
+        width: 100px;
+        height: 100px;
+    }
+    .personal-sm {
+        i {
+            font-size: 20px;
+            color: crimson;
+        }
+    }
+}
+
+.card {
+    height: 100%;
+    .img-fluid {
+        height: 300px;
+        width: 100%;
+    }
+}
+
+.card-body {
+    .badge {
+        background-color: crimson;
+    }
+}
+
+.card-footer {
+    i {
+        color: crimson;
+        font-size: 20px;
+    }
+}

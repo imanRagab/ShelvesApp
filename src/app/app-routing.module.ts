@@ -4,15 +4,14 @@ import {HomeComponent} from './home/home.component';
 import { AuthComponent } from './auth/auth.component';
 import { ShowComponent } from './book/show/show.component';
 import { CreateComponent } from './book/create/create.component';
-
-import {HomeContentComponent} from './home-content/home-content.component'
+import {HomeContentComponent} from './home-content/home-content.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
-import { ForgetPasswordComponent } from './user/forget-password/forget-password.component';
-
+import { UserProfileComponent } from './profile/user-profile/user-profile.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 const routes: Routes = [
   {
-    path: '' , 
+    path: '' ,
     component : HomeComponent
   },
   {
@@ -32,18 +31,26 @@ const routes: Routes = [
     component: ShowComponent
   },
   {
-    path: "HomeContent" , 
+    path: 'HomeContent',
     component : HomeContentComponent
   },
-    
+
   {
-    path:"SignIn",
+    path: 'SignIn',
     component : SignInComponent
   },
   {
-    path:"Signup",
+    path: 'Signup',
     component : SignUpComponent
   },
+  {
+    path: 'userprofile',
+    component : UserProfileComponent
+  },
+  {
+    path: 'editprofile',
+    component : EditProfileComponent
+  }
   // {
   //   path:"ForgetPassword",
   //   component:ForgetPasswordComponent
