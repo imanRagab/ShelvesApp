@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {
   Category,
-  CategoryService
+  CategoryService,
+  User,
+  UserService,
 } from '../shared';
 
 @Component({
@@ -14,8 +16,11 @@ export class NavBarComponent implements OnInit {
   firstCatArray: Array<Category>;
   secondCatArray: Array<Category>;
   thirdCatArray: Array<Category>;
+  currentUser: User;
+  userLoggedIn: Boolean;
   constructor(
     private categoryService: CategoryService,
+    private userService: UserService
   ) {
     this.firstCatArray = [];
     this.secondCatArray = []; 
@@ -23,8 +28,19 @@ export class NavBarComponent implements OnInit {
    }
 
   ngOnInit() {
-        // get list of book categories
-        this.getCategories();
+    // get list of book categories
+    this.getCategories();
+
+    this.userLoggedIn = false;
+    // Load the current user's data
+    this.userService.currentUser.subscribe(
+      (userData: User) => {
+        this.currentUser = userData;
+        if(this.currentUser.name) {
+          this.userLoggedIn = true;
+        }
+      }
+    );   
   }
     // get list of all categories
     getCategories() {
