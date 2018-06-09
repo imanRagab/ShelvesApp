@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ShowComponent } from './show/show.component';
-import { EditComponent } from './edit/edit.component';
-
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [ShowComponent, EditComponent]
+  declarations: [UserProfileComponent, EditProfileComponent]
 })
 export class ProfileModule { }

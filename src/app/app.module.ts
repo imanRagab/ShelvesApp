@@ -22,6 +22,8 @@ import { FooterComponent } from './footer/footer.component';
 import { UserComponent } from './user/user.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
+import { UserProfileComponent } from './profile/user-profile/user-profile.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,15 +34,17 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
     FooterComponent,
     UserComponent,
     SignUpComponent,
-    SignInComponent
+    SignInComponent,
+    UserProfileComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SharedModule ,
     AuthModule,
-    BookModule,   
-    MDBBootstrapModule.forRoot(), 
+    BookModule,
+    MDBBootstrapModule.forRoot(),
 
   ],
   schemas: [ NO_ERRORS_SCHEMA ],

@@ -11,6 +11,8 @@ export class SignUpComponent implements OnInit {
 
   constructor() { }
 
+  registerForm;
+
   ngOnInit() {
   }
 
