@@ -6,7 +6,7 @@ import { ReplaySubject } from 'rxjs';
 
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
-import { User } from '../models';
+import { User, Book } from '../models';
 import { map } from 'rxjs/operators/';
 import { distinctUntilChanged } from 'rxjs/operators';
 
@@ -97,4 +97,9 @@ export class UserService {
     return this.apiService.post(route, resetForm);
   }
 
+  // get user books
+  getUserBooks(id: number): Observable<Array<Book>>{
+    const route = `/user/books/${id}`;
+    return this.apiService.get(route);
+  }
 }

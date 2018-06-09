@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   User,
   UserService,
+  Book,
 } from '../../shared';
 
 @Component({
@@ -14,17 +15,41 @@ export class UserProfileComponent implements OnInit {
 
   currentUser: User;
   userRole: string;
+  userBooks: Array<Book>
+  userLoggedIn: Boolean;
   constructor(
     private userService: UserService
   ) { }
 
   ngOnInit() {
-        // Load the current user's data
-        this.userService.currentUser.subscribe(
-          (userData: User) => {
-            this.currentUser = userData;
-            this.userRole = this.currentUser.role;
-          }
-        );  
+    this.userLoggedIn = false;
+    this.loadCurrentUser();
   }
+
+  // Load the current user's data
+  loadCurrentUser() {
+    this.userService.currentUser.subscribe(
+      (userData: User) => {
+        if(userData.name){
+          this.currentUser = userData;
+          this.userLoggedIn = true;
+          this.userRole = this.currentUser.role;
+          this.loadUserBooks();
+        }
+      }
+    );  
+  }
+
+  // Load user books data
+  loadUserBooks() {
+    this.userService.getUserBooks(this.currentUser.id).subscribe(
+      result => {
+        this.userBooks = result['books'];
+      }, 
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
 }
