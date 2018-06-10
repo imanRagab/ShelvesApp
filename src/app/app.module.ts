@@ -19,9 +19,6 @@ import {
 
 import { HomeContentComponent } from './home-content/home-content.component';
 import { FooterComponent } from './footer/footer.component';
-import { UserComponent } from './user/user.component';
-import { SignInComponent } from './user/sign-in/sign-in.component';
-import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { UserProfileComponent } from './profile/user-profile/user-profile.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 @NgModule({
@@ -32,9 +29,6 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
     NavBarComponent,
     HomeContentComponent,
     FooterComponent,
-    UserComponent,
-    SignUpComponent,
-    SignInComponent,
     UserProfileComponent,
     EditProfileComponent
   ],

@@ -99,7 +99,7 @@ export class UserService {
 
   // get user books
   getUserBooks(id: number): Observable<Array<Book>>{
-    const route = `/user/users/${id}/get_user_book`;
+    const route = `/user/users/${id}/get_user_books`;
     return this.apiService.get(route);
   }
 }

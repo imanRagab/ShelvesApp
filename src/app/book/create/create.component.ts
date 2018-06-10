@@ -55,19 +55,6 @@ export class CreateComponent implements OnInit {
 
     this.bookImages = [];
 
-    // get book data
-    if(book_id){
-      this.bookService.getBook(book_id).subscribe(
-        result => {
-          this.book = result;
-          console.log(this.book);
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
-
     // Load the current user's data
     this.userService.currentUser.subscribe(
       (userData: User) => {
@@ -82,7 +69,25 @@ export class CreateComponent implements OnInit {
           this.bookForm.addControl('transcation', new FormControl());
         }
       }
-    );   
+    );  
+    
+    // check if edit book
+    this.route.url.subscribe(data => {
+      if(data[data.length - 2].path == "edit"){
+        // get book data
+        if(book_id){
+          this.bookService.getBook(book_id).subscribe(
+            result => {
+              this.book = result;
+              console.log(this.book);
+            },
+            error => {
+              console.log(error);
+            }
+          );
+        }
+      }
+    });
   }
 
   // Create book

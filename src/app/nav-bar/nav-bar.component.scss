@@ -2,9 +2,19 @@
     background-color: crimson;
 }
 
-i {
+.addBookBtn {
     color: aliceblue;
-    font-size: 30px;
+    background-color: transparent;
+    border: 2px solid floralwhite;
+    margin-right: 18px;
+}
+
+.prof {
+    i {
+        color: floralwhite;
+        font-size: 30px;
+        margin-right: -18px;
+    }
 }
 
 .dropdown.show .dropdown-menu {
@@ -14,4 +24,8 @@ i {
 .dropdown-item:hover,
 .dropdown-item:focus {
     background-color: #ff2436b0;
+}
+
+.form-inline {
+    margin-bottom: -10px;
 }
