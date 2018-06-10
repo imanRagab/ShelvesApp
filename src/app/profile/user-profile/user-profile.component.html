@@ -7,14 +7,22 @@
         <hr> -->
 
         <!--Avatar-->
-        <div class="col-12 col-sm-2">
-            <img src="assets/images/jared-sluyter-260692-unsplash.jpg" class="img-fluid rounded-circle z-depth-2">
+        <div class="col-lg-2 col-md-6 col-sm-2 ">
+        <img src="assets/images/jared-sluyter-260692-unsplash.jpg" class="img-fluid rounded-circle z-depth-2">
+        <div class="d-flex justify-content-center  mt-5">
+            <button class="btn peach avatar" routerLink="/editprofile">Edit Profile</button>
+        </div>
         </div>
         <!--Author Data-->
         <div class=" col-12 col-sm-10">
             <p><strong>{{ currentUser.name }}</strong></p>
+
             <div class="personal-sm">
-                <i class="fa fa-location-arrow" aria-hidden="true"></i>Maamoura-Alexandria
+                    <ul>
+                        <li><i class="fa fa-user" aria-hidden="true"></i>{{ currentUser.gender }}</li>
+                        <li><i class="fa fa-location-arrow" aria-hidden="true"></i>Maamoura-Alexandria</li>
+                        <li><i class="fa fa-phone" aria-hidden="true"></i>+20 011 223 234 45</li>
+                    </ul>
 
             </div>
 

@@ -44,7 +44,7 @@ export class UserProfileComponent implements OnInit {
   loadUserBooks() {
     this.userService.getUserBooks(this.currentUser.id).subscribe(
       result => {
-        this.userBooks = result['books'];
+        this.userBooks = result['users'];
       }, 
       error => {
         console.log(error);
