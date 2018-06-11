@@ -108,16 +108,14 @@ export class CreateComponent implements OnInit {
 
   // get selected files
   onFileChange(e) {
-    console.log (e.target.files);
+
     this.bookImages = [];
     for (let file of e.target.files) { 
       let reader = new FileReader();    
       reader.readAsDataURL(file);
       reader.onload = (result) => {
-        //  console.log(reader.result)
         this.bookImages.push(reader.result);
       };
-      console.log(this.bookImages)
     }    
   }
 
