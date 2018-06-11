@@ -1,0 +1,49 @@
+.before {
+    height: 150px;
+}
+
+.author-box {
+    .personal-sm {
+        color: dimgray;
+        ul {
+            list-style: none;
+            i {
+                padding-right: 10px;
+            }
+        }
+        i {
+            font-size: 20px;
+            color: crimson;
+        }
+        label {
+            color: dimgrey;
+        }
+    }
+}
+
+.card {
+    height: 100%;
+    .img-fluid {
+        height: 300px;
+        width: 100%;
+    }
+}
+
+.card-body {
+    .badge {
+        background-color: crimson;
+    }
+}
+
+.card-footer {
+    i {
+        color: crimson;
+        font-size: 20px;
+    }
+}
+
+.avatar {
+    background: linear-gradient(40deg, #ffd86f, #dc3545)!important;
+    border: none;
+    margin-right: 50px;
+}
