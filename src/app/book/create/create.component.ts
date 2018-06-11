@@ -36,7 +36,10 @@ export class CreateComponent implements OnInit {
   ) {
     this.bookForm = this.fb.group({
       'name': ['', Validators.required],
-      'description': ['', Validators.required],
+      'description': ['', [
+        Validators.required,
+        Validators.minLength(50),
+      ]],
       'category_id': ['', Validators.required],
       'book_images_attributes': ['', Validators.required],
       'book_images_files': ['', Validators.required]
@@ -101,7 +104,9 @@ export class CreateComponent implements OnInit {
         this.router.navigateByUrl('/');
     },
       error => {
-        console.log(error);
+        alert("Couldn\'t create the book!")
+        this.router.navigateByUrl('/');
+        // console.log(error);
       }
     );
   }
