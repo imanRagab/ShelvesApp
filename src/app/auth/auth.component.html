@@ -31,7 +31,7 @@
                   <input type="password" formControlName="password_confirmation" id="password_confirmation" class=" form-control" mdbInputDirective>
                   <label for="password_confirmation">Confirm password</label>
               </div>
-              <label for="role">Type of user</label>
+              <label for="role" *ngIf="authType == 'register'" >Register as : </label>              
               <div class="md-form" *ngIf="authType == 'register'" >
                 <select formControlName="role" 
                 *ngIf="authType == 'register'" 
