@@ -45,6 +45,7 @@ export class UserProfileComponent implements OnInit {
     this.userService.getUserBooks(this.currentUser.id).subscribe(
       result => {
         this.userBooks = result['users'];
+        console.log(this.userBooks)
       }, 
       error => {
         console.log(error);

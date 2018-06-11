@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import {
   User,
   UserService,
+  Category,
+  CategoryService
 } from '../../shared';
 
 @Component({
@@ -16,8 +18,10 @@ export class EditProfileComponent implements OnInit {
   currentUser: User;
   userRole: string;
   editForm: FormGroup;
+  categories: Array<Category>;
   constructor(
     private userService: UserService,
+    private categoryService: CategoryService,
     private fb: FormBuilder
   ) { }
 
@@ -28,6 +32,7 @@ export class EditProfileComponent implements OnInit {
       'profile_picture': ['', Validators.required]
     });
     this.loadCurrentUser();
+    this.getCategories();
   }
 
   // load the current user's data
@@ -50,6 +55,18 @@ export class EditProfileComponent implements OnInit {
     this.userService.update(this.editForm.value).subscribe(
       result => {
         this.currentUser = result;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  // get categories
+  getCategories() {
+    this.categoryService.getCategories().subscribe(
+      result => {
+        this.categories = result['data'];
       },
       error => {
         console.log(error);

@@ -19,9 +19,9 @@
 
             <div class="personal-sm">
                     <ul>
-                        <li><i class="fa fa-user" aria-hidden="true"></i>{{ currentUser.gender }}</li>
-                        <li><i class="fa fa-location-arrow" aria-hidden="true"></i>Maamoura-Alexandria</li>
-                        <li><i class="fa fa-phone" aria-hidden="true"></i>+20 011 223 234 45</li>
+                        <li><i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{ currentUser.gender }}</li>
+                        <li><i class="fa fa-location-arrow" aria-hidden="true"></i>&nbsp;Maamoura-Alexandria</li>
+                        <li><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;0123456789</li>
                     </ul>
 
             </div>
@@ -36,7 +36,7 @@
         <div class="row">
 
             <!--Grid column-->
-            <div class="col-lg-3 col-md-6 mb-r " *ngFor="let book of userBooks">
+            <div class="col-lg-3 col-md-6 mb-r " *ngFor="let book of userBooks" style="margin-bottom: 20px">
 
             <!--Card-->
             <div class="card card-cascade narrower">
