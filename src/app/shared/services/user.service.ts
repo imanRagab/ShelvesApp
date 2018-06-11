@@ -36,6 +36,8 @@ export class UserService {
       this.apiService.get('/user/users')
       .subscribe(
         data => {
+          data.user.phones = data.phones;
+          data.user.addresses = data.addresses;
           this.setAuth(data.user);
         },
         err => this.purgeAuth()

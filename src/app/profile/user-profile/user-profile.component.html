@@ -8,20 +8,26 @@
 
         <!--Avatar-->
         <div class="col-lg-2 col-md-6 col-sm-2 ">
-        <img src="assets/images/jared-sluyter-260692-unsplash.jpg" class="img-fluid rounded-circle z-depth-2">
+        <img src="{{ userImage.url }}" class="img-fluid rounded-circle z-depth-2">
         <div class="d-flex justify-content-center  mt-5">
             <button class="btn peach avatar" routerLink="/editprofile">Edit Profile</button>
         </div>
         </div>
         <!--Author Data-->
         <div class=" col-12 col-sm-10">
-            <p><strong>{{ currentUser.name }}</strong></p>
+            <p><strong>{{ currentUser?.name }}</strong></p>
 
             <div class="personal-sm">
                     <ul>
-                        <li><i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{ currentUser.gender }}</li>
-                        <li><i class="fa fa-location-arrow" aria-hidden="true"></i>&nbsp;Maamoura-Alexandria</li>
-                        <li><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;0123456789</li>
+                        <li *ngIf="userRole == 'Normal user'"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{ currentUser?.gender }}</li>
+                        <li><i class="fa fa-location-arrow" aria-hidden="true"></i>&nbsp;                      
+                        <span>{{ userAddresses[0] }}</span>
+                        </li>
+                        <li><i class="fa fa-phone" aria-hidden="true">&nbsp;
+                        </i>
+                        <span>{{ currentUser?.phones[0]?.phone }}</span>
+                        <span *ngFor="let phone of currentUser.phones | slice:1"> - {{ phone?.phone }}</span>
+                        </li>
                     </ul>
 
             </div>

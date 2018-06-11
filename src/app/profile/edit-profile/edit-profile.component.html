@@ -6,102 +6,103 @@
         <h3 class="text-center mb-4">Edit Profile</h3>
     </div>
 
+    <form class="form-horizontal" role="form" [formGroup]="editForm" (ngSubmit)="updateProfile()">
 
-    <div class="row d-flex justify-content-center">
-        <!-- left column -->
+        <div class="row d-flex justify-content-center">
+            <!-- left column -->
 
-        <div class="col-md-12 mb-5  ">
-            <div class="text-center  d-flex justify-content-center">
-                <div class="hovereffect">
-                    <img src="assets/images/Asset 2-8.png" class="avatar img-circle" alt="avatar">
-                    <div class="overlay">
-                        <i class="fa fa-cloud-upload" aria-hidden="true">   </i> <input type="file" id="userAvatar">
+            
+            <div class="col-md-12 mb-5  ">
+                <div class="text-center  d-flex justify-content-center">
+                    <div class="hovereffect">
+                        <img src="{{ userImage?.url }}" class="avatar img-circle" alt="avatar">
+                        <div class="overlay">
+                            <i class="fa fa-cloud-upload" aria-hidden="true">   </i> <input type="file" id="userAvatar" (change)="onFileChange($event)">
 
-                        <!-- <a class="info" href="#">link here</a> -->
+                            <!-- <a class="info" href="#">link here</a> -->
+                        </div>
                     </div>
+
+                    <!-- <h6>Upload a photo</h6> -->
+
+                    <p class="pcenter">Upload your picture</p>
                 </div>
-
-                <!-- <h6>Upload a photo</h6> -->
-
-                <p class="pcenter">Upload your picture</p>
             </div>
+
+            <!-- edit form column -->
+            <div class="col-md-8 personal-info">
+
+                <h3 class="text-center">Personal info</h3>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <label class=" control-label">Username:</label>
+
+                            <input class="form-control" type="text" formControlName="name" value="{{ currentUser?.name }}">
+
+                        </div>
+                        <label class="col-lg-12 control-label">Address:</label>
+                        <div class="form-group col-md-3">
+
+                            <input type="text" class="form-control" id="Building" formControlName="building_number" placeholder="Building number" value="{{ currentUser?.addresses[0]?.building_number }}">
+                        </div>
+                        <div class="form-group col-md-5">
+
+                            <input type="text" class="form-control" id="Street" formControlName="street" placeholder="Street" value="{{ currentUser?.addresses[0]?.street }}">
+                        </div>
+
+                        <div class="form-group col-md-5">
+
+                            <input type="text" class="form-control" id="Region" formControlName="region" placeholder="Region" value="{{ currentUser?.addresses[0]?.region }}">
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <select id="City" class="form-control">
+                                <option selected> city</option>
+                                <option>...</option>
+                        </select>
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="form-group col-md-2">
+
+                            <input type="text" class="form-control" formControlName="postal_code" id="inputZip" placeholder="Postal code" value="{{ currentUser?.addresses[0]?.postal_code }}">
+                        </div>
+                        <div class="col-md-8" ></div>
+                        <label class="col-lg-12 control-label" *ngIf="userRole == 'Normal user'">Choose Interests:</label>
+                        <div class="form-group col-md-3">
+                        <select id="Interests" class="form-control" multiple *ngIf="userRole == 'Normal user'">
+                            <option *ngFor="let category of categories">{{ category.name }}</option>
+                        </select>
+                        </div>
+                        <div class="col-md-8"></div>
+
+                    </div>
+                        <div *ngIf="userRole == 'Normal user'">
+                            <label class="form-check-label" for="exampleRadios1">
+                            Gender:
+                            </label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" [checked]="currentUser.gender=='male'">
+                                <label class="form-check-label" for="exampleRadios1">
+                                Male
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" [checked]="currentUser.gender=='female'">
+                                <label class="form-check-label" for="exampleRadios2">
+                                Female
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                <input type="submit" class="btn  peach" value="Save Changes">
+                                <span></span>
+                            </div>
+                        </div>
+            </div>
+
         </div>
-
-        <!-- edit form column -->
-        <div class="col-md-8 personal-info">
-
-            <h3 class="text-center">Personal info</h3>
-
-            <form class="form-horizontal" role="form">
-
-                <div class="form-row">
-                    <div class="form-group col-md-8">
-                        <label class=" control-label">Username:</label>
-
-                        <input class="form-control" type="text" value="{{ currentUser.name }}">
-
-                    </div>
-                    <label class="col-lg-12 control-label">Address:</label>
-                    <div class="form-group col-md-3">
-
-                        <input type="text" class="form-control" id="Building" placeholder="Building number">
-                    </div>
-                    <div class="form-group col-md-5">
-
-                        <input type="text" class="form-control" id="Street" placeholder="Street">
-                    </div>
-
-                    <div class="form-group col-md-5">
-
-                        <input type="text" class="form-control" id="Region" placeholder="Region">
-                    </div>
-
-                    <div class="form-group col-md-3">
-
-                        <select id="City" class="form-control">
-                      <option selected> city</option>
-                      <option>...</option>
-                    </select>
-                    </div>
-                    <div class="col-md-4"></div>
-                    <div class="form-group col-md-2">
-
-                        <input type="text" class="form-control" id="inputZip" placeholder="Postal code">
-                    </div>
-                    <div class="col-md-8"></div>
-                    <label class="col-lg-12 control-label">Choose Interests:</label>
-                    <div class="form-group col-md-3">
-                      <select id="Interests" class="form-control" multiple>
-                        <option *ngFor="let category of categories">{{ category.name }}</option>
-                      </select>
-                    </div>
-                    <div class="col-md-8"></div>
-
-                </div>
-                <label class="form-check-label" for="exampleRadios1">
-                   Gender:
-                  </label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-                    <label class="form-check-label" for="exampleRadios1">
-                      Male
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                    <label class="form-check-label" for="exampleRadios2">
-                      Female
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label"></label>
-                    <div class="col-md-8">
-                        <input type="button" class="btn  peach" value="Save Changes">
-                        <span></span>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-    </div>
+    </form>
 </div>

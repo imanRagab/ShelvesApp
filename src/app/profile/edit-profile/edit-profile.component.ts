@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 import {
   User,
@@ -16,9 +17,13 @@ import {
 export class EditProfileComponent implements OnInit {
 
   currentUser: User;
+  profileData: User;
   userRole: string;
   editForm: FormGroup;
   categories: Array<Category>;
+  userImage: object;
+  username: string;
+  userAddresse;
   constructor(
     private userService: UserService,
     private categoryService: CategoryService,
@@ -26,11 +31,12 @@ export class EditProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.editForm = this.fb.group({
-      'email': ['', [Validators.required, Validators.email]],
-      'name': ['', Validators.required],
-      'profile_picture': ['', Validators.required]
-    });
+    this.categories = [];
+    this.currentUser = <User>{};
+    this.currentUser.phones = <Array<string>>[];
+    this.currentUser.addresses = <Array<string>>[];
+    this.userImage = {};
+    this.getCategories();
     this.loadCurrentUser();
     this.getCategories();
   }
@@ -41,9 +47,20 @@ export class EditProfileComponent implements OnInit {
       (userData: User) => {
         if(userData.name){
           this.currentUser = userData;
+          this.profileData = userData;
           this.userRole = this.currentUser.role;
+          this.userImage['url'] = `${environment.api_host}` + this.profileData.profile_picture['url'];
+          this.editForm = this.fb.group({
+            'name': [this.profileData.name, Validators.required],
+            'profile_picture': [this.profileData.profile_picture, Validators.required],
+            'postal_code': [this.profileData.addresses[0]['postal_code'], ],
+            'building_number': [this.profileData.addresses[0]['building_number'],],
+            'street': [this.profileData.addresses[0]['street'],],
+            'region': [this.profileData.addresses[0]['region'],],
+            'city': [this.profileData.addresses[0]['citys'],]
+          });
           if(this.userRole == 'Normal user'){
-            this.editForm.addControl('gender', new FormControl('',Validators.required));
+            this.editForm.addControl('gender', new FormControl(this.profileData.gender,Validators.required));
           }
         }
       }
@@ -72,5 +89,21 @@ export class EditProfileComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  // in image file change
+  onFileChange(event) {
+
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();  
+      reader.onload = (event:any) => {
+        this.profileData.profile_picture['url'] = event.target.result;
+      }  
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+
+  updateProfile() {
+    alert(this.editForm.value);
   }
 }
