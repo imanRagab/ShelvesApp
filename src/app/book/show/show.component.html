@@ -28,13 +28,53 @@
                         <li> <label for="" class="font-weight-bold">Category :&nbsp;</label>{{ book?.category.name }}</li>
                         <li> <label for="" class="font-weight-bold">Description :&nbsp;</label>{{ book?.description }}</li>
                         <li> <label for="" class="font-weight-bold">For :&nbsp;</label>{{ book?.transcation }}</li>
-                        <li *ngIf="book?.price"> <label for="" class="font-weight-bold">Price :&nbsp;</label>{{ book?.price }}<label class="font-weight-bold">  L.E</label> </li>
+                        <li *ngIf="book?.price"> <label for="" class="font-weight-bold">Price :&nbsp;</label>{{ book?.price }}<label class="font-weight-bold">&nbsp;L.E</label> </li>
                         <li> <label for="" class="font-weight-bold">Quantity :&nbsp;</label>{{ book?.quantity }}</li>
                         <li> <label for="" class="font-weight-bold">For bid till : </label> 15-7-2018 </li> 
-                        <!--Rating-->
-                        <!-- <p-rating [(ngModel)]="val" formControlName="score"></p-rating> -->
-                        <li> <input type="button" class="btn  peach" value="Order now"></li>
-                    </ul>   
+                    <!--Rating-->
+                    <!-- <p-rating [(ngModel)]="val" formControlName="score"></p-rating> -->
+                    <li> <button type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample" (click)="fluid.show()" mdbWavesEffect>
+                            Order now
+                        </button>
+    
+                            <div mdbModal #fluid="mdb-modal" class="modal fade bottom" id="fullHeightModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-full-height modal-bottom" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title w-100" id="myModalLabel">Choose books for exchange</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="fluid.hide()">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p> Choose from your shelf which books you need to exchange with...
+                                            </p>
+                                            <ul>
+                                                <li class="view overlay hm-white-slight zoom"><input type="checkbox" id="cb1" />
+                                                    <label for="cb1"><img src="assets/images/Young_Adult_Romance_Book_if_i_stay.jpg" /></label>
+                                                </li>
+                                                <li class="view overlay hm-white-slight zoom"><input type="checkbox" id="cb2" />
+                                                    <label for="cb2"><img src="assets/images/9780751550047.jpg" /></label>
+                                                </li>
+                                                <li class="view overlay hm-white-slight zoom"><input type="checkbox" id="cb3" />
+                                                    <label for="cb3"><img src="assets/images/books-trophy-child.jpg" /></label>
+                                                </li>
+                                                <li class="view overlay hm-white-slight zoom"><input type="checkbox" id="cb4" />
+                                                    <label for="cb4"><img src="assets/images/41865.jpg" /></label>
+                                                </li>
+                                            </ul>
+    
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-danger waves-light" data-dismiss="modal" (click)="fluid.hide()" mdbWavesEffect>Close</button>
+                                            <button type="button" class="btn btn-primary waves-light" mdbWavesEffect>Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+    
     
                 </div>
     

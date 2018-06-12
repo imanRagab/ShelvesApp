@@ -5,6 +5,7 @@ import { CreateComponent } from './create/create.component';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { RouterModule, Routes } from '@angular/router';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    MDBBootstrapModule.forRoot(),
   ],
   declarations: [ShowComponent, CreateComponent]
 })
