@@ -26,6 +26,7 @@ export class CreateComponent implements OnInit {
   bookImages: Array<string>;
   isBookStore: Boolean;
   isBids: Boolean;
+  formType: string;
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
@@ -49,7 +50,7 @@ export class CreateComponent implements OnInit {
   ngOnInit() {
 
     this.isBookStore = false;
-
+    this.formType = "create";
     // get list of book categories
     this.getCategories();
 
@@ -77,11 +78,13 @@ export class CreateComponent implements OnInit {
     // check if edit book
     this.route.url.subscribe(data => {
       if(data[data.length - 2].path == "edit"){
+        this.formType = "edit";
         // get book data
         if(book_id){
           this.bookService.getBook(book_id).subscribe(
             result => {
-              this.book = result;
+              this.book = result['book'];
+              this.bookForm.controls['name'].setValue(this.book.name);
               console.log(this.book);
             },
             error => {
@@ -101,10 +104,30 @@ export class CreateComponent implements OnInit {
     .createBook(book)
     .subscribe(
       result => {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl(`/books/${result['book'].id}`);
     },
       error => {
         alert("Couldn\'t create the book!")
+        this.router.navigateByUrl('/');
+        // console.log(error);
+      }
+    );
+  }
+
+  // update book
+  updateBook() {
+    this.bookForm.get('book_images_attributes').setValue(this.bookImages);
+    let book = this.bookForm.value;
+    book.id = this.book.id;
+    this.bookService
+    .updateBook(book)
+    .subscribe(
+      result => {
+        console.log(result)
+        // this.router.navigateByUrl(`/books/${book.id}`);
+    },
+      error => {
+        alert("Couldn\'t update the book!")
         this.router.navigateByUrl('/');
         // console.log(error);
       }
@@ -147,5 +170,18 @@ export class CreateComponent implements OnInit {
       this.isBids = false;
       this.bookForm.removeControl('price');
     }  
+  }
+
+  // submit book function create/update
+  submitBook() {
+
+    if(this.formType == "edit") {
+      this.updateBook();
+    }
+
+    else {
+      this.createBook();
+    }
+
   }
 }

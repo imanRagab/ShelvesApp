@@ -29,23 +29,23 @@
     
             <!-- edit form column -->
             <div class="col-md-8 personal-info">
-                <form [formGroup]="bookForm" (ngSubmit)="createBook()" class="form-horizontal" role="form">
+                <form [formGroup]="bookForm" (ngSubmit)="submitBook()" class="form-horizontal" role="form">
     
                     <div class="form-group col-md-8">
                         <label for="txtarea">Book name</label>
-                        <input formControlName="name" placeholder="Book name" type="text" name="name" class="form-control" />
+                        <input formControlName="name" placeholder="Book name" type="text" name="name" class="form-control" value="{{ book?.name }}"/>
                     </div>
                     <div class="form-group col-md-8">
                         <label for="txtarea">Book category</label>
                         <select formControlName="category_id" class="form-control" name="category_id">
-                      <option *ngFor="let category of categories" value="{{ category.id }}">
+                      <option *ngFor="let category of categories" value="{{ category.id }}" [selected]="book?.category.id == category.id">
                         {{ category.name }}
                       </option>
                       </select>
                     </div>
                     <div class="form-group col-md-8">
                         <label for="txtarea">Book description</label>
-                        <textarea formControlName="description" class="form-control" name="description"></textarea>
+                        <textarea formControlName="description" class="form-control" name="description" value="{{ book?.description }}"></textarea>
                     </div>
                     <!-- <fieldset> -->
                     <!-- <input formControlName="book_images_files" placeholder="name" type="file" name="book_images_files" multiple (change)="onFileChange($event)" /> -->
@@ -54,10 +54,10 @@
                     <div class="form-group col-md-8">
                         <label for="txtarea">Type of share</label>
                         <select formControlName="transcation" class="form-control" name="transcation" *ngIf="!isBookStore" (change)="onTransactionChange()">
-                        <option selected>Free Share</option>
-                        <option>Exchange</option>
-                        <option>Sell By Bids</option>
-                      </select>
+                            <option [selected]="book?.transcation == 'Free Share'">Free Share</option>
+                            <option [selected]="book?.transcation == 'Exchange'">Exchange</option>
+                            <option [selected]="book?.transcation == 'Sell By Bids'">Sell By Bids</option>
+                        </select>
                     </div>
                     <div class="form-group col-md-4">
     
