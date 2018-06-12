@@ -41,7 +41,7 @@ export class ShowComponent implements OnInit {
     this.bookService.getBook(book_id).subscribe(
       result => {
         this.book = result['book'];
-        console.log(this.book);
+        // console.log(this.book);
         // Load the current user's data
         this.userService.currentUser.subscribe(
           (userData: User) => {

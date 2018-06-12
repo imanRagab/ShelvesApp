@@ -1,14 +1,20 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { SharedModule } from '../shared';
+import { AppRoutingModule } from '../app-routing.module';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
+    BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule,
+    MDBBootstrapModule.forRoot(), 
   ],
   declarations: [UserProfileComponent, EditProfileComponent]
 })

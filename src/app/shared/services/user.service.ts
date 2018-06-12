@@ -82,14 +82,16 @@ export class UserService {
   }
 
   // Update the user on the server (email, pass, etc)
-  update(user): Observable<User> {
-    const route = `/user/users/$(user.id)`;
+  update(user, id): Observable<User> {
+    const route = `/user/users/${id}`;
     return this.apiService
-    .put(route, { user })
+    .put(route, user)
     .pipe(map(data => {
       // Update the currentUser observable
-      this.currentUserSubject.next(data.user);
-      return data.user;
+      // this.currentUserSubject.next(data.user);
+      this.populate();
+      // return data.user;
+      return this.getCurrentUser();
     }));
   }
 

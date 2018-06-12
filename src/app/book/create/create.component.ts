@@ -85,7 +85,7 @@ export class CreateComponent implements OnInit {
             result => {
               this.book = result['book'];
               this.bookForm.controls['name'].setValue(this.book.name);
-              console.log(this.book);
+              // console.log(this.book);
             },
             error => {
               console.log(error);
@@ -123,8 +123,8 @@ export class CreateComponent implements OnInit {
     .updateBook(book)
     .subscribe(
       result => {
-        console.log(result)
-        // this.router.navigateByUrl(`/books/${book.id}`);
+        // console.log(result)
+        this.router.navigateByUrl(`/books/${book.id}`);
     },
       error => {
         alert("Couldn\'t update the book!")

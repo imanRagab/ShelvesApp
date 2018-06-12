@@ -33,7 +33,11 @@
                         <li> <label for="" class="font-weight-bold">For bid till : </label> 15-7-2018 </li> 
                     <!--Rating-->
                     <!-- <p-rating [(ngModel)]="val" formControlName="score"></p-rating> -->
-                    <li> <button type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample" (click)="fluid.show()" mdbWavesEffect>
+                    <li *ngIf="canModify"> <button type="button" class="btn peach waves-light" routerLink="/books/edit/{{ book?.id }}" mdbWavesEffect>
+                        Edit
+                    </button>
+                    </li>
+                    <li *ngIf="!canModify"> <button type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample" (click)="fluid.show()" mdbWavesEffect>
                             Order now
                         </button>
     

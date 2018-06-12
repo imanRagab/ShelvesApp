@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule , NO_ERRORS_SCHEMA} from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +12,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 import { AuthModule } from './auth/auth.module';
 import { BookModule } from './book/book.module';
-
+import { ProfileModule } from './profile/profile.module';
 
 import {
   SharedModule
@@ -19,8 +20,7 @@ import {
 
 import { HomeContentComponent } from './home-content/home-content.component';
 import { FooterComponent } from './footer/footer.component';
-import { UserProfileComponent } from './profile/user-profile/user-profile.component';
-import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,15 +29,16 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
     NavBarComponent,
     HomeContentComponent,
     FooterComponent,
-    UserProfileComponent,
-    EditProfileComponent
   ],
   imports: [
     BrowserModule,
+    SharedModule,
+    RouterModule,
     AppRoutingModule,
     SharedModule ,
     AuthModule,
     BookModule,
+    ProfileModule,
     MDBBootstrapModule.forRoot(),
 
   ],
