@@ -16,7 +16,7 @@
             </div>
     
             <!--Author Data-->
-            <div class=" col-12 col-sm-10">
+            <div class=" col-8 col-sm-10">
     
                 <div class="personal-sm col-lg-8">
                     <ul>
@@ -30,7 +30,10 @@
                         <li> <label for="" class="font-weight-bold">For :&nbsp;</label>{{ book?.transcation }}</li>
                         <li *ngIf="book?.price"> <label for="" class="font-weight-bold">Price :&nbsp;</label>{{ book?.price }}<label class="font-weight-bold">  L.E</label> </li>
                         <li> <label for="" class="font-weight-bold">Quantity :&nbsp;</label>{{ book?.quantity }}</li>
-    
+                        <li> <label for="" class="font-weight-bold">For bid till : </label> 15-7-2018 </li> 
+                        <!--Rating-->
+                        <!-- <p-rating [(ngModel)]="val" formControlName="score"></p-rating> -->
+                        <li> <input type="button" class="btn  peach" value="Order now"></li>
                     </ul>   
     
                 </div>

@@ -1,11 +1,17 @@
 .author-box {
-    height: 440px;
-    margin-top: -50px;
+    height: 360px;
+    margin-top: 35px;
     .rounded-circle {
         width: 100px;
         height: 100px;
     }
     .personal-sm {
+        ul {
+            list-style: none;
+            i {
+                padding-right: 10px;
+            }
+        }
         i {
             font-size: 20px;
             color: crimson;
@@ -23,7 +29,7 @@
 
 .card-body {
     .badge {
-        background-color: crimson;
+        background-color: #ff4f4f;
     }
 }
 
@@ -32,4 +38,10 @@
         color: crimson;
         font-size: 20px;
     }
+}
+
+.avatar {
+    background: linear-gradient(40deg, #ffd86f, #dc3545)!important;
+    border: none;
+    margin-right: 50px;
 }
