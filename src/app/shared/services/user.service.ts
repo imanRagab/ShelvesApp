@@ -71,7 +71,8 @@ export class UserService {
     return this.apiService.post('/user/users' + route, credentials)
       .pipe(map(
       data => {
-        this.setAuth(data.user, data.auth_token);
+        if(data.status == "SUCCESS")
+          this.setAuth(data.user, data.auth_token);
         return data;
       }
     ));
