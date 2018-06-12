@@ -41,8 +41,8 @@ export class CreateComponent implements OnInit {
         Validators.minLength(50),
       ]],
       'category_id': ['', Validators.required],
-      'book_images_attributes': ['', Validators.required],
-      'book_images_files': ['', Validators.required]
+      'book_images_attributes': [''],
+      'book_images_files': ['']
     });
    }
 
@@ -65,11 +65,11 @@ export class CreateComponent implements OnInit {
         // add form control for username if this is the register page
         if (this.currentUser.role === 'Book store') {
           this.isBookStore = true;
-          this.bookForm.addControl('price', new FormControl());
-          this.bookForm.addControl('quantity', new FormControl());
+          this.bookForm.addControl('price', new FormControl('', Validators.required));
+          this.bookForm.addControl('quantity', new FormControl('', Validators.required));
         } 
         else {
-          this.bookForm.addControl('transcation', new FormControl());
+          this.bookForm.addControl('transcation', new FormControl('', Validators.required));
         }
       }
     );  
