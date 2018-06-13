@@ -18,6 +18,7 @@ export class HomeContentComponent implements OnInit {
   recommendedBooks: Array<Book>;
   currentUser: User;
   userLoggedIn: Boolean;
+  userHasInterests: Boolean;
   constructor(
     private bookService: BookService,
     private userService: UserService
@@ -26,6 +27,7 @@ export class HomeContentComponent implements OnInit {
 
   ngOnInit() {
 
+    this.userHasInterests = false;
     this.userLoggedIn = false;
     // Load the current user's data
     this.userService.currentUser.subscribe(
@@ -47,7 +49,9 @@ export class HomeContentComponent implements OnInit {
 
     this.bookService.getLatest().subscribe(
       result => {
-        this.latestBooks = result['books'];
+        if(result['status']  != 'FAIL'){
+          this.latestBooks = result['books'];
+        }
       },
       error => {
         console.log(error);
@@ -59,12 +63,16 @@ export class HomeContentComponent implements OnInit {
   getRecommendedBooks() {
     this.bookService.getRecommended().subscribe(
       result => {
-        for(let j = 0; j < result['books'].length; j++) {
-          for(let i = 0; i < result['books'][j].length; i++){
-            this.recommendedBooks.push(result['books'][j][i]);
+        console.log(result)
+        if(result['status']  != 'FAIL'){
+          this.userHasInterests = true;
+          for(let j = 0; j < result['books'].length; j++) {
+            for(let i = 0; i < result['books'][j].length; i++){
+              this.recommendedBooks.push(result['books'][j][i]);
+            }
+            this.shuffleRecommendedBooks();
           }
         }
-        this.shuffleRecommendedBooks();
       },
       error => {
         console.log(error);
