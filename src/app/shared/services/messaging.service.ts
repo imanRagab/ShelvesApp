@@ -11,8 +11,15 @@ export class MessagingService {
 
   messaging = firebase.messaging()
   currentMessage = new BehaviorSubject(null)
+
+  constructor(private db: AngularFireDatabase,
+     private afAuth: AngularFireAuth, 
+     private httpClient: HttpClient,
+
+    ) { 
+
   
-  constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth, private httpClient: HttpClient) { }
+    }
 
 
   updateToken(token) {
@@ -28,7 +35,7 @@ export class MessagingService {
     })
   }
 
-  getPermission() {
+  getPermission(currentUserID) {
     this.messaging.requestPermission()
       .then(() => {
         console.log('Notification permission granted.');
@@ -39,12 +46,12 @@ export class MessagingService {
 
         //save notification token in database
         if (!localStorage.getItem('notification_token')) {
-          this.savenotificationToken(token);
+          this.savenotificationToken(token,currentUserID);
         }
         //update notification_token in database
         if (localStorage.getItem('notification_token')!=token) {
           console.log("update")
-          this.updatenotificationToken(token);
+          this.updatenotificationToken(token,currentUserID);
         }
 
         this.updateToken(token)
@@ -61,11 +68,11 @@ export class MessagingService {
       this.currentMessage.next(payload)
     });
   }
-  savenotificationToken(newToken) {
+  savenotificationToken(newToken,currentUserID) {
         this.httpClient.post(`http://localhost:3000/api/v1/notification/notification_tokens`,
         {
           token: newToken,
-          user_id: 1
+          user_id: currentUserID
         })
         .subscribe(
           (data: any) => {
@@ -75,7 +82,7 @@ export class MessagingService {
 
       localStorage.setItem('notification_token', newToken);
   }
-  updatenotificationToken(newToken) {
+  updatenotificationToken(newToken,currentUserID) {
     
     const headers =  new HttpHeaders({
       'Content-Type': 'application/json',
@@ -84,7 +91,8 @@ export class MessagingService {
     this.httpClient.put(`http://localhost:3000/api/v1/notification/notification_tokens/`+localStorage.getItem('notification_token'),
       {
         token: newToken,
-        user_id: 1
+        user_id: currentUserID
+
       },{headers})
       .subscribe(
         (data: any) => {

@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { ReplaySubject } from 'rxjs';
-
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
+import { MessagingService } from './messaging.service';
 import { User, Book } from '../models';
 import { map } from 'rxjs/operators/';
 import { distinctUntilChanged } from 'rxjs/operators';
@@ -21,11 +21,12 @@ export class UserService {
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
-
+  message;
   constructor (
     private apiService: ApiService,
     private http: HttpClient,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private messagingService: MessagingService
   ) {}
 
   // Verify JWT in localstorage with server & load user's info.
@@ -71,8 +72,12 @@ export class UserService {
     return this.apiService.post('/user/users' + route, credentials)
       .pipe(map(
       data => {
-        if(data.status == "SUCCESS")
+        if(data.status == "SUCCESS"){
           this.setAuth(data.user, data.auth_token);
+          this.messagingService.getPermission(this.getCurrentUser().id)
+          this.messagingService.receiveMessage()
+          this.message = this.messagingService.currentMessage
+        }
         return data;
       }
     ));

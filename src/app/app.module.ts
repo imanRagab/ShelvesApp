@@ -13,7 +13,10 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { AuthModule } from './auth/auth.module';
 import { BookModule } from './book/book.module';
 import { ProfileModule } from './profile/profile.module';
-
+import { AngularFireDatabaseModule } from "angularfire2/database";
+import { AngularFireAuthModule }     from 'angularfire2/auth';
+import { AngularFireModule } from 'angularfire2';
+import { environment } from './../environments/environment';
 import {
   SharedModule
 } from './shared';
@@ -31,6 +34,9 @@ import { FooterComponent } from './footer/footer.component';
     FooterComponent,
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
     BrowserModule,
     SharedModule,
     RouterModule,
