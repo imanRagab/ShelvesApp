@@ -11,7 +11,10 @@ import {
     ApiService,
     UserService,
     BookService,
-    CategoryService
+    CategoryService,
+    MessagingService,
+   
+     
 } from './services';
 
 @NgModule({
@@ -31,7 +34,8 @@ import {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpTokenInterceptor,
       multi: true
-    }
+    },
+    MessagingService 
   ]
 })
 export class SharedModule { }
