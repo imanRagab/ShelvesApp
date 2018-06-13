@@ -12,5 +12,5 @@ export interface Book {
     category: Category;
     user: User;
     bid_user: User;
-    book_images: Array<object>;
+    book_images: Array<any>;
 }
