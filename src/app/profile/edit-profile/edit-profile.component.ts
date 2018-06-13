@@ -41,7 +41,7 @@ export class EditProfileComponent implements OnInit {
       'region': [ , Validators.required],
       'city': [ , Validators.required],
       'phone': [, Validators.required],
-      // 'interests': [, Validators.required]
+      'interests': [[], Validators.required]
     });
   }
 
@@ -67,6 +67,9 @@ export class EditProfileComponent implements OnInit {
           this.userRole = this.currentUser.role;
           
           this.userImage = `${environment.api_host}` + this.currentUser.profile_picture['url'];
+          for(let intrest of this.currentUser.interests) {
+            this.userInterests.push(intrest['id']);
+          }
           this.editForm.setValue({
             name: this.currentUser.name,
             gender: this.currentUser.gender,
@@ -76,13 +79,8 @@ export class EditProfileComponent implements OnInit {
             region: this.currentUser.addresses[0]['region'],
             city: this.currentUser.addresses[0]['city'],
             phone: this.currentUser.phones[0]['phone'],
+            interests: this.userInterests
           });
-          for(let intrest of this.currentUser.interests) {
-            this.userInterests.push(intrest['id']);
-          }
-          // this.editForm.get('interests').setValue(this.userInterests);
-          // console.log(this.editForm.value)
-
           if(this.userRole == 'Normal user'){
             this.editForm.addControl('gender', new FormControl(this.currentUser.gender,Validators.required));
           }
@@ -123,7 +121,6 @@ export class EditProfileComponent implements OnInit {
     if(this.photoChanged)
       this.editForm.get('profile_picture').setValue(this.userImage);
 
-      // console.log(this.editForm.value)
     this.userService.update(this.editForm.value, this.currentUser.id).subscribe(
       result => {
         this.router.navigateByUrl('/userprofile');
