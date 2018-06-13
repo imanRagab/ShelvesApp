@@ -9,4 +9,5 @@ export interface User {
     rate: number;
     phones: Array<string>;
     addresses: Array<string>;
+    interests: Array<object>;
 }

@@ -38,6 +38,7 @@ export class UserService {
         data => {
           data.user.phones = data.phones;
           data.user.addresses = data.addresses;
+          data.user.interests = data.interests;
           this.setAuth(data.user);
         },
         err => this.purgeAuth()

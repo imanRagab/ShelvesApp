@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 import {
   User,
@@ -20,23 +21,27 @@ export class EditProfileComponent implements OnInit {
   userRole: string;
   editForm: FormGroup;
   categories: Array<Category>;
-  userImage: object;
+  userImage: string;
   username: string;
+  userInterests: Array<any>;
   photoChanged: Boolean;
   constructor(
     private userService: UserService,
     private categoryService: CategoryService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router,
   ) { 
     this.editForm = this.fb.group(
       {
       'name': [ , Validators.required],
-      'profile_picture': [ , Validators.required],
+      'gender': [, Validators.required],
       'postal_code': [ , Validators.required],
       'building_number': [ , Validators.required],
       'street': [ , Validators.required],
       'region': [ , Validators.required],
-      'city': [ , Validators.required]
+      'city': [ , Validators.required],
+      'phone': [, Validators.required],
+      // 'interests': [, Validators.required]
     });
   }
 
@@ -46,7 +51,8 @@ export class EditProfileComponent implements OnInit {
     this.currentUser = <User>{};
     this.currentUser.phones = <Array<string>>[];
     this.currentUser.addresses = <Array<string>>[];
-    this.userImage = {};
+    this.userImage = "";
+    this.userInterests = [];
     this.getCategories();
     this.loadCurrentUser();
     this.getCategories();
@@ -60,13 +66,22 @@ export class EditProfileComponent implements OnInit {
           this.currentUser = userData;
           this.userRole = this.currentUser.role;
           
-          this.userImage['url'] = `${environment.api_host}` + this.currentUser.profile_picture['url'];
-          this.editForm.get('name').setValue(this.currentUser.name);
-          this.editForm.get('postal_code').setValue(this.currentUser.addresses[0]['postal_code']);
-          this.editForm.get('building_number').setValue(this.currentUser.addresses[0]['building_number']);
-          this.editForm.get('street').setValue(this.currentUser.addresses[0]['street']);
-          this.editForm.get('region').setValue(this.currentUser.addresses[0]['region']);
-          this.editForm.get('city').setValue(this.currentUser.addresses[0]['city']);
+          this.userImage = `${environment.api_host}` + this.currentUser.profile_picture['url'];
+          this.editForm.setValue({
+            name: this.currentUser.name,
+            gender: this.currentUser.gender,
+            postal_code: this.currentUser.addresses[0]['postal_code'],
+            building_number: this.currentUser.addresses[0]['building_number'],
+            street: this.currentUser.addresses[0]['street'],
+            region: this.currentUser.addresses[0]['region'],
+            city: this.currentUser.addresses[0]['city'],
+            phone: this.currentUser.phones[0]['phone'],
+          });
+          for(let intrest of this.currentUser.interests) {
+            this.userInterests.push(intrest['id']);
+          }
+          // this.editForm.get('interests').setValue(this.userInterests);
+          // console.log(this.editForm.value)
 
           if(this.userRole == 'Normal user'){
             this.editForm.addControl('gender', new FormControl(this.currentUser.gender,Validators.required));
@@ -90,10 +105,13 @@ export class EditProfileComponent implements OnInit {
   // in image file change
   onFileChange(event) {
 
+    if(!this.photoChanged)
+      this.editForm.addControl('profile_picture', new FormControl('' ,));
+
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();  
       reader.onload = (event:any) => {
-        this.userImage['url'] = event.target.result;
+        this.userImage = event.target.result;
         this.photoChanged = true;
       }  
       reader.readAsDataURL(event.target.files[0]);
@@ -102,13 +120,13 @@ export class EditProfileComponent implements OnInit {
 
   updateProfile() {
 
-    this.photoChanged
-    ?this.editForm.get('profile_picture').setValue(this.userImage)
-    :this.editForm.get('profile_picture').setValue(this.currentUser.profile_picture);
+    if(this.photoChanged)
+      this.editForm.get('profile_picture').setValue(this.userImage);
 
+      // console.log(this.editForm.value)
     this.userService.update(this.editForm.value, this.currentUser.id).subscribe(
       result => {
-        console.log(result)
+        this.router.navigateByUrl('/userprofile');
       },
       error => {
         console.log(error);

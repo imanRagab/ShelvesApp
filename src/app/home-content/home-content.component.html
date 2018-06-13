@@ -12,8 +12,8 @@
 
                 <!--Card image-->
                 <div class="view overlay hm-white-slight zoom">
-                    <img src="http://localhost:3000{{ book.book_images[0].image.url }}" class="img-fluid" alt="">
-                    <a routerLink="/books/{{ book.id }}">
+                    <img src="http://localhost:3000{{ book?.book_images[0]?.image?.url }}" class="img-fluid" alt="">
+                    <a routerLink="/books/{{ book?.id }}">
                         <div class="mask"></div>
                     </a>
                 </div>
@@ -23,11 +23,11 @@
                 <div class="card-body no-padding text-center">
 
                     <!--Category & Title-->
-                    <h5>{{ book.category.name }}</h5>
-                    <h4 class="card-title"><strong><a href="">{{ book.name }}</a></strong></h4>
-                    <h4> <span class="badge  lighten-1">{{ book.transcation }}</span></h4>
+                    <h5>{{ book?.category?.name }}</h5>
+                    <h4 class="card-title"><strong><a href="">{{ book?.name }}</a></strong></h4>
+                    <h4> <span class="badge  lighten-1">{{ book?.transcation }}</span></h4>
                     <!--Description-->
-                    <p class="card-text">{{ (book.description.length>50)? (book.description | slice:0:50)+'...':(book.description) }}
+                    <p class="card-text">{{ (book?.description.length>50)? (book?.description | slice:0:50)+'...':(book?.description) }}
                     </p>
 
                     <!--Card footer-->
@@ -37,7 +37,7 @@
     
                       <a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><i class="fa fa-user pr-2"></i></a>
                   </span>
-                        <span class="left"><strong>{{ book.user[0].name }}</strong></span>
+                        <span class="left"><strong>{{ book?.user[0]?.name }}</strong></span>
                     </div>
 
                 </div>
@@ -54,7 +54,7 @@
     <!--End Latest-->
 
     <!--Start Recommended-->
-    <div class="container mt-5" *ngIf="userLoggedIn">
+    <div class="container mt-5" *ngIf="userLoggedIn && userHasInterests">
         <div class="row">
             <h2 class="col-lg-12 mt-5"> Recommended</h2>
             <hr class="mb-5 col-lg-12" width="30px">
@@ -67,8 +67,8 @@
 
                     <!--Card image-->
                     <div class="view overlay hm-white-slight zoom">
-                        <img src="http://localhost:3000{{ book.book_images[0].image.url }}" class="img-fluid" alt="">
-                        <a routerLink="/books/{{ book.id }}">
+                        <img src="http://localhost:3000{{ book?.book_images[0]?.image.url }}" class="img-fluid" alt="">
+                        <a routerLink="/books/{{ book?.id }}">
                             <div class="mask"></div>
                         </a>
                     </div>
@@ -79,10 +79,10 @@
     
                         <!--Category & Title-->
                         <h5>{{ book.category.name }}</h5>
-                        <h4 class="card-title"><strong><a href="">{{ book.name }}</a></strong></h4>
-                        <h4> <span class="badge  lighten-1">{{ book.transcation }}</span></h4>
+                        <h4 class="card-title"><strong><a href="">{{ book?.name }}</a></strong></h4>
+                        <h4> <span class="badge  lighten-1">{{ book?.transcation }}</span></h4>
                         <!--Description-->
-                        <p class="card-text">{{ (book.description.length>50)? (book.description | slice:0:50)+'...':(book.description) }}
+                        <p class="card-text">{{ (book?.description.length>50)? (book?.description | slice:0:50)+'...':(book?.description) }}
                         </p>
     
                         <!--Card footer-->
@@ -92,7 +92,7 @@
         
                           <a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><i class="fa fa-user pr-2"></i></a>
                       </span>
-                            <span class="left"><strong>{{ book.user[0].name }}</strong></span>
+                            <span class="left"><strong>{{ book?.user[0]?.name }}</strong></span>
                         </div>
     
                     </div>
