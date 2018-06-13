@@ -1,73 +1,83 @@
-<div>
-  <div>
-    <div>
-
-      <div>
-        <form [formGroup]="bookForm" (ngSubmit)="createBook()">
-          <fieldset>
-            <fieldset>
-              <input
-                formControlName="name"
-                placeholder="name"
-                type="text"
-                name="name"/>
-            </fieldset>
-            <fieldset>
-              <select
-                formControlName="category_id"
-                name="category_id">
-                <option *ngFor="let category of categories" value="{{ category.id }}">
-                  {{ category.name }}
-                </option>
-                </select>
-            </fieldset>
-            <fieldset>
-              <textarea
-                formControlName="description"
-                name="description"></textarea>
-              </fieldset>
-              <fieldset>
-                <input
-                  formControlName="book_images_files"
-                  placeholder="name"
-                  type="file"
-                  name="book_images_files"
-                  multiple 
-                  (change)="onFileChange($event)"/>
-              </fieldset>
-              <fieldset>
-                <select
-                  formControlName="transcation"
-                  name="transcation"
-                  *ngIf="!isBookStore"
-                  (change)="onTransactionChange()">
-                  <option>Free Share</option>
-                  <option>Exchange</option>
-                  <option>Sell By Bids</option>
-                </select>
-              </fieldset>
-              <fieldset>
-                <input
-                  formControlName="price"
-                  type="number"
-                  name="price"
-                  *ngIf="isBookStore || isBids"/>
-              </fieldset>
-              <fieldset>
-                <input
-                  formControlName="quantity"
-                  type="number"
-                  name="quantity"
-                  *ngIf="isBookStore"/>
-              </fieldset>
-            <button type="submit">
-              Create
-            </button>
-          </fieldset>
-        </form>
-      </div>
+<div class="before">
 
     </div>
-  </div>
-</div>
-
+    <div class="container animated bounceInUp card card-cascade p-5 mt-5 col-lg-8 col-md-4 ">
+        <div class="EditProTitle mb-5 ">
+            <h3 class="text-center mb-4">Add Book</h3>
+        </div>
+    
+    
+        <div class="row d-flex justify-content-center">
+            <!-- left column -->
+    
+            <div class=" mb-5  ">
+                <div class="text-center ">
+                    <div class="view">
+                        <img src="{{ image }}" width="200px" height="300px" alt="avatar" *ngFor="let image of bookImages">
+                        <!-- <div class="mask flex-center rgba-orange-slight " width="150px" height="300px">
+                        </div> -->
+                    </div>
+    
+                </div>
+                <form [formGroup]="bookForm">
+                    <div class="form-group text-center">
+                        <label for="exampleFormControlFile1">Upload book pictures</label>
+                        <input type="file" class="form-control-file riight" id="exampleFormControlFile1" formControlName="book_images_files" name="book_images_files" multiple (change)="onFileChange($event)">
+                    </div>
+                </form>
+            </div>
+    
+            <!-- edit form column -->
+            <div class="col-md-8 personal-info">
+                <form [formGroup]="bookForm" (ngSubmit)="submitBook()" class="form-horizontal" role="form">
+    
+                    <div class="form-group col-md-8">
+                        <label for="txtarea">Book name</label>
+                        <input formControlName="name" placeholder="Book name" type="text" name="name" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="txtarea">Book category</label>
+                        <select formControlName="category_id" class="form-control" name="category_id">
+                      <option *ngFor="let category of categories" value="{{ category.id }}" [selected]="book?.category.id == category.id">
+                        {{ category.name }}
+                      </option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="txtarea">Book description</label>
+                        <textarea formControlName="description" class="form-control" name="description"></textarea>
+                    </div>
+                    <!-- <fieldset> -->
+                    <!-- <input formControlName="book_images_files" placeholder="name" type="file" name="book_images_files" multiple (change)="onFileChange($event)" /> -->
+                    <!-- </fieldset> -->
+    
+                    <div class="form-group col-md-8">
+                        <label for="txtarea">Type of share</label>
+                        <select formControlName="transcation" class="form-control" name="transcation" *ngIf="!isBookStore" (change)="onTransactionChange()">
+                            <option [selected]="book?.transcation == 'Free Share'">Free Share</option>
+                            <option [selected]="book?.transcation == 'Exchange'">Exchange</option>
+                            <option [selected]="book?.transcation == 'Sell By Bids'">Sell By Bids</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">    
+                        <input formControlName="price" type="number" class="form-control" value="{{ book?.price }}" placeholder="beginning price" name="price" *ngIf="isBookStore || isBids" />
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input formControlName="quantity" type="number" class="form-control" value="{{ book?.quantity }}" name="quantity" *ngIf="isBookStore" />
+                        <label for="" *ngIf="isBids">For bid till : </label>
+                    </div>
+                    <div>
+    
+    
+                    </div>
+                    <!-- <button type="submit">
+                    Create
+                  </button> -->
+                  <!-- <input type="submit" [disabled]="!bookForm.valid" class="btn  peach" value="Add book">     -->
+                  <input type="submit" [disabled]="!bookForm.valid" class="btn  peach" value="Add book">    
+                </form>
+    
+            </div>
+    
+        </div>
+    </div>

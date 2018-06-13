@@ -19,6 +19,7 @@ export class ShowComponent implements OnInit {
   book: Book;
   currentUser: User;
   canModify: boolean;
+  similarBooks: Array<Book>;
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
@@ -28,15 +29,19 @@ export class ShowComponent implements OnInit {
 
   ngOnInit() {
 
-    // this.userService.populate();
-    // get book id from url
-    const book_id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.similarBooks = [];
+    this.getBook();
+    this.getSimilarBooks(); 
+  }
 
-    // get book data
+  // get book data
+  getBook() {
+      // get book id from url
+    const book_id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.bookService.getBook(book_id).subscribe(
       result => {
         this.book = result['book'];
-        console.log(this.book);
+        // console.log(this.book);
         // Load the current user's data
         this.userService.currentUser.subscribe(
           (userData: User) => {
@@ -48,6 +53,9 @@ export class ShowComponent implements OnInit {
       error => {
         console.log(error);
        }
-    );    
+    );   
+  }
+
+  getSimilarBooks() {
   }
 }

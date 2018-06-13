@@ -36,6 +36,8 @@ export class UserService {
       this.apiService.get('/user/users')
       .subscribe(
         data => {
+          data.user.phones = data.phones;
+          data.user.addresses = data.addresses;
           this.setAuth(data.user);
         },
         err => this.purgeAuth()
@@ -69,7 +71,8 @@ export class UserService {
     return this.apiService.post('/user/users' + route, credentials)
       .pipe(map(
       data => {
-        this.setAuth(data.user, data.auth_token);
+        if(data.status == "SUCCESS")
+          this.setAuth(data.user, data.auth_token);
         return data;
       }
     ));
@@ -80,14 +83,16 @@ export class UserService {
   }
 
   // Update the user on the server (email, pass, etc)
-  update(user): Observable<User> {
-    const route = `/user/users/$(user.id)`;
+  update(user, id): Observable<User> {
+    const route = `/user/users/${id}`;
     return this.apiService
-    .put(route, { user })
+    .put(route, user)
     .pipe(map(data => {
       // Update the currentUser observable
-      this.currentUserSubject.next(data.user);
-      return data.user;
+      // this.currentUserSubject.next(data.user);
+      this.populate();
+      // return data.user;
+      return this.getCurrentUser();
     }));
   }
 

@@ -1,5 +1,6 @@
-<div class="container animated bounceInUp mt-5 " id="content">
-    <!--Start Latest-->
+<div class="before">
+</div>
+<div class="container animated bounceInUp mt-4 " id="content">    <!--Start Latest-->
     <div class="row">
         <h2 class="col-lg-12 mt-5"> Latest</h2>
         <hr class="mb-5 col-lg-12" width="30px">
@@ -26,7 +27,7 @@
                     <h4 class="card-title"><strong><a href="">{{ book.name }}</a></strong></h4>
                     <h4> <span class="badge  lighten-1">{{ book.transcation }}</span></h4>
                     <!--Description-->
-                    <p class="card-text">{{ book.description}}
+                    <p class="card-text">{{ (book.description.length>50)? (book.description | slice:0:50)+'...':(book.description) }}
                     </p>
 
                     <!--Card footer-->
@@ -81,7 +82,7 @@
                         <h4 class="card-title"><strong><a href="">{{ book.name }}</a></strong></h4>
                         <h4> <span class="badge  lighten-1">{{ book.transcation }}</span></h4>
                         <!--Description-->
-                        <p class="card-text">{{ book.description}}
+                        <p class="card-text">{{ (book.description.length>50)? (book.description | slice:0:50)+'...':(book.description) }}
                         </p>
     
                         <!--Card footer-->

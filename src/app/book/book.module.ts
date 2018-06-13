@@ -4,6 +4,8 @@ import { ShowComponent } from './show/show.component';
 import { CreateComponent } from './create/create.component';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
   imports: [
@@ -11,6 +13,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
+    MDBBootstrapModule.forRoot(),
   ],
   declarations: [ShowComponent, CreateComponent]
 })

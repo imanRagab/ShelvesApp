@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 import {
   Book,
@@ -23,9 +24,11 @@ export class CreateComponent implements OnInit {
   bookForm: FormGroup;
   bookFormErrors = {};
   categories: Array<Category>;
-  bookImages: Array<string>;
+  bookImages: Array<any>;
   isBookStore: Boolean;
   isBids: Boolean;
+  formType: string;
+  imagesChanged: Boolean;
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
@@ -36,17 +39,21 @@ export class CreateComponent implements OnInit {
   ) {
     this.bookForm = this.fb.group({
       'name': ['', Validators.required],
-      'description': ['', Validators.required],
+      'description': ['', [
+        Validators.required,
+        Validators.minLength(50),
+      ]],
       'category_id': ['', Validators.required],
-      'book_images_attributes': ['', Validators.required],
-      'book_images_files': ['', Validators.required]
+      'book_images_attributes': [''],
+      'book_images_files': ['']
     });
    }
 
   ngOnInit() {
 
+    this.imagesChanged = false;
     this.isBookStore = false;
-
+    this.formType = "create";
     // get list of book categories
     this.getCategories();
 
@@ -62,11 +69,11 @@ export class CreateComponent implements OnInit {
         // add form control for username if this is the register page
         if (this.currentUser.role === 'Book store') {
           this.isBookStore = true;
-          this.bookForm.addControl('price', new FormControl());
-          this.bookForm.addControl('quantity', new FormControl());
+          this.bookForm.addControl('price', new FormControl('', Validators.required));
+          this.bookForm.addControl('quantity', new FormControl('', Validators.required));
         } 
         else {
-          this.bookForm.addControl('transcation', new FormControl());
+          this.bookForm.addControl('transaction', new FormControl('', Validators.required));
         }
       }
     );  
@@ -74,12 +81,19 @@ export class CreateComponent implements OnInit {
     // check if edit book
     this.route.url.subscribe(data => {
       if(data[data.length - 2].path == "edit"){
+        this.formType = "edit";
         // get book data
         if(book_id){
           this.bookService.getBook(book_id).subscribe(
             result => {
-              this.book = result;
-              console.log(this.book);
+              this.book = result['book'];
+              this.bookForm.controls['name'].setValue(this.book.name);
+              this.bookForm.controls['description'].setValue(this.book.description);
+              this.bookForm.controls['category_id'].setValue(this.book.category['id']);
+              this.bookForm.controls['book_images_attributes'].setValue(this.book.book_images);
+              for(let bookImage of this.book.book_images) {
+                this.bookImages.push(`${environment.api_host}` + bookImage.image.url);
+              }
             },
             error => {
               console.log(error);
@@ -92,32 +106,51 @@ export class CreateComponent implements OnInit {
 
   // Create book
   createBook() {
-    this.bookForm.get('book_images_attributes').setValue(this.bookImages);
     const book = this.bookForm.value;
     this.bookService
     .createBook(book)
     .subscribe(
       result => {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl(`/books/${result['book'].id}`);
     },
       error => {
-        console.log(error);
+        alert("Couldn\'t create the book!")
+        this.router.navigateByUrl('/');
+        // console.log(error);
+      }
+    );
+  }
+
+  // update book
+  updateBook() {
+    let book = this.bookForm.value;
+    book.id = this.book.id;
+    this.bookService
+    .updateBook(book)
+    .subscribe(
+      result => {
+        // console.log(result)
+        this.router.navigateByUrl(`/books/${book.id}`);
+    },
+      error => {
+        alert("Couldn\'t update the book!")
+        this.router.navigateByUrl('/');
+        // console.log(error);
       }
     );
   }
 
   // get selected files
   onFileChange(e) {
-    console.log (e.target.files);
+
+    this.imagesChanged = true;
     this.bookImages = [];
     for (let file of e.target.files) { 
       let reader = new FileReader();    
       reader.readAsDataURL(file);
       reader.onload = (result) => {
-        //  console.log(reader.result)
         this.bookImages.push(reader.result);
       };
-      console.log(this.bookImages)
     }    
   }
 
@@ -144,5 +177,22 @@ export class CreateComponent implements OnInit {
       this.isBids = false;
       this.bookForm.removeControl('price');
     }  
+  }
+
+  // submit book function create/update
+  submitBook() {
+
+    this.imagesChanged
+    ?this.bookForm.get('book_images_attributes').setValue(this.bookImages)
+    :this.bookForm.get('book_images_attributes').setValue(this.book.book_images);
+
+    if(this.formType == "edit") {
+      this.updateBook();
+    }
+
+    else {
+      this.createBook();
+    }
+
   }
 }

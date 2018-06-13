@@ -8,13 +8,16 @@
 }
 
 .EditProTitle {
-    background-color: #ffd86f;
+    background-color: #ff4f4f;
     // background: linear-gradient(40deg, #ffd86f, #fc6262)!important;
     padding: 1.6rem 1rem;
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .18), 0 4px 15px 0 rgba(0, 0, 0, .15);
     -webkit-border-radius: .25rem;
     border-radius: .25rem;
     margin-top: -100px;
+    h3 {
+        color: floralwhite;
+    }
 }
 
 .img-circle {
@@ -133,4 +136,8 @@
     background: linear-gradient(40deg, #ffd86f, #dc3545)!important;
     border: none;
     margin-right: 50px;
+}
+
+.custom-control-label {
+    position: static;
 }

@@ -12,7 +12,7 @@ import { UserService } from '../shared';
 export class AuthComponent implements OnInit {
   authType: String = '';
   title: String = '';
-  // errors: Errors = {errors: {}};
+  error: string;
   isSubmitting = false;
   authForm: FormGroup;
   resetPasswordForm: FormGroup;
@@ -33,6 +33,7 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.error = "";
     this.route.url.subscribe(data => {
       // Get the last piece of the URL (it's either 'login' or 'register')
       this.authType = data[data.length - 1].path;
@@ -57,11 +58,16 @@ export class AuthComponent implements OnInit {
     .attemptAuth(this.authType, credentials)
     .subscribe(
       data => {
-        this.router.navigateByUrl('/');
+        if( data['status'] == 'FAIL' ) {
+          this.error = (data['message'])
+        }
+        else {
+          this.router.navigateByUrl('/');
+        }
     },
       err => {
         // this.errors = err;
-        this.isSubmitting = false;
+        console.log(err)
       }
     );
   }
