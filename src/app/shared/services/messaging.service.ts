@@ -102,5 +102,9 @@ export class MessagingService {
 
       localStorage.setItem('notification_token', newToken);
   }
+
+
+  //get all notification messages For login user
+  
   
 }
