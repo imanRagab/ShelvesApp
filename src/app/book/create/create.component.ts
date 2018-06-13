@@ -70,7 +70,7 @@ export class CreateComponent implements OnInit {
           this.bookForm.addControl('quantity', new FormControl('', Validators.required));
         } 
         else {
-          this.bookForm.addControl('transcation', new FormControl('', Validators.required));
+          this.bookForm.addControl('transaction', new FormControl('', Validators.required));
         }
       }
     );  
@@ -85,7 +85,9 @@ export class CreateComponent implements OnInit {
             result => {
               this.book = result['book'];
               this.bookForm.controls['name'].setValue(this.book.name);
-              // console.log(this.book);
+              this.bookForm.controls['description'].setValue(this.book.description);
+              this.bookForm.controls['category_id'].setValue(this.book.category['id']);
+              this.bookForm.controls['book_images_attributes'].setValue(this.book.book_images);
             },
             error => {
               console.log(error);
