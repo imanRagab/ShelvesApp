@@ -11,7 +11,7 @@
     
             <!--Avatar-->
             <div class="col-lg-4 col-md-6 col-sm-2 " height="100px">
-                <img src="assets/images/download.png" class="img-fluid z-depth-2">
+                <img src="http://localhost:3000{{book?.book_images[0]?.image?.url}}" class="img-fluid z-depth-2">
     
             </div>
     
@@ -22,7 +22,7 @@
                     <ul>
                         <!--book Name-->
                         <li>
-                            <p><strong>{{ book?.name }}</strong></p>
+                            <h3><strong>{{ book?.name }}</strong></h3>
                             <hr>
                         </li>
                         <li> <label for="" class="font-weight-bold">Category :&nbsp;</label>{{ book?.category.name }}</li>
@@ -86,59 +86,35 @@
     
     
         </div>
-        <!--/.Author box-->
-        <h2 class="col-lg-12 mt-5 title"> Similar to this book</h2>
-        <hr class="mb-5 col-lg-12">
-        <div class="container animated bounceInUp mt-5 " id="content">
-            <div class="row">
+           <!--/.Author box-->
+    <div class="row">
+            <h2 class="col-lg-12 mt-3 title">Book images</h2>
+            <hr class="mb-5 col-lg-12">
+            <div class="container animated bounceInUp " id="content">
+                <div class="row">
     
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-r " *ngFor="let book of similarBooks">
+                    <!--Grid column-->
+                    <div class="col-lg-3 col-md-6 mb-r " *ngFor="let bookImage of book?.book_images | slice:1">
     
-                <!--Card-->
-                    <div class="card card-cascade narrower">
-
-                        <!--Card image-->
-                        <div class="view overlay hm-white-slight zoom">
-                            <img src="http://localhost:3000{{ book.book_images[0].image.url }}" class="img-fluid" alt="">
-                            <a routerLink="/books/{{ book.id }}">
-                                <div class="mask"></div>
-                            </a>
-                        </div>
-                        <!--/.Card image-->
-        
-                        <!--Card content-->
-                        <div class="card-body no-padding text-center">
-        
-                            <!--Category & Title-->
-                            <h5>{{ book.category.name }}</h5>
-                            <h4 class="card-title"><strong><a href="">{{ book.name }}</a></strong></h4>
-                            <h4> <span class="badge  lighten-1">{{ book.transcation }}</span></h4>
-                            <!--Description-->
-                            <p class="card-text">{{ (book.description.length>50)? (book.description | slice:0:50)+'...':(book.description) }}
-                            </p>
-        
-                            <!--Card footer-->
-                            <div class="card-footer">
-        
-                                <span class="right">
-            
-                            <a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><i class="fa fa-user pr-2"></i></a>
-                        </span>
-                                <span class="left"><strong>{{ book.user[0].name }}</strong></span>
+                        <!--Card-->
+                        <div class="card card-cascade narrower">
+    
+                            <!--Card image-->
+                            <div class="view overlay hm-white-slight zoom">
+                                <img src="http://localhost:3000{{bookImage?.image?.url}}" class="img-fluid" alt="">
+                                <a>
+                                    <div class="mask"></div>
+                                </a>
                             </div>
-        
+                            <!--/.Card image-->
+    
+    
+    
                         </div>
-                        <!--/.Card content-->
-        
+                        <!--/.Card-->
+    
                     </div>
-                    <!--/.Card-->
-    
+                    <!--Grid column-->
                 </div>
-                <!--Grid column-->
-    
             </div>
-    
         </div>
-    
-    </div>
