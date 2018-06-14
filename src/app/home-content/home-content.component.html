@@ -1,73 +1,19 @@
 <div class="before">
-</div>
-<div class="container animated bounceInUp mt-4 " id="content">    <!--Start Latest-->
-    <div class="row">
-        <h2 class="col-lg-12 mt-5"> Latest</h2>
-        <hr class="mb-5 col-lg-12" width="30px">
-        <!--Grid column-->
-        <div class="col-lg-3 col-md-6 mb-r " *ngFor="let book of latestBooks" style="margin-bottom: 20px">
 
-            <!--Card-->
-            <div class="card card-cascade narrower">
-
-                <!--Card image-->
-                <div class="view overlay hm-white-slight zoom">
-                    <img src="http://localhost:3000{{ book?.book_images[0]?.image?.url }}" class="img-fluid" alt="">
-                    <a routerLink="/books/{{ book?.id }}">
-                        <div class="mask"></div>
-                    </a>
-                </div>
-                <!--/.Card image-->
-
-                <!--Card content-->
-                <div class="card-body no-padding text-center">
-
-                    <!--Category & Title-->
-                    <h5>{{ book?.category?.name }}</h5>
-                    <h4 class="card-title"><strong><a routerLink="/books/{{ book?.id }}">{{ book?.name }}</a></strong></h4>
-                    <h4> <span class="badge  lighten-1">{{ book?.transcation }}</span></h4>
-                    <!--Description-->
-                    <p class="card-text">{{ (book?.description.length>50)? (book?.description | slice:0:50)+'...':(book?.description) }}
-                    </p>
-
-                    <!--Card footer-->
-                    <div class="card-footer">
-
-                        <span class="right">
-    
-                      <a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><i class="fa fa-user pr-2"></i></a>
-                  </span>
-                  <span class="left"><a routerLink="/userprofile/{{ book?.user[0]?.id }}"><strong>{{ book?.user[0]?.name }}</strong></a></span>
-                </div>
-
-                </div>
-                <!--/.Card content-->
-
-            </div>
-            <!--/.Card-->
-        </div>
-        <!--Grid column-->
-        <div class="d-flex justify-content-center viewMoreBtn mt-5">
-                <button class="btn peach" routerLink="/books">View more</button>
-        </div>
     </div>
-    <!--End Latest-->
-
-    <!--Start Recommended-->
-    <div class="container mt-5" *ngIf="userLoggedIn && userHasInterests">
+    <div class="container animated bounceInUp mt-4 " id="content">
         <div class="row">
-            <h2 class="col-lg-12 mt-5"> Recommended</h2>
+            <h2 class="col-lg-12 mt-5"> Latest</h2>
             <hr class="mb-5 col-lg-12" width="30px">
-
             <!--Grid column-->
-            <div class="col-lg-3 col-md-6 mb-r" *ngFor="let book of recommendedBooks" style="margin-bottom: 20px">
+            <div class="col-lg-3 col-md-6 mb-r " *ngFor="let book of latestBooks" style="margin-bottom: 20px">
     
-            <!--Card-->
-            <div class="card card-cascade narrower">
-
+                <!--Card-->
+                <div class="card card-cascade narrower">
+    
                     <!--Card image-->
                     <div class="view overlay hm-white-slight zoom">
-                        <img src="http://localhost:3000{{ book?.book_images[0]?.image.url }}" class="img-fluid" alt="">
+                        <img src="http://localhost:3000{{ book?.book_images[0]?.image?.url }}" class="img-fluid" alt="">
                         <a routerLink="/books/{{ book?.id }}">
                             <div class="mask"></div>
                         </a>
@@ -78,21 +24,28 @@
                     <div class="card-body no-padding text-center">
     
                         <!--Category & Title-->
-                        <h5>{{ book.category.name }}</h5>
-                        <h4 class="card-title"><strong><a routerLink="/books/{{ book?.id }}">{{ book?.name }}</a></strong></h4>
-                        <h4> <span class="badge  lighten-1">{{ book?.transcation }}</span></h4>
-                        <!--Description-->
-                        <p class="card-text">{{ (book?.description.length>50)? (book?.description | slice:0:50)+'...':(book?.description) }}
-                        </p>
+                        <h5>{{ book?.category?.name }}</h5>
+                        <h4 class="card-title">
+                            <strong>
+                  <a routerLink="/books/{{ book?.id }}">{{ book?.name }}</a>
+                </strong>
+                        </h4>
+                        <h4>
+                            <span class="badge  lighten-1">{{ book?.transcation }}</span>
+                        </h4>
+                        <p-rating [(ngModel)]="val"></p-rating>
     
                         <!--Card footer-->
-                        <div class="card-footer" >
+                        <div class="card-footer">
     
                             <span class="right">
-        
-                          <a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><i class="fa fa-user pr-2"></i></a>
-                      </span>
-                            <span class="left"><a routerLink="/userprofile/{{ book?.user[0]?.id }}"><strong>{{ book?.user[0]?.name }}</strong></a></span>
+    
+                  <a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist" routerLink="/userprofile/{{ book?.user[0]?.id }}">
+                    <i class="fa fa-user pr-2"></i>
+                    <strong>{{ book?.user[0]?.name }}</strong>
+                  </a>
+                </span>
+    
                         </div>
     
                     </div>
@@ -102,12 +55,68 @@
                 <!--/.Card-->
     
             </div>
-            <!--Grid column-->
-            <!-- <div class="d-flex justify-content-center viewMoreBtn mt-5">
-                <button class="btn peach">View more</button>
-            </div> -->
-    
+            <!--Grid column-->   
+            <div class="d-flex justify-content-center viewMoreBtn mt-5">
+                    <button class="btn peach" routerLink="/books">View more</button>
+            </div> 
         </div>
-        <!--Grid row-->
-        <!--End Recommended-->
-</div>
+    </div>
+    
+    
+    <div class="container mt-5" *ngIf="userLoggedIn && userHasInterests">
+        <div class="row">
+            <h2 class="col-lg-12 mt-5"> Recommended</h2>
+            <hr class="mb-5 col-lg-12" width="30px">
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-r " *ngFor="let book of recommendedBooks" style="margin-bottom: 20px">
+    
+                    <!--Card-->
+                    <div class="card card-cascade narrower">
+        
+                        <!--Card image-->
+                        <div class="view overlay hm-white-slight zoom">
+                            <img src="http://localhost:3000{{ book?.book_images[0]?.image?.url }}" class="img-fluid" alt="">
+                            <a routerLink="/books/{{ book?.id }}">
+                                <div class="mask"></div>
+                            </a>
+                        </div>
+                        <!--/.Card image-->
+        
+                        <!--Card content-->
+                        <div class="card-body no-padding text-center">
+        
+                            <!--Category & Title-->
+                            <h5>{{ book?.category?.name }}</h5>
+                            <h4 class="card-title">
+                                <strong>
+                      <a routerLink="/books/{{ book?.id }}">{{ book?.name }}</a>
+                    </strong>
+                            </h4>
+                            <h4>
+                                <span class="badge  lighten-1">{{ book?.transcation }}</span>
+                            </h4>
+                            <p-rating [(ngModel)]="val"></p-rating>
+        
+                            <!--Card footer-->
+                            <div class="card-footer">
+        
+                                <span class="right">
+        
+                      <a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist" routerLink="/userprofile/{{ book?.user[0]?.id }}">
+                        <i class="fa fa-user pr-2"></i>
+                        <strong>{{ book?.user[0]?.name }}</strong>
+                      </a>
+                    </span>
+        
+                            </div>
+        
+                        </div>
+                        <!--/.Card content-->
+        
+                    </div>
+                    <!--/.Card-->
+        
+                </div>
+                <!--Grid column-->   
+        </div>     
+    </div>
