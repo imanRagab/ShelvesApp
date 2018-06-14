@@ -67,7 +67,7 @@
 
                 </form>
                 <!--Notifications-->
-                <div class="btn-group" dropdown *ngIf="userLoggedIn">
+                <div class="btn-group"  *ngIf="userLoggedIn" dropdown>
                     <button dropdownToggle type="" class="btndropdown-toggle waves-light" mdbWavesEffect>
                         <i class="fa fa-bell"></i>
                     </button>
@@ -96,7 +96,7 @@
                             </div>
 
                             <li class="text-center">
-                                <a href="">
+                                <a href="/showNotifications">
                                     <span> See All</span>
                                 </a>
                             </li>

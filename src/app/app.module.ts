@@ -23,6 +23,7 @@ import {
 
 import { HomeContentComponent } from './home-content/home-content.component';
 import { FooterComponent } from './footer/footer.component';
+import { ShowNotificationsComponent } from './notifications/show-notifications/show-notifications.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { FooterComponent } from './footer/footer.component';
     NavBarComponent,
     HomeContentComponent,
     FooterComponent,
+    ShowNotificationsComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

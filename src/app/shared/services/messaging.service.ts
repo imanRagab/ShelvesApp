@@ -109,11 +109,23 @@ export class MessagingService {
   }
 
 
-  //get all notification messages For login user
-   getNotificationMessages(): Observable<Array<Notification>> {
-    const route = `/notification/notification_messages/get_user_notifications`;
-    return this.apiService.get(route);
+  
+   getNotificationMessages(navbar): Observable<Array<Notification>> {
+     //get latest 5 notification messages For login user to show in navbar
+     if (navbar == "navbar-notifications"){
+      const route = `/notification/notification_messages/get_user_notifications?status=navbar-notifications`;
+      return this.apiService.get(route);
+     }else
+     {
+        //get latest all notification messages For login user
+      const route = `/notification/notification_messages/get_user_notifications`;
+      return this.apiService.get(route);
+     }
+    
   }
+
+  
+  
 
 
   //get no of unseen messages for login user

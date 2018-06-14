@@ -88,7 +88,7 @@ export class NavBarComponent implements OnInit {
     }
      //get all user notification messages
      getNotifications(){
-      this.messageService.getNotificationMessages().subscribe(
+      this.messageService.getNotificationMessages("navbar-notifications").subscribe(
         result => {
           if(result['status']  != 'FAIL'){
             this.userNotifications = result['notification_messages'];
