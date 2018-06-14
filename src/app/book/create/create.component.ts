@@ -74,6 +74,9 @@ export class CreateComponent implements OnInit {
         } 
         else {
           this.bookForm.addControl('transaction', new FormControl('', Validators.required));
+          if(this.formType == "edit") {
+            this.bookForm.controls['transaction'].setValue(this.book.transaction); 
+          }
         }
       }
     );  
@@ -94,6 +97,10 @@ export class CreateComponent implements OnInit {
               for(let bookImage of this.book.book_images) {
                 this.bookImages.push(`${environment.api_host}` + bookImage.image.url);
               }
+              if(this.book.transaction == "Sell By Bids"){
+                this.isBids = true;
+                this.bookForm.addControl('price', new FormControl(this.book.price));
+              } 
             },
             error => {
               console.log(error);
@@ -168,7 +175,8 @@ export class CreateComponent implements OnInit {
 
   // change form according to transaction
   onTransactionChange(){
-    let transcation = this.bookForm.get('transcation').value;
+    
+    let transcation = this.bookForm.get('transaction').value;
     if(transcation == "Sell By Bids"){
       this.isBids = true;
       this.bookForm.addControl('price', new FormControl());
@@ -182,15 +190,15 @@ export class CreateComponent implements OnInit {
   // submit book function create/update
   submitBook() {
 
-    this.imagesChanged
+    if(this.formType == "edit") {
+      this.imagesChanged
     ?this.bookForm.get('book_images_attributes').setValue(this.bookImages)
     :this.bookForm.get('book_images_attributes').setValue(this.book.book_images);
-
-    if(this.formType == "edit") {
       this.updateBook();
     }
 
     else {
+      this.bookForm.get('book_images_attributes').setValue(this.bookImages)
       this.createBook();
     }
 

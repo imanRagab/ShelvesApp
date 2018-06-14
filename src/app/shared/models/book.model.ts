@@ -8,7 +8,7 @@ export interface Book {
     rate: number;
     price: number;
     quantity: number;
-    transaction: number;
+    transaction: string;
     category: Category;
     user: User;
     bid_user: User;

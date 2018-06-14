@@ -53,10 +53,10 @@
     
                     <div class="form-group col-md-8">
                         <label for="txtarea">Type of share</label>
-                        <select formControlName="transcation" class="form-control" name="transcation" *ngIf="!isBookStore" (change)="onTransactionChange()">
-                            <option [selected]="book?.transcation == 'Free Share'">Free Share</option>
-                            <option [selected]="book?.transcation == 'Exchange'">Exchange</option>
-                            <option [selected]="book?.transcation == 'Sell By Bids'">Sell By Bids</option>
+                        <select formControlName="transaction" class="form-control" name="transaction" *ngIf="!isBookStore" (change)="onTransactionChange()">
+                            <option [attr.selected]="formType == 'edit'?book?.transaction == 'Free Share':null">Free Share</option>
+                            <option [attr.selected]="formType == 'edit'?book?.transaction == 'Exchange':null">Exchange</option>
+                            <option [attr.selected]="formType == 'edit'?book?.transaction == 'Sell By Bids':null">Sell By Bids</option>
                         </select>
                     </div>
                     <div class="form-group col-md-4">    
@@ -74,7 +74,7 @@
                     Create
                   </button> -->
                   <!-- <input type="submit" [disabled]="!bookForm.valid" class="btn  peach" value="Add book">     -->
-                  <input type="submit" [disabled]="!bookForm.valid" class="btn  peach" value="Add book">    
+                  <input type="submit" class="btn  peach" value="Add book">    
                 </form>
     
             </div>
