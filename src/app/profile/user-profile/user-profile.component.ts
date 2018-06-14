@@ -20,7 +20,6 @@ export class UserProfileComponent implements OnInit {
   userRole: string;
   userBooks: Array<Book>
   userImage: object;
-  userAddresses: Array<string>;
   mySubscription: any;
   constructor(
     private userService: UserService,
@@ -30,7 +29,6 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     this.currentUser = <User>{};
     this.userImage = {};
-    this.userAddresses = [];
     this.userLoggedIn = false;
     this.loadCurrentUser();
   }
@@ -50,7 +48,6 @@ export class UserProfileComponent implements OnInit {
           this.userRole = this.currentUser.role;
           this.userImage['url'] = `${environment.api_host}` + this.currentUser.profile_picture['url'];
           this.loadUserBooks();
-          this.concatUserAddresses();
         }
       }
     );
@@ -66,13 +63,5 @@ export class UserProfileComponent implements OnInit {
         console.log(error);
       }
     );
-  }
-
-  // concat user addresses
-  concatUserAddresses() {
-    for(let addresse of this.currentUser['addresses']){
-      this.userAddresses.push(addresse['building_number'] + " " + addresse['street']
-                                             + " st. " + addresse['city'] + ", " + addresse['region']);
-    }
   }
 }

@@ -15,18 +15,18 @@
             </div>
               <div class="md-form" *ngIf="authType == 'register'">
                   <i class="fa fa-user prefix grey-text"></i>
-                  <input type="text" formControlName="name" id="name" class="form-control" mdbInputDirective>
+                  <input type="text" formControlName="name" id="name" class="form-control" minLength="8" mdbInputDirective>
                   <label for="name">Your name</label>
               </div>
 
               <div class="md-form">
                   <i class="fa fa-envelope prefix grey-text"></i>
-                  <input type="text" formControlName="email" id="email" class="form-control" mdbInputDirective>
+                  <input type="email" data-error="please enter a valid email" minLength="8" maxLength="25" formControlName="email" id="email" class="form-control" mdbInputDirective>
                   <label for="email">Your email</label>
               </div>
               <div class="md-form">
                   <i class="fa fa-lock prefix grey-text"></i>
-                  <input type="password" formControlName="password" id="password" class="form-control" mdbInputDirective>
+                  <input type="password" formControlName="password" id="password" class="form-control" minLength="8" mdbInputDirective>
                   <label for="password">Your password</label>
               </div>
               <div class="md-form" *ngIf="authType == 'register'" >
@@ -67,10 +67,13 @@
                     </div>
                     <div class="modal-body">
                         <p>Enter your e-mail address below and we will send you a private message containing a link that will help you to create a new password</p>
+                        <div class="errorMessages" *ngIf="error">
+                            <span>{{ error }}</span>
+                        </div>
                         <form [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword()">
                             <div class="md-form">
                                 <i class="fa fa-envelope prefix"></i>
-                                <input mdbInputDirective data-error="not a valid email" formControlName="email" data-success="valid email" minLength="8" maxLength="25" type="email" class="form-control" id="form9" name="email" mdbInputDirective>
+                                <input mdbInputDirective data-error="please enter a valid email" formControlName="email" minLength="8" maxLength="25" type="email" class="form-control" id="form9" name="email" mdbInputDirective>
                                 <label for="form9">Type your e-mail</label>
                             </div>
                             <div class="modal-footer viewMoreBtn">

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import {
   Category,
   CategoryService,
@@ -27,14 +28,16 @@ export class NavBarComponent implements OnInit {
     private messageService:  MessagingService,
     private route: ActivatedRoute
   ) {
+   }
+
+  ngOnInit() {
     this.firstCatArray = [];
     this.secondCatArray = []; 
     this.thirdCatArray = [];
     this.userNotifications = [];
    
-   }
+   
 
-  ngOnInit() {
     // get list of book categories
     this.getCategories();
 
@@ -95,5 +98,4 @@ export class NavBarComponent implements OnInit {
     logout() {
       this.userService.purgeAuth();
     }
-
 }

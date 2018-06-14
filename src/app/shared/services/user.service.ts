@@ -37,8 +37,8 @@ export class UserService {
       this.apiService.get('/user/users')
       .subscribe(
         data => {
-          data.user.phones = data.phones;
-          data.user.addresses = data.addresses;
+          data.user.phone = data.phones[0];
+          data.user.addresse = data.addresses[0];
           data.user.interests = data.interests;
           this.setAuth(data.user);
         },
@@ -74,10 +74,15 @@ export class UserService {
       .pipe(map(
       data => {
         if(data.status == "SUCCESS"){
-          this.setAuth(data.user, data.auth_token);
-          this.messagingService.getPermission(this.getCurrentUser().id)
-          this.messagingService.receiveMessage()
-          this.message = this.messagingService.currentMessage
+          if( type === 'login' ) {
+            data.user.phone = data.phones[0];
+            data.user.addresse = data.addresses[0];
+            data.user.interests = data.interests;
+            this.setAuth(data.user, data.auth_token);
+            this.messagingService.getPermission(this.getCurrentUser().id)
+            this.messagingService.receiveMessage()
+            this.message = this.messagingService.currentMessage
+          }
         }
         return data;
       }

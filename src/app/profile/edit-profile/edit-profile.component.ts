@@ -7,7 +7,9 @@ import {
   User,
   UserService,
   Category,
-  CategoryService
+  CategoryService,
+  City,
+  CitiesService
 } from '../../shared';
 
 @Component({
@@ -25,9 +27,11 @@ export class EditProfileComponent implements OnInit {
   username: string;
   userInterests: Array<any>;
   photoChanged: Boolean;
+  cities: Array<object>;
   constructor(
     private userService: UserService,
     private categoryService: CategoryService,
+    private citiesService: CitiesService,
     private fb: FormBuilder,
     private router: Router,
   ) { 
@@ -41,7 +45,7 @@ export class EditProfileComponent implements OnInit {
       'region': [ , Validators.required],
       'city': [ , Validators.required],
       'phone': [, Validators.required],
-      // 'interests': [, Validators.required]
+      'interests': [[], Validators.required]
     });
   }
 
@@ -49,13 +53,12 @@ export class EditProfileComponent implements OnInit {
     this.photoChanged = false;
     this.categories = [];
     this.currentUser = <User>{};
-    this.currentUser.phones = <Array<string>>[];
-    this.currentUser.addresses = <Array<string>>[];
     this.userImage = "";
     this.userInterests = [];
     this.getCategories();
     this.loadCurrentUser();
     this.getCategories();
+    this.getCities();
   }
 
   // load the current user's data
@@ -67,22 +70,20 @@ export class EditProfileComponent implements OnInit {
           this.userRole = this.currentUser.role;
           
           this.userImage = `${environment.api_host}` + this.currentUser.profile_picture['url'];
-          this.editForm.setValue({
-            name: this.currentUser.name,
-            gender: this.currentUser.gender,
-            postal_code: this.currentUser.addresses[0]['postal_code'],
-            building_number: this.currentUser.addresses[0]['building_number'],
-            street: this.currentUser.addresses[0]['street'],
-            region: this.currentUser.addresses[0]['region'],
-            city: this.currentUser.addresses[0]['city'],
-            phone: this.currentUser.phones[0]['phone'],
-          });
           for(let intrest of this.currentUser.interests) {
             this.userInterests.push(intrest['id']);
           }
-          // this.editForm.get('interests').setValue(this.userInterests);
-          // console.log(this.editForm.value)
-
+          this.editForm.setValue({
+            name: this.currentUser.name,
+            gender: this.currentUser.gender,
+            postal_code: this.currentUser.addresse['postal_code'],
+            building_number: this.currentUser.addresse['building_number'],
+            street: this.currentUser.addresse['street'],
+            region: this.currentUser.addresse['region'],
+            city: this.currentUser.addresse['city'],
+            phone: this.currentUser.phone['phone'],
+            interests: this.userInterests
+          });
           if(this.userRole == 'Normal user'){
             this.editForm.addControl('gender', new FormControl(this.currentUser.gender,Validators.required));
           }
@@ -123,10 +124,23 @@ export class EditProfileComponent implements OnInit {
     if(this.photoChanged)
       this.editForm.get('profile_picture').setValue(this.userImage);
 
-      // console.log(this.editForm.value)
     this.userService.update(this.editForm.value, this.currentUser.id).subscribe(
       result => {
         this.router.navigateByUrl('/userprofile');
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  // get cities
+  getCities() {
+    this.citiesService.getCities().subscribe(
+      result => {
+        if(result['status'] == "SUCCESS") {
+          this.cities = result['cities'];
+        }
       },
       error => {
         console.log(error);

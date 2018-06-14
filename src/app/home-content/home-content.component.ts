@@ -63,7 +63,6 @@ export class HomeContentComponent implements OnInit {
   getRecommendedBooks() {
     this.bookService.getRecommended().subscribe(
       result => {
-        console.log(result)
         if(result['status']  != 'FAIL'){
           this.userHasInterests = true;
           for(let j = 0; j < result['books'].length; j++) {
