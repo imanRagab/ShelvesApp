@@ -1,33 +1,34 @@
 <div class="container ">
 
     <!--Author box-->
-    <div class="author-box  d-flex align-items-center" *ngIf="userLoggedIn">
+    <div class="author-box  d-flex align-items-center">
         <!--Name-->
         <!-- <h3 class="h3-responsive text-center">About author</h3>
         <hr> -->
 
         <!--Avatar-->
         <div class="col-lg-2 col-md-6 col-sm-2 ">
-        <img src="{{ userImage.url }}" class="img-fluid rounded-circle z-depth-2">
-        <div class="d-flex justify-content-center  mt-5">
+        <img src="{{ userImage.url }}" class="img-fluid rounded-circle z-depth-2" *ngIf="profileUser?.profile_picture?.url">
+        <img src="assets/images/blank__240x240.gif" class="img-fluid rounded-circle z-depth-2" *ngIf="!profileUser?.profile_picture?.url">
+        <div class="d-flex justify-content-center  mt-5" *ngIf="userLoggedIn">
             <button class="btn peach avatar" routerLink="/editprofile">Edit Profile</button>
         </div>
         </div>
         <!--Author Data-->
         <div class=" col-12 col-sm-10">
-            <p><strong>{{ currentUser?.name }}</strong></p>
+            <p><strong>{{ profileUser?.name }}</strong></p>
 
             <div class="personal-sm">
                     <ul>
-                        <li *ngIf="userRole == 'Normal user'"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{ currentUser?.gender }}</li>
-                        <li><i class="fa fa-location-arrow" aria-hidden="true"></i>&nbsp;                      
-                        <span>{{ currentUser?.addresse?.building_number + " " + currentUser?.addresse?.street
-                            + " st. " + currentUser?.addresse?.city + ", " + currentUser?.addresse?.region }}</span>
+                        <li *ngIf="userRole == 'Normal user'"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{ profileUser?.gender }}</li>
+                        <li *ngIf="profileUser.addresse"><i class="fa fa-location-arrow" aria-hidden="true"></i>&nbsp;                      
+                        <span>{{ profileUser?.addresse?.building_number + " " + profileUser?.addresse?.street
+                            + " st. " + profileUser?.addresse?.city + ", " + profileUser?.addresse?.region }}</span>
                         </li>
-                        <li><i class="fa fa-phone" aria-hidden="true">&nbsp;
+                        <li *ngIf="profileUser.phone"><i class="fa fa-phone" aria-hidden="true">&nbsp;
                         </i>
-                        <span>{{ currentUser?.phone?.phone }}</span>
-                        <!-- <span *ngFor="let phone of currentUser.phones | slice:1"> - {{ phone?.phone }}</span> -->
+                        <span>{{ profileUser?.phone?.phone }}</span>
+                        <!-- <span *ngFor="let phone of profileUser.phones | slice:1"> - {{ phone?.phone }}</span> -->
                         </li>
                     </ul>
 
@@ -50,7 +51,7 @@
 
                     <!--Card image-->
                     <div class="view overlay hm-white-slight zoom">
-                        <img src="http://localhost:3000{{ book?.book_images[0].image.url }}" class="img-fluid" alt="">
+                        <img src="http://localhost:3000{{ book?.book_images[0]?.image?.url }}" class="img-fluid" alt="">
                         <a routerLink="/books/{{ book?.id }}">
                             <div class="mask"></div>
                         </a>

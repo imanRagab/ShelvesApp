@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
 import {
   User,
@@ -15,22 +16,26 @@ import { Observable } from 'rxjs';
 })
 export class UserProfileComponent implements OnInit {
 
-  currentUser: User;
+  profileUser: User;
   userLoggedIn: Boolean;
   userRole: string;
   userBooks: Array<Book>
   userImage: object;
   mySubscription: any;
+  userId: string;
   constructor(
     private userService: UserService,
+    private route: ActivatedRoute,
   ) {
+      // get user id from url
+      this.userId = this.route.snapshot.paramMap.get('id');
    }
 
   ngOnInit() {
-    this.currentUser = <User>{};
+    this.profileUser = <User>{};
     this.userImage = {};
     this.userLoggedIn = false;
-    this.loadCurrentUser();
+    this.loadProfileUser();
   }
 
   ngOnDestroy() {
@@ -38,24 +43,40 @@ export class UserProfileComponent implements OnInit {
      this.mySubscription.unsubscribe();
     }
 
-  // Load the current user's data
-  loadCurrentUser() {
-    this.userService.currentUser.subscribe(
-      (userData: User) => {
-        if(userData.name){
-          this.currentUser = userData;
-          this.userLoggedIn = true;
-          this.userRole = this.currentUser.role;
-          this.userImage['url'] = `${environment.api_host}` + this.currentUser.profile_picture['url'];
-          this.loadUserBooks();
+  // Load the user's data
+  loadProfileUser() {
+    if(!this.userId) {
+      this.userService.currentUser.subscribe(
+        (userData: User) => {
+          if(userData.name){
+            this.profileUser = userData;
+            this.userLoggedIn = true;
+            this.userRole = this.profileUser.role;
+            this.userImage['url'] = `${environment.api_host}` + this.profileUser.profile_picture['url'];
+            this.loadUserBooks();
+          }
         }
-      }
-    );
+      ); 
+    }
+    else {
+      this.userService.getUserProfile(this.userId).subscribe(
+        result => {
+          this.profileUser = result['user'];
+          this.profileUser.phone = result['phones'][0];
+          this.profileUser.addresse = result['addresses'][0];
+          this.profileUser.interests = result['interests'];
+          this.userImage['url'] = `${environment.api_host}` + this.profileUser.profile_picture['url'];
+          this.userRole = this.profileUser.role;
+          this.loadUserBooks();  
+        }
+      );
+    
+    }
   }
 
   // Load user books data
   loadUserBooks() {
-    this.userService.getUserBooks(this.currentUser.id).subscribe(
+    this.userService.getUserBooks(this.profileUser.id).subscribe(
       result => {
         this.userBooks = result['users'];
       }, 

@@ -43,6 +43,10 @@ const routes: Routes = [
     component : UserProfileComponent
   },
   {
+    path: 'userprofile/:id',
+    component : UserProfileComponent
+  },
+  {
     path: 'editprofile',
     component : EditProfileComponent
   },

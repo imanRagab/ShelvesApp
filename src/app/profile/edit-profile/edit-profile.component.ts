@@ -67,8 +67,7 @@ export class EditProfileComponent implements OnInit {
       (userData: User) => {
         if(userData.name){
           this.currentUser = userData;
-          this.userRole = this.currentUser.role;
-          
+          this.userRole = this.currentUser.role;          
           this.userImage = `${environment.api_host}` + this.currentUser.profile_picture['url'];
           for(let intrest of this.currentUser.interests) {
             this.userInterests.push(intrest['id']);
@@ -103,7 +102,7 @@ export class EditProfileComponent implements OnInit {
     );
   }
 
-  // in image file change
+  // on image file change
   onFileChange(event) {
 
     if(!this.photoChanged)

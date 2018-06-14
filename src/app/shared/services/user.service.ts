@@ -113,9 +113,14 @@ export class UserService {
     return this.apiService.post(route, resetForm);
   }
 
+  // get user profile data
+  getUserProfile(id): Observable<User> {
+    const route = `/user/users/${id}`;
+    return this.apiService.get(route);
+  }
   // get user books
   getUserBooks(id: number): Observable<Array<Book>>{
     const route = `/user/users/${id}/get_user_books`;
     return this.apiService.get(route);
-  }
+  }  
 }
