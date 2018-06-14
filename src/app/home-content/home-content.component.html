@@ -24,7 +24,7 @@
 
                     <!--Category & Title-->
                     <h5>{{ book?.category?.name }}</h5>
-                    <h4 class="card-title"><strong><a href="">{{ book?.name }}</a></strong></h4>
+                    <h4 class="card-title"><strong><a routerLink="/books/{{ book?.id }}">{{ book?.name }}</a></strong></h4>
                     <h4> <span class="badge  lighten-1">{{ book?.transcation }}</span></h4>
                     <!--Description-->
                     <p class="card-text">{{ (book?.description.length>50)? (book?.description | slice:0:50)+'...':(book?.description) }}
@@ -79,7 +79,7 @@
     
                         <!--Category & Title-->
                         <h5>{{ book.category.name }}</h5>
-                        <h4 class="card-title"><strong><a href="">{{ book?.name }}</a></strong></h4>
+                        <h4 class="card-title"><strong><a routerLink="/books/{{ book?.id }}">{{ book?.name }}</a></strong></h4>
                         <h4> <span class="badge  lighten-1">{{ book?.transcation }}</span></h4>
                         <!--Description-->
                         <p class="card-text">{{ (book?.description.length>50)? (book?.description | slice:0:50)+'...':(book?.description) }}
