@@ -5,6 +5,10 @@ import * as firebase from 'firebase';
 import 'rxjs/add/operator/take';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { HttpClient , HttpHeaders} from '@angular/common/http';
+import { ApiService } from './api.service';
+import { JwtService } from './jwt.service';
+import { Observable } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class MessagingService {
@@ -15,7 +19,8 @@ export class MessagingService {
   constructor(private db: AngularFireDatabase,
      private afAuth: AngularFireAuth, 
      private httpClient: HttpClient,
-
+     private apiService: ApiService,
+     private jwtService: JwtService
     ) { 
 
   
@@ -102,5 +107,19 @@ export class MessagingService {
 
       localStorage.setItem('notification_token', newToken);
   }
-  
+
+
+  //get all notification messages For login user
+   getNotificationMessages(): Observable<Array<Notification>> {
+    const route = `/notification/notification_messages/get_user_notifications`;
+    return this.apiService.get(route);
+  }
+
+
+  //get no of unseen messages for login user
+
+   getNoUnseenNotificationMessages(): Observable<Array<Notification>> {
+    const route = `/notification/notification_messages/get_no_unseen_notification_messages`;
+    return this.apiService.get(route);
+  }
 }

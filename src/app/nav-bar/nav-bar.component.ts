@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import {
   Category,
   CategoryService,
   User,
   UserService,
+  MessagingService
 } from '../shared';
 
 @Component({
@@ -19,9 +21,14 @@ export class NavBarComponent implements OnInit {
   thirdCatArray: Array<Category>;
   currentUser: User;
   userLoggedIn: Boolean;
+  userNotifications: Array<Notification>;
+  noUnseenNotifications: Number;
+
   constructor(
     private categoryService: CategoryService,
     private userService: UserService,
+    private messageService:  MessagingService,
+    private route: ActivatedRoute
   ) {
    }
 
@@ -29,6 +36,9 @@ export class NavBarComponent implements OnInit {
     this.firstCatArray = [];
     this.secondCatArray = []; 
     this.thirdCatArray = [];
+    this.userNotifications = [];
+    this.noUnseenNotifications= null;
+   
 
     // get list of book categories
     this.getCategories();
@@ -40,9 +50,13 @@ export class NavBarComponent implements OnInit {
         this.currentUser = userData;
         if(this.currentUser.name) {
           this.userLoggedIn = true;
+          this.getUnSeenNotifications();
+          this.getNotifications(); 
         }
       }
-    );   
+    ); 
+
+     
   }
     // get list of all categories
     getCategories() {
@@ -53,6 +67,7 @@ export class NavBarComponent implements OnInit {
             if(i <= result.length/3)
               {
                 this.firstCatArray.push(result[i]);
+                
               }
             else if(i <= result.length*2/3)
               {
@@ -62,6 +77,7 @@ export class NavBarComponent implements OnInit {
             else
               {
                 this.thirdCatArray.push(result[i]);
+                
               }
           }
         },
@@ -70,7 +86,37 @@ export class NavBarComponent implements OnInit {
         }
       );
     }
+     //get all user notification messages
+     getNotifications(){
+      this.messageService.getNotificationMessages().subscribe(
+        result => {
+          if(result['status']  != 'FAIL'){
+            this.userNotifications = result['notification_messages'];
+            
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+     }
 
+
+     //get no of unseen notification messages
+
+     getUnSeenNotifications(){
+      this.messageService.getNoUnseenNotificationMessages().subscribe(
+        result => {
+          if(result['status']  != 'FAIL'){
+            this.noUnseenNotifications = result['no_unseen_notification_messages'];
+            //console.log(this.noUnseenNotifications);
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+     }
     // logout current user
     logout() {
       this.userService.purgeAuth();
