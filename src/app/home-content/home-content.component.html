@@ -37,8 +37,8 @@
     
                       <a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><i class="fa fa-user pr-2"></i></a>
                   </span>
-                        <span class="left"><strong>{{ book?.user[0]?.name }}</strong></span>
-                    </div>
+                  <span class="left"><a routerLink="/userprofile/{{ book?.user[0]?.id }}"><strong>{{ book?.user[0]?.name }}</strong></a></span>
+                </div>
 
                 </div>
                 <!--/.Card content-->
@@ -86,13 +86,13 @@
                         </p>
     
                         <!--Card footer-->
-                        <div class="card-footer">
+                        <div class="card-footer" >
     
                             <span class="right">
         
                           <a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><i class="fa fa-user pr-2"></i></a>
                       </span>
-                            <span class="left"><strong>{{ book?.user[0]?.name }}</strong></span>
+                            <span class="left"><a routerLink="/userprofile/{{ book?.user[0]?.id }}"><strong>{{ book?.user[0]?.name }}</strong></a></span>
                         </div>
     
                     </div>
