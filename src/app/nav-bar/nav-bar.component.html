@@ -68,10 +68,10 @@
                 </form>
                 <!--Notifications-->
                 <div class="btn-group"  *ngIf="userLoggedIn" dropdown>
-                    <button dropdownToggle type="" class="btndropdown-toggle waves-light" mdbWavesEffect>
+                    <button dropdownToggle type="" class="btndropdown-toggle waves-light" (click)="updateUnSennNotifications()" mdbWavesEffect>
                         <i class="fa fa-bell"></i>
                     </button>
-                    <span class="badge yellow">{{noUnseenNotifications}}</span>
+                    <span class="badge yellow" [hidden]="!noUnseenNotifications">{{noUnseenNotifications}}</span>
 
                     <!--notification badge-->
                     <div class="dropdown-menu noti ">

@@ -15,11 +15,12 @@ export class ShowNotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.userNotifications = [];
+    this.getNotifications(); 
   }
 
    //get all user notification messages
    getNotifications(){
-    this.messageService.getNotificationMessages("navbar-notifications").subscribe(
+    this.messageService.getNotificationMessages("show-notifications").subscribe(
       result => {
         if(result['status']  != 'FAIL'){
           this.userNotifications = result['notification_messages'];

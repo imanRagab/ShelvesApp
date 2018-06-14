@@ -124,6 +124,11 @@ export class MessagingService {
     
   }
 
+  updateUnseenNotificationMessages(): Observable<Array<Notification>> {
+     const route = `/notification/notification_messages/update_seen_notification`;
+     return this.apiService.put(route); 
+ }
+
   
   
 
