@@ -5,6 +5,9 @@ import * as firebase from 'firebase';
 import 'rxjs/add/operator/take';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { HttpClient , HttpHeaders} from '@angular/common/http';
+import { ApiService } from './api.service';
+import { JwtService } from './jwt.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class MessagingService {
@@ -15,7 +18,8 @@ export class MessagingService {
   constructor(private db: AngularFireDatabase,
      private afAuth: AngularFireAuth, 
      private httpClient: HttpClient,
-
+     private apiService: ApiService,
+     private jwtService: JwtService
     ) { 
 
   
@@ -106,5 +110,9 @@ export class MessagingService {
 
   //get all notification messages For login user
   
-  
+   //get recommended books
+   getNotificationMessages(id :number): Observable<Array<Notification>> {
+    const route = `/notification/notification_messages/${id}/get_user_notifications`;
+    return this.apiService.get(route);
+  }
 }

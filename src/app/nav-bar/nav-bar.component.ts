@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   Category,
   CategoryService,
   User,
   UserService,
+  MessagingService
 } from '../shared';
 
 @Component({
@@ -18,13 +20,17 @@ export class NavBarComponent implements OnInit {
   thirdCatArray: Array<Category>;
   currentUser: User;
   userLoggedIn: Boolean;
+  userNotifications: Array<Notification>;
   constructor(
     private categoryService: CategoryService,
-    private userService: UserService
+    private userService: UserService,
+    private messageService:  MessagingService,
+    private route: ActivatedRoute
   ) {
     this.firstCatArray = [];
     this.secondCatArray = []; 
     this.thirdCatArray = [];
+    this.userNotifications= [];
    }
 
   ngOnInit() {
@@ -68,7 +74,20 @@ export class NavBarComponent implements OnInit {
         }
       );
     }
-
+     //get all user notification messages
+     getNotifications(){
+      const book_id = parseInt(this.route.snapshot.paramMap.get('id'));
+      this.messageService.getNotificationMessages(book_id).subscribe(
+        result => {
+          if(result['status']  != 'FAIL'){
+            this.userNotifications = result['notification_messages'];
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+     }
     // logout current user
     logout() {
       this.userService.purgeAuth();
