@@ -14,7 +14,8 @@ import {
     BookService,
     CategoryService,
     MessagingService, 
-    NoAuthGuard
+    NoAuthGuardService,
+    AuthGuardService
 } from './services';
 
 @NgModule({
@@ -36,7 +37,8 @@ import {
       multi: true
     },
     MessagingService,
-    NoAuthGuard
+    NoAuthGuardService,
+    AuthGuardService
   ]
 })
 export class SharedModule { }

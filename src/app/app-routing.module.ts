@@ -9,7 +9,8 @@ import { UserProfileComponent } from './profile/user-profile/user-profile.compon
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { BookListComponent } from './book/book-list/book-list.component';
 
-import { NoAuthGuard } from './shared/services/no-auth-guard.service';
+import { NoAuthGuardService } from './shared/services/no-auth-guard.service';
+import { AuthGuardService } from './shared/services/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -19,20 +20,22 @@ const routes: Routes = [
   {
     path: 'login',
     component: AuthComponent,
-    canActivate: [NoAuthGuard]
+    canActivate: [NoAuthGuardService]
   },
   {
     path: 'register',
     component: AuthComponent,
-    canActivate: [NoAuthGuard]
+    canActivate: [NoAuthGuardService]
   },
   {
     path: 'books/create',
-    component: CreateComponent
+    component: CreateComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'books/edit/:id',
-    component: CreateComponent
+    component: CreateComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'books/:id',
@@ -44,15 +47,19 @@ const routes: Routes = [
   },
   {
     path: 'userprofile',
-    component : UserProfileComponent
+    component : UserProfileComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'userprofile/:id',
-    component : UserProfileComponent
+    component : UserProfileComponent,
+    canActivate: [AuthGuardService]
+
   },
   {
     path: 'editprofile',
-    component : EditProfileComponent
+    component : EditProfileComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'books',
