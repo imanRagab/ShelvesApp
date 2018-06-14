@@ -16,6 +16,7 @@ export class ShowNotificationsComponent implements OnInit {
   ngOnInit() {
     this.userNotifications = [];
     this.getNotifications(); 
+    this.updateUnSennNotifications();
   }
 
    //get all user notification messages
@@ -32,5 +33,19 @@ export class ShowNotificationsComponent implements OnInit {
       }
     );
    }
+
+     //Update Unseen Notifications Messages to be seen
+  updateUnSennNotifications() {
+    this.messageService.updateUnseenNotificationMessages().subscribe(
+      result => {
+        if (result['status'] != 'FAIL') {
+          console.log(result['message']);
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 
 }
