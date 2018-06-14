@@ -36,7 +36,6 @@ export class BookListComponent implements OnInit {
   getBooks() {
     let params = '?';
     for( let param of this.params ) {
-      console.log(param)
       params += param[0] + "=" + param[1] + "&"
     }
     this.bookService.getBooksList(params).subscribe(
@@ -47,7 +46,6 @@ export class BookListComponent implements OnInit {
         else {
           this.noResultsFound = true;
         }
-        console.log(result)
       },
       error => {
         console.log(error);

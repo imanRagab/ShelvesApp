@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import {
   Category,
   CategoryService,
@@ -20,14 +21,15 @@ export class NavBarComponent implements OnInit {
   userLoggedIn: Boolean;
   constructor(
     private categoryService: CategoryService,
-    private userService: UserService
+    private userService: UserService,
   ) {
-    this.firstCatArray = [];
-    this.secondCatArray = []; 
-    this.thirdCatArray = [];
    }
 
   ngOnInit() {
+    this.firstCatArray = [];
+    this.secondCatArray = []; 
+    this.thirdCatArray = [];
+
     // get list of book categories
     this.getCategories();
 
@@ -73,5 +75,4 @@ export class NavBarComponent implements OnInit {
     logout() {
       this.userService.purgeAuth();
     }
-
 }
