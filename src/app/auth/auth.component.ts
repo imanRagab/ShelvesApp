@@ -59,14 +59,16 @@ export class AuthComponent implements OnInit {
     .subscribe(
       data => {
         if( data['status'] == 'FAIL' ) {
-          this.error = (data['message'])
+          this.error = data['message']
         }
         else {
+          if( data['message'] ) {
+            alert(data['message'])
+          }
           this.router.navigateByUrl('/');
         }
     },
       err => {
-        // this.errors = err;
         console.log(err)
       }
     );
@@ -75,13 +77,15 @@ export class AuthComponent implements OnInit {
   // submit reset password form
   resetPassword() {
 
+    this.error = "";
     this.userService.resetPassword(this.resetPasswordForm.value).subscribe(
       result => {
-        alert(result.message)
+        alert(result.message);
+        this.router.navigateByUrl('/');
       },
       error => {
         // console.log(error)
-        alert("Error in email");
+        this.error = "This email doesn't exist";
       }
     );
   }

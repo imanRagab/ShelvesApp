@@ -74,10 +74,12 @@ export class UserService {
       .pipe(map(
       data => {
         if(data.status == "SUCCESS"){
-          this.setAuth(data.user, data.auth_token);
-          this.messagingService.getPermission(this.getCurrentUser().id)
-          this.messagingService.receiveMessage()
-          this.message = this.messagingService.currentMessage
+          if( type === 'login' ) {
+            this.setAuth(data.user, data.auth_token);
+            this.messagingService.getPermission(this.getCurrentUser().id)
+            this.messagingService.receiveMessage()
+            this.message = this.messagingService.currentMessage
+          }
         }
         return data;
       }
