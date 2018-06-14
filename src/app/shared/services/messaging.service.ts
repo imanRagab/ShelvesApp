@@ -8,6 +8,7 @@ import { HttpClient , HttpHeaders} from '@angular/common/http';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 import { Observable } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class MessagingService {
@@ -109,8 +110,6 @@ export class MessagingService {
 
 
   //get all notification messages For login user
-  
-   //get recommended books
    getNotificationMessages(id :number): Observable<Array<Notification>> {
     const route = `/notification/notification_messages/${id}/get_user_notifications`;
     return this.apiService.get(route);

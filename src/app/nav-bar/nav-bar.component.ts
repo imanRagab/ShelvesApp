@@ -30,7 +30,8 @@ export class NavBarComponent implements OnInit {
     this.firstCatArray = [];
     this.secondCatArray = []; 
     this.thirdCatArray = [];
-    this.userNotifications= [];
+    this.userNotifications = [];
+   
    }
 
   ngOnInit() {
@@ -44,9 +45,12 @@ export class NavBarComponent implements OnInit {
         this.currentUser = userData;
         if(this.currentUser.name) {
           this.userLoggedIn = true;
+          this.getNotifications(); 
         }
       }
-    );   
+    ); 
+
+     
   }
     // get list of all categories
     getCategories() {
@@ -76,8 +80,7 @@ export class NavBarComponent implements OnInit {
     }
      //get all user notification messages
      getNotifications(){
-      const book_id = parseInt(this.route.snapshot.paramMap.get('id'));
-      this.messageService.getNotificationMessages(book_id).subscribe(
+      this.messageService.getNotificationMessages(this.currentUser.id).subscribe(
         result => {
           if(result['status']  != 'FAIL'){
             this.userNotifications = result['notification_messages'];

@@ -75,23 +75,35 @@
                             </div>
                             <div class="divider dropdown-divider"></div>
                             <ul>
-                                <li> <a class="dropdown-item" href="#">Lorem Lorem ipsum dolor sit amet consectetur</a></li>
+                                <div *ngFor="let notification of userNotifications">
+                                <li> <a class="dropdown-item" href="{{ notification?.click_action }}">{{ notification?.body }}</a></li>
     
                                 <li>
                                     <div class="divider dropdown-divider"></div>
                                 </li>
-                                <li> <a class="dropdown-item" href="#">Lorem Lorem ipsum dolor sit amet consectetur</a></li>
-                                <li>
-                                    <div class="divider dropdown-divider"></div>
-                                </li>
-                                <li> <a class="dropdown-item" href="#">Lorem ipsum dolor sit amet consectetur</a></li>
-                                <li>
-                                    <div class="divider dropdown-divider"></div>
-                                </li>
-                                <li> <a class="dropdown-item" href="#">Lorem ipsum dolor sit amet consectetur</a></li>
-                                <li>
-                                    <div class="divider dropdown-divider"></div>
-                                </li>
+                            </div>
+                            <!-- <div>
+                                    <li> <a class="dropdown-item" href="#">Lorem Lorem ipsum dolor sit amet consectetur</a></li>
+        
+                                    <li>
+                                        <div class="divider dropdown-divider"></div>
+                                    </li>
+                                </div>
+                                <div>
+                                        <li> <a class="dropdown-item" href="#">Lorem Lorem ipsum dolor sit amet consectetur</a></li>
+            
+                                        <li>
+                                            <div class="divider dropdown-divider"></div>
+                                        </li>
+                                    </div>
+                                    <div>
+                                            <li> <a class="dropdown-item" href="#">Lorem Lorem ipsum dolor sit amet consectetur</a></li>
+                
+                                            <li>
+                                                <div class="divider dropdown-divider"></div>
+                                            </li>
+                                        </div>
+                       -->         
                                 <li class="text-center"> <a href=""><span > See All</span> </a> </li>
                             </ul>
                         </div>
