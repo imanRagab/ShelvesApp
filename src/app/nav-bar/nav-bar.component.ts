@@ -64,6 +64,7 @@ export class NavBarComponent implements OnInit {
             if(i <= result.length/3)
               {
                 this.firstCatArray.push(result[i]);
+                
               }
             else if(i <= result.length*2/3)
               {
@@ -73,6 +74,7 @@ export class NavBarComponent implements OnInit {
             else
               {
                 this.thirdCatArray.push(result[i]);
+                
               }
           }
         },
@@ -83,10 +85,28 @@ export class NavBarComponent implements OnInit {
     }
      //get all user notification messages
      getNotifications(){
-      this.messageService.getNotificationMessages(this.currentUser.id).subscribe(
+      this.messageService.getNotificationMessages().subscribe(
         result => {
           if(result['status']  != 'FAIL'){
             this.userNotifications = result['notification_messages'];
+            
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+     }
+
+
+     //get no of unseen notification messages
+
+     getUnSeenNotifications(){
+      this.messageService.getNotificationMessages().subscribe(
+        result => {
+          if(result['status']  != 'FAIL'){
+            this.userNotifications = result['notification_messages'];
+            
           }
         },
         error => {

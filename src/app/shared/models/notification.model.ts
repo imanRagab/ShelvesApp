@@ -7,6 +7,6 @@ export interface Notification {
     icon: object;
     receiver_user: User;
     sender_user: User;
-    created_at: string;
+    created_at: any;
   
 }

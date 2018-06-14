@@ -16,27 +16,31 @@
                 <!-- Links -->
                 <ul class="navbar-nav mr-auto  ">
                     <li class="nav-item active ">
-                        <a class="nav-link waves-light"  routerLink="/" mdbWavesEffect>Home<span class="sr-only">(current)</span></a>
+                        <a class="nav-link waves-light" routerLink="/" mdbWavesEffect>Home
+                            <span class="sr-only">(current)</span>
+                        </a>
                     </li>
                     <li class="nav-item dropdown " dropdown>
                         <a dropdownToggle mdbWavesEffect class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-                Categories<span class="caret"></span></a>
+                            Categories
+                            <span class="caret"></span>
+                        </a>
                         <div *dropdownMenu class="dropdown-menu dropdown " role="menu">
                             <div class="col-lg-4">
                                 <a class="dropdown-item waves-light" mdbWavesEffect href="#" *ngFor="let category of firstCatArray">
-                                        {{ category.name }}
+                                    {{ category.name }}
                                 </a>
                             </div>
                             <div class="col-lg-4">
-                                    <a class="dropdown-item waves-light" mdbWavesEffect href="#" *ngFor="let category of secondCatArray">
-                                            {{ category.name }}
-                                    </a>
+                                <a class="dropdown-item waves-light" mdbWavesEffect href="#" *ngFor="let category of secondCatArray">
+                                    {{ category.name }}
+                                </a>
 
                             </div>
                             <div class="col-lg-4">
-                                    <a class="dropdown-item waves-light" mdbWavesEffect href="#" *ngFor="let category of thirdCatArray">
-                                            {{ category.name }}
-                                    </a>
+                                <a class="dropdown-item waves-light" mdbWavesEffect href="#" *ngFor="let category of thirdCatArray">
+                                    {{ category.name }}
+                                </a>
 
                             </div>
                         </div>
@@ -53,41 +57,55 @@
 
                 </ul>
                 <!-- Links -->
-                <button type="button" class="btn addBookBtn" routerLink="/books/create" mdbWavesEffect><i class="fa fa-plus" aria-hidden="true"></i> Add Book </button>                <!-- Search form -->
+                <button type="button" class="btn addBookBtn" routerLink="/books/create" mdbWavesEffect>
+                    <i class="fa fa-plus" aria-hidden="true"></i> Add Book </button>
+                <!-- Search form -->
                 <form class="form-inline waves-light" mdbWavesEffect>
                     <div class="md-form mt-0 mr-5">
                         <input class="form-control mr-sm-2" type="text" placeholder="Search Your Book">
                     </div>
 
                 </form>
-                 <!--Notifications-->
-                 <div class="btn-group" dropdown>
-                        <button dropdownToggle type="" class="btndropdown-toggle waves-light" mdbWavesEffect>
-                            <i class="fa fa-bell"></i>
-                        </button>
-                        <span class="badge yellow">3</span>
-    
-                        <!--notification badge-->
-                        <div class="dropdown-menu noti ">
-                            <div class="notiHeader">
-                                <h5 class="col-lg-8">Notifications</h5>
-                                <a class="col-lg-4 "><span>Dismiss</span> </a>
-                            </div>
-                            <div class="divider dropdown-divider"></div>
-                            <ul>
-                                <div *ngFor="let notification of userNotifications">
-                                <li> <a class="dropdown-item" href="{{ notification?.click_action }}">{{ notification?.body }}</a></li>
-    
+                <!--Notifications-->
+                <div class="btn-group" dropdown>
+                    <button dropdownToggle type="" class="btndropdown-toggle waves-light" mdbWavesEffect>
+                        <i class="fa fa-bell"></i>
+                    </button>
+                    <span class="badge yellow">3</span>
+
+                    <!--notification badge-->
+                    <div class="dropdown-menu noti ">
+                        <div class="notiHeader">
+                            <h5 class="col-lg-8">Notifications</h5>
+                            <a class="col-lg-4 ">
+                                <span>Dismiss</span>
+                            </a>
+                        </div>
+                        <div class="divider dropdown-divider"></div>
+                        <ul>
+                            <div *ngFor="let notification of userNotifications">
+                                <li>
+                                    <img width="70px" style="float: left;" src="{{ notification?.icon }}" class="img-fluid rounded-circle z-depth-2">
+                                    <a class="dropdown-item" href="{{ notification?.click_action }}">{{ notification?.body }}</a>
+                                    <label>{{notification?.created_at}}</label>
+                                </li>
+
                                 <li>
                                     <div class="divider dropdown-divider"></div>
                                 </li>
                             </div>
-                           
-                                <li class="text-center"> <a href=""><span > See All</span> </a> </li>
-                            </ul>
-                        </div>
+
+                            <li class="text-center">
+                                <a href="">
+                                    <span> See All</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-                <a routerLink="/userprofile" class="prof" *ngIf="userLoggedIn"> <i class="fa fa-user-circle "></i></a>
+                </div>
+                <a routerLink="/userprofile" class="prof" *ngIf="userLoggedIn">
+                    <i class="fa fa-user-circle "></i>
+                </a>
             </links>
             <!-- Collapsible content -->
 

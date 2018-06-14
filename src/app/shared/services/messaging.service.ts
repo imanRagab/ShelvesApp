@@ -110,8 +110,16 @@ export class MessagingService {
 
 
   //get all notification messages For login user
-   getNotificationMessages(id :number): Observable<Array<Notification>> {
-    const route = `/notification/notification_messages/${id}/get_user_notifications`;
+   getNotificationMessages(): Observable<Array<Notification>> {
+    const route = `/notification/notification_messages/get_user_notifications`;
+    return this.apiService.get(route);
+  }
+
+
+  //get no of unseen messages for login user
+
+   getNoUnseenNotificationMessages(): Observable<Array<Notification>> {
+    const route = `/notification/notification_messages/get_no_unseen_notification_messages`;
     return this.apiService.get(route);
   }
 }
