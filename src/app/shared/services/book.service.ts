@@ -52,4 +52,10 @@ export class BookService {
     const route = `/book/books/recommended_books`;
     return this.apiService.get(route);
   }
+
+  // get books list
+  getBooksList(params): Observable<Array<Book>> {
+    const route = `/book/books/`;
+    return this.apiService.get(route + params);
+  }
 }

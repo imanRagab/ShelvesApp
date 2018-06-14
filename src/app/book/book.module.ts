@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { BookListComponent } from './book-list/book-list.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     RouterModule,
     MDBBootstrapModule.forRoot(),
   ],
-  declarations: [ShowComponent, CreateComponent]
+  declarations: [ShowComponent, CreateComponent, BookListComponent]
 })
 export class BookModule { }
