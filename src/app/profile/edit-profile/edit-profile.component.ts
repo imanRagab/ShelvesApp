@@ -7,7 +7,9 @@ import {
   User,
   UserService,
   Category,
-  CategoryService
+  CategoryService,
+  City,
+  CitiesService
 } from '../../shared';
 
 @Component({
@@ -25,9 +27,11 @@ export class EditProfileComponent implements OnInit {
   username: string;
   userInterests: Array<any>;
   photoChanged: Boolean;
+  cities: Array<object>;
   constructor(
     private userService: UserService,
     private categoryService: CategoryService,
+    private citiesService: CitiesService,
     private fb: FormBuilder,
     private router: Router,
   ) { 
@@ -56,6 +60,7 @@ export class EditProfileComponent implements OnInit {
     this.getCategories();
     this.loadCurrentUser();
     this.getCategories();
+    this.getCities();
   }
 
   // load the current user's data
@@ -124,6 +129,20 @@ export class EditProfileComponent implements OnInit {
     this.userService.update(this.editForm.value, this.currentUser.id).subscribe(
       result => {
         this.router.navigateByUrl('/userprofile');
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  // get cities
+  getCities() {
+    this.citiesService.getCities().subscribe(
+      result => {
+        if(result['status'] == "SUCCESS") {
+          this.cities = result['cities'];
+        }
       },
       error => {
         console.log(error);
