@@ -15,9 +15,9 @@ export class BookListComponent implements OnInit {
   books: Array<Book>;
   category: string;
   searchValue: string;
-  page: string;
   params: Array<object>
   noResultsFound: Boolean;
+  paginationMeta: object;
   constructor(
     private bookService: BookService,
     private route: ActivatedRoute
@@ -31,6 +31,7 @@ export class BookListComponent implements OnInit {
   ngOnInit() {
     this.params = [];
     this.noResultsFound = false;
+    this.paginationMeta = {};
   }
 
   getBooks() {
@@ -42,6 +43,7 @@ export class BookListComponent implements OnInit {
       result => {
         if(result['status']  != "FAIL") {
           this.books = result['books'];
+          this.paginationMeta = result['meta']['pagination']
         }
         else {
           this.noResultsFound = true;
