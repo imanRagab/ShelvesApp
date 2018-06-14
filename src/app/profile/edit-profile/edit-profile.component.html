@@ -65,7 +65,7 @@
 
                         <div class="form-group col-md-8">
                             <select id="City" class="form-control" formControlName="city">
-                                <option *ngFor="let city of cities" [selected]="currentUser?.addresses[0]?.city==city.name">{{ city.name }}</option>
+                                <option *ngFor="let city of cities" [selected]="currentUser?.addresse?.city==city.name">{{ city.name }}</option>
                             </select>
                         </div>
                         <div class="col-md-4"></div>

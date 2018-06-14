@@ -21,12 +21,13 @@
                     <ul>
                         <li *ngIf="userRole == 'Normal user'"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{ currentUser?.gender }}</li>
                         <li><i class="fa fa-location-arrow" aria-hidden="true"></i>&nbsp;                      
-                        <span>{{ userAddresses[0] }}</span>
+                        <span>{{ currentUser?.addresse?.building_number + " " + currentUser?.addresse?.street
+                            + " st. " + currentUser?.addresse?.city + ", " + currentUser?.addresse?.region }}</span>
                         </li>
                         <li><i class="fa fa-phone" aria-hidden="true">&nbsp;
                         </i>
-                        <span>{{ currentUser?.phones[0]?.phone }}</span>
-                        <span *ngFor="let phone of currentUser.phones | slice:1"> - {{ phone?.phone }}</span>
+                        <span>{{ currentUser?.phone?.phone }}</span>
+                        <!-- <span *ngFor="let phone of currentUser.phones | slice:1"> - {{ phone?.phone }}</span> -->
                         </li>
                     </ul>
 

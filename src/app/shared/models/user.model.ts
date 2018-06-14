@@ -7,7 +7,7 @@ export interface User {
     gender: string;
     role: string;
     rate: number;
-    phones: Array<string>;
-    addresses: Array<string>;
+    phone: string;
+    addresse: string;
     interests: Array<object>;
 }

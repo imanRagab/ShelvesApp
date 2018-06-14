@@ -53,8 +53,6 @@ export class EditProfileComponent implements OnInit {
     this.photoChanged = false;
     this.categories = [];
     this.currentUser = <User>{};
-    this.currentUser.phones = <Array<string>>[];
-    this.currentUser.addresses = <Array<string>>[];
     this.userImage = "";
     this.userInterests = [];
     this.getCategories();
@@ -78,12 +76,12 @@ export class EditProfileComponent implements OnInit {
           this.editForm.setValue({
             name: this.currentUser.name,
             gender: this.currentUser.gender,
-            postal_code: this.currentUser.addresses[0]['postal_code'],
-            building_number: this.currentUser.addresses[0]['building_number'],
-            street: this.currentUser.addresses[0]['street'],
-            region: this.currentUser.addresses[0]['region'],
-            city: this.currentUser.addresses[0]['city'],
-            phone: this.currentUser.phones[0]['phone'],
+            postal_code: this.currentUser.addresse['postal_code'],
+            building_number: this.currentUser.addresse['building_number'],
+            street: this.currentUser.addresse['street'],
+            region: this.currentUser.addresse['region'],
+            city: this.currentUser.addresse['city'],
+            phone: this.currentUser.phone['phone'],
             interests: this.userInterests
           });
           if(this.userRole == 'Normal user'){
