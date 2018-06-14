@@ -22,6 +22,8 @@ export class NavBarComponent implements OnInit {
   currentUser: User;
   userLoggedIn: Boolean;
   userNotifications: Array<Notification>;
+  noUnseenNotifications: Number;
+
   constructor(
     private categoryService: CategoryService,
     private userService: UserService,
@@ -35,7 +37,7 @@ export class NavBarComponent implements OnInit {
     this.secondCatArray = []; 
     this.thirdCatArray = [];
     this.userNotifications = [];
-   
+    this.noUnseenNotifications= null;
    
 
     // get list of book categories
@@ -48,6 +50,7 @@ export class NavBarComponent implements OnInit {
         this.currentUser = userData;
         if(this.currentUser.name) {
           this.userLoggedIn = true;
+          this.getUnSeenNotifications();
           this.getNotifications(); 
         }
       }
@@ -102,11 +105,11 @@ export class NavBarComponent implements OnInit {
      //get no of unseen notification messages
 
      getUnSeenNotifications(){
-      this.messageService.getNotificationMessages().subscribe(
+      this.messageService.getNoUnseenNotificationMessages().subscribe(
         result => {
           if(result['status']  != 'FAIL'){
-            this.userNotifications = result['notification_messages'];
-            
+            this.noUnseenNotifications = result['no_unseen_notification_messages'];
+            //console.log(this.noUnseenNotifications);
           }
         },
         error => {

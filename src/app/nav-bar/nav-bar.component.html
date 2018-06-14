@@ -57,7 +57,7 @@
 
                 </ul>
                 <!-- Links -->
-                <button type="button" class="btn addBookBtn" routerLink="/books/create" mdbWavesEffect>
+                <button type="button" class="btn addBookBtn" routerLink="/books/create" mdbWavesEffect *ngIf="userLoggedIn">
                     <i class="fa fa-plus" aria-hidden="true"></i> Add Book </button>
                 <!-- Search form -->
                 <form class="form-inline waves-light" mdbWavesEffect>
@@ -67,11 +67,11 @@
 
                 </form>
                 <!--Notifications-->
-                <div class="btn-group" dropdown>
+                <div class="btn-group" dropdown *ngIf="userLoggedIn">
                     <button dropdownToggle type="" class="btndropdown-toggle waves-light" mdbWavesEffect>
                         <i class="fa fa-bell"></i>
                     </button>
-                    <span class="badge yellow">3</span>
+                    <span class="badge yellow">{{noUnseenNotifications}}</span>
 
                     <!--notification badge-->
                     <div class="dropdown-menu noti ">
