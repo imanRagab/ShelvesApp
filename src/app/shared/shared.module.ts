@@ -6,12 +6,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpTokenInterceptor } from './interceptors/http-token-interceptor';
 
+
 import {
     JwtService,
     ApiService,
     UserService,
     BookService,
-    CategoryService
+    CategoryService,
+    MessagingService, 
 } from './services';
 
 @NgModule({
@@ -31,7 +33,8 @@ import {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpTokenInterceptor,
       multi: true
-    }
+    },
+    MessagingService 
   ]
 })
 export class SharedModule { }

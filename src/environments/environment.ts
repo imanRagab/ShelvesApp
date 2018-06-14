@@ -5,7 +5,15 @@
 export const environment = {
   production: false,
   api_url: 'http://localhost:3000/api/v1',
-  api_host: 'http://localhost:3000'
+  api_host: 'http://localhost:3000',
+  firebaseConfig: {
+    apiKey: "AIzaSyCZkxlA2tCOEf9_8b-u98x9eGViHzIyWqI",
+    authDomain: "shelves-53a9b.firebaseapp.com",
+    databaseURL: "https://shelves-53a9b.firebaseio.com",
+    projectId: "shelves-53a9b",
+    storageBucket: "shelves-53a9b.appspot.com",
+    messagingSenderId: "738318781916"
+  }
 };
 
 /*
