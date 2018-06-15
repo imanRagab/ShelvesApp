@@ -22,6 +22,7 @@ export class ShowComponent implements OnInit {
   canModify: boolean;
   similarBooks: Array<Book>;
   orderForm: FormGroup;
+  orderSellForm: FormGroup;
   error: string;
   message: string;
   orderFormErrors = {};
@@ -41,6 +42,9 @@ export class ShowComponent implements OnInit {
     this.getSimilarBooks(); 
     this.orderForm = this.fb.group({
       'price': ['', [Validators.required]]
+    });
+    this.orderSellForm = this.fb.group({
+      'quantity': ['', [Validators.required]]
     });
   }
 
@@ -69,8 +73,8 @@ export class ShowComponent implements OnInit {
   getSimilarBooks() {
   }
 
+//order book for sell by bids
   updateBidPrice(){
-    
     let price = this.orderForm.value.price;
     this.bookService
     .updateBidForBook(this.book.id,price)
@@ -95,11 +99,47 @@ export class ShowComponent implements OnInit {
       }
     );
   }
+
+  //order book for Sell 
+   
+  orderBookForSell(){
+    let quantity = this.orderSellForm.value.quantity;
+    this.bookService
+    .orderToSellBook(this.book.id,quantity)
+    .subscribe(
+      result => {
+        console.log(result);
+        if( result['status'] == 'FAIL' ) {
+          this.error = result['message']
+        }
+        else {
+          if( result['message'] ) {
+            this.message = result['message']
+           
+          }
+         
+        }
+    },
+      error => {
+        alert("Couldn\'t make Bid on this Book")
+        this.router.navigateByUrl('/');
+         console.log(error);
+      }
+    );
+  }
+
+  
   // submit order form
   submitOrder() {
-   this.updateBidPrice();
-  
-   
+    console.log(this.book.transcation);
+    if (this.book.transcation == "Sell By Bids")
+    {
+      this.updateBidPrice();
+    }else if (this.book.transcation == "Sell")
+    {
+      this.orderBookForSell();
+    }  
+        
   }
 
   reload(){

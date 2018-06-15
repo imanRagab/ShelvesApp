@@ -177,7 +177,7 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                                <form [formGroup]="orderSellForm" (ngSubmit)="submitSellOrder()" class="form-horizontal" role="form">
+                                                <form [formGroup]="orderSellForm" (ngSubmit)="submitOrder()" class="form-horizontal" role="form">
                                                         <div class="alert alert-success" *ngIf="message">
                                                             <span>{{ message }}</span>
                                                         </div>
@@ -189,11 +189,11 @@
                                                             <label for="txtarea">Book quantity : {{ book?.quantity }}</label> 
                                                             <label for="txtarea">Enter number of books wanted to sell </label>
                                                             <input formControlName="quantity" type="number" class="form-control" name="quantity" [(ngModel)]="quantity" />
-                                                            <p> Total Price : {{ quantity  }} </p>
+                                                            <p> Total Price : {{ quantity * book?.price }} </p>
                                                            
                                                         </div>
                                                         <div class="modal-footer justify-content-center">
-                                                            <button type="button" class="btn btn-danger waves-light" data-dismiss="modal" (click)="fluid2.hide()"  (click)="reload()"  mdbWavesEffect>Close</button>
+                                                            <button type="button" class="btn btn-danger waves-light" data-dismiss="modal" (click)="fluid3.hide()"  (click)="reload()"  mdbWavesEffect>Close</button>
                                                             <button type="submit" class="btn btn-primary waves-light"   mdbWavesEffect>Save changes</button>
                                                         </div>
             
