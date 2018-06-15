@@ -8,40 +8,29 @@
         <!--Name-->
         <!-- <h3 class="h3-responsive text-center">About author</h3>
             <hr> -->
-
-        <!--Avatar-->
-        <div class="col-lg-4 col-md-6 col-sm-2 " height="100px">
-            <img src="http://localhost:3000{{book?.book_images[0]?.image?.url}}" class="img-fluid z-depth-2">
-
-        </div>
-
-        <!--Author Data-->
-        <div class=" col-8 col-sm-10">
-
-            <div class="personal-sm col-lg-8">
-                <ul [ngSwitch]="book?.transcation">
-                    <!--book Name-->
-                    <li>
-                        <h3>
-                            <strong>{{ book?.name }}</strong>
-                        </h3>
-                        <hr>
-                    </li>
-                    <li>
-                        <label for="" class="font-weight-bold">Category :&nbsp;</label>{{ book?.category.name }}</li>
-                    <li>
-                        <label for="" class="font-weight-bold">Description :&nbsp;</label>{{ book?.description }}</li>
-                    <li>
-                        <label for="" class="font-weight-bold">For :&nbsp;</label>{{ book?.transcation }}</li>
-                    <li *ngIf="book?.price">
-                        <label for="" class="font-weight-bold">Price :&nbsp;</label>{{ book?.price }}
-                        <label class="font-weight-bold">&nbsp;L.E</label>
-                    </li>
-                    
-                    <li>
-                        <label for="" class="font-weight-bold">Quantity :&nbsp;</label>{{ book?.quantity }}</li>
-                    <li>
-                        <label for="" class="font-weight-bold">For bid till : </label> 15-7-2018 </li>
+    
+            <!--Avatar-->
+            <div class="col-lg-4 col-md-6 col-sm-2 " height="100px">
+                <img src="http://localhost:3000{{book?.book_images[0]?.image?.url}}" class="img-fluid z-depth-2">
+    
+            </div>
+    
+            <!--Author Data-->
+            <div class=" col-8 col-sm-10">
+    
+                <div class="personal-sm col-lg-8">
+                    <ul>
+                        <!--book Name-->
+                        <li>
+                            <h3><strong>{{ book?.name }}</strong></h3>
+                            <hr>
+                        </li>
+                        <li> <label for="" class="font-weight-bold">Category :&nbsp;</label>{{ book?.category.name }}</li>
+                        <li> <label for="" class="font-weight-bold">Description :&nbsp;</label>{{ book?.description }}</li>
+                        <li> <label for="" class="font-weight-bold">For :&nbsp;</label>{{ book?.transcation }}</li>
+                        <li *ngIf="book?.price"> <label for="" class="font-weight-bold">Price :&nbsp;</label>{{ book?.price }}<label class="font-weight-bold">&nbsp;L.E</label> </li>
+                        <li> <label for="" class="font-weight-bold">Quantity :&nbsp;</label>{{ book?.quantity }}</li>
+                        <li *ngIf="book?.bid_duration"> <label for="" class="font-weight-bold">For bid till :&nbsp;</label> {{ book?.bid_duration }} </li> 
                     <!--Rating-->
                     <!-- <li> <label for="" class="font-weight-bold">Rate : </label>
                         <p-rating [(ngModel)]="val" class="rates"></p-rating>
