@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {RatingModule} from 'primeng/rating';
 
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
@@ -17,6 +18,7 @@ import { AngularFireDatabaseModule } from "angularfire2/database";
 import { AngularFireAuthModule }     from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from './../environments/environment';
+
 import {
   SharedModule
 } from './shared';
@@ -38,6 +40,7 @@ import { FooterComponent } from './footer/footer.component';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     BrowserModule,
+    RatingModule,
     SharedModule,
     RouterModule,
     AppRoutingModule,

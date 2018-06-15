@@ -72,17 +72,25 @@ export class EditProfileComponent implements OnInit {
           for(let intrest of this.currentUser.interests) {
             this.userInterests.push(intrest['id']);
           }
-          this.editForm.setValue({
+          this.editForm.patchValue({
             name: this.currentUser.name,
             gender: this.currentUser.gender,
-            postal_code: this.currentUser.addresse['postal_code'],
-            building_number: this.currentUser.addresse['building_number'],
-            street: this.currentUser.addresse['street'],
-            region: this.currentUser.addresse['region'],
-            city: this.currentUser.addresse['city'],
-            phone: this.currentUser.phone['phone'],
-            interests: this.userInterests
+            interests: this.currentUser.interests
           });
+          if(this.currentUser.addresse) {
+            this.editForm.patchValue({
+              postal_code: this.currentUser.addresse['postal_code'],
+              building_number: this.currentUser.addresse['building_number'],
+              street: this.currentUser.addresse['street'],
+              region: this.currentUser.addresse['region'],
+              city: this.currentUser.addresse['city'],
+            });
+          }
+          if(this.currentUser.phone) {
+            this.editForm.patchValue({
+              phone: this.currentUser.phone['phone'],
+            });
+          }
           if(this.userRole == 'Normal user'){
             this.editForm.addControl('gender', new FormControl(this.currentUser.gender,Validators.required));
           }
