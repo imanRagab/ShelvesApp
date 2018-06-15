@@ -30,7 +30,7 @@
                         <li> <label for="" class="font-weight-bold">For :&nbsp;</label>{{ book?.transcation }}</li>
                         <li *ngIf="book?.price"> <label for="" class="font-weight-bold">Price :&nbsp;</label>{{ book?.price }}<label class="font-weight-bold">&nbsp;L.E</label> </li>
                         <li> <label for="" class="font-weight-bold">Quantity :&nbsp;</label>{{ book?.quantity }}</li>
-                        <li> <label for="" class="font-weight-bold">For bid till : </label> 15-7-2018 </li> 
+                        <li *ngIf="book?.bid_duration"> <label for="" class="font-weight-bold">For bid till :&nbsp;</label> {{ book?.bid_duration }} </li> 
                     <!--Rating-->
                     <li> <label for="" class="font-weight-bold">Rate : </label>
                         <p-rating [(ngModel)]="val" class="rates"></p-rating>

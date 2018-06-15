@@ -44,9 +44,10 @@ export class CreateComponent implements OnInit {
         Validators.minLength(50),
       ]],
       'category_id': [1, Validators.required],
-      'price': [null, Validators.required],
+      'price': [null, ],
       'quantity': [1, Validators.required],
-      'transcation': ['Free Share', Validators.required]
+      'transcation': ['Free Share', ],
+      'bid_duration': ['', ]
     });
    }
 
@@ -88,7 +89,9 @@ export class CreateComponent implements OnInit {
               this.bookForm.controls['description'].setValue(this.book.description);
               this.bookForm.controls['category_id'].setValue(this.book.category['id']);
               this.bookForm.controls['transcation'].setValue(this.book['transcation']);           
-              this.bookForm.controls['price'].setValue(this.book['price']);           
+              this.bookForm.controls['price'].setValue(this.book['price']);     
+              this.bookForm.controls['bid_duration'].setValue(this.book['bid_duration']);       
+      
               for(let bookImage of this.book.book_images) {
                 this.bookImages.push(`${environment.api_host}` + bookImage.image.url);
               }

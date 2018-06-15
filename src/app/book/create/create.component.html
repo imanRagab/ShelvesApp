@@ -64,11 +64,10 @@
                     <div class="form-group col-md-4" *ngIf="isBookStore">
                         <label for="txtarea">Quantity</label>
                         <input formControlName="quantity" type="number" class="form-control" value="{{ book?.quantity }}" name="quantity"  />
-                        <label for="" *ngIf="isBids">For bid till : </label>
                     </div>
-                    <div>
-    
-    
+                    <div class="form-group col-md-4" *ngIf="isBids" >
+                        <label for="" *ngIf="isBids">For bid till : </label>
+                        <input formControlName="bid_duration" type="date" class="form-control" value="{{ book?.bid_duration}}" name="bid_duration"/>
                     </div>
                     <!-- <button type="submit">
                     Create
