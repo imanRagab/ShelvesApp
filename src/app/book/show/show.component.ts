@@ -22,6 +22,8 @@ export class ShowComponent implements OnInit {
   canModify: boolean;
   similarBooks: Array<Book>;
   orderForm: FormGroup;
+  error: string;
+  message: string;
   orderFormErrors = {};
   constructor(
     private route: ActivatedRoute,
@@ -32,12 +34,13 @@ export class ShowComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.error = "";
+    this.message= "";
     this.similarBooks = [];
     this.getBook();
     this.getSimilarBooks(); 
     this.orderForm = this.fb.group({
-      'price': ['', [Validators.required, Validators.min(this.book.price)]]
+      'price': ['', [Validators.required]]
     });
   }
 
@@ -67,17 +70,40 @@ export class ShowComponent implements OnInit {
   }
 
   updateBidPrice(){
-
+    
+    let price = this.orderForm.value.price;
+    this.bookService
+    .updateBidForBook(this.book.id,price)
+    .subscribe(
+      result => {
+        console.log(result);
+        if( result['status'] == 'FAIL' ) {
+          this.error = result['message']
+        }
+        else {
+          if( result['message'] ) {
+            this.message = result['message']
+           
+          }
+         
+        }
+    },
+      error => {
+        alert("Couldn\'t make Bid on this Book")
+        this.router.navigateByUrl('/');
+         console.log(error);
+      }
+    );
   }
   // submit order form
   submitOrder() {
-    console.log("sd");
-    console.log(this.orderForm.value);
- 
-   
-
-   // this.updateBidPrice();
-
+   this.updateBidPrice();
   
+   
   }
+
+  reload(){
+    location.reload()
+  }
+ 
 }

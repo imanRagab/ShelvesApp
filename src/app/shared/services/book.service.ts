@@ -61,8 +61,8 @@ export class BookService {
 
   //updateBid For Book
 
-  updateBidForBook(book :object): Observable<Book> {
-    const route = `/book/books/${book['id']}/update_bid`;
-    return this.apiService.put(route, {book: book});
+  updateBidForBook(bookID,price): Observable<Book> {
+    const route = `/book/books/${bookID}/update_bid`;
+    return this.apiService.put(route, {price: price});
   }
 }
