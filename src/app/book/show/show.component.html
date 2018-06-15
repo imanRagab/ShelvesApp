@@ -18,8 +18,8 @@
             <!--Author Data-->
             <div class=" col-8 col-sm-10">
     
-                <div class="personal-sm col-lg-8">
-                    <ul>
+                <div class="personal-sm col-lg-8" >
+                    <ul [ngSwitch]="book?.transcation">
                         <!--book Name-->
                         <li>
                             <h3><strong>{{ book?.name }}</strong></h3>
