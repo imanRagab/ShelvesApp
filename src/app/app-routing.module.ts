@@ -10,6 +10,9 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
 import { BookListComponent } from './book/book-list/book-list.component';
 import { ShowNotificationsComponent } from './notifications/show-notifications/show-notifications.component'
 
+import { NoAuthGuardService } from './shared/services/no-auth-guard.service';
+import { AuthGuardService } from './shared/services/auth-guard.service';
+
 const routes: Routes = [
   {
     path: '' ,
@@ -18,18 +21,22 @@ const routes: Routes = [
   {
     path: 'login',
     component: AuthComponent,
+    canActivate: [NoAuthGuardService]
   },
   {
     path: 'register',
     component: AuthComponent,
+    canActivate: [NoAuthGuardService]
   },
   {
     path: 'books/create',
-    component: CreateComponent
+    component: CreateComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'books/edit/:id',
-    component: CreateComponent
+    component: CreateComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'books/:id',
@@ -41,11 +48,19 @@ const routes: Routes = [
   },
   {
     path: 'userprofile',
-    component : UserProfileComponent
+    component : UserProfileComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'userprofile/:id',
+    component : UserProfileComponent,
+    canActivate: [AuthGuardService]
+
   },
   {
     path: 'editprofile',
-    component : EditProfileComponent
+    component : EditProfileComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'books',

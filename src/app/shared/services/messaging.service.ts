@@ -4,7 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 import 'rxjs/add/operator/take';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
-import { HttpClient , HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 import { Observable } from 'rxjs';
@@ -17,14 +17,14 @@ export class MessagingService {
   currentMessage = new BehaviorSubject(null)
 
   constructor(private db: AngularFireDatabase,
-     private afAuth: AngularFireAuth, 
-     private httpClient: HttpClient,
-     private apiService: ApiService,
-     private jwtService: JwtService
-    ) { 
+    private afAuth: AngularFireAuth,
+    private httpClient: HttpClient,
+    private apiService: ApiService,
+    private jwtService: JwtService
+  ) {
 
-  
-    }
+
+  }
 
 
   updateToken(token) {
@@ -32,10 +32,10 @@ export class MessagingService {
 
       if (!user) return;
       const data = { [user.uid]: token }
-      
+
       this.db.object('fcmTokens/').update(data)
 
-      
+
 
     })
   }
@@ -51,12 +51,12 @@ export class MessagingService {
 
         //save notification token in database
         if (!localStorage.getItem('notification_token')) {
-          this.savenotificationToken(token,currentUserID);
+          this.savenotificationToken(token, currentUserID);
         }
         //update notification_token in database
-        if (localStorage.getItem('notification_token')!=token) {
+        if (localStorage.getItem('notification_token') != token) {
           console.log("update")
-          this.updatenotificationToken(token,currentUserID);
+          this.updatenotificationToken(token, currentUserID);
         }
 
         this.updateToken(token)
@@ -68,74 +68,69 @@ export class MessagingService {
 
   receiveMessage() {
     this.messaging.onMessage((payload) => {
-      
+
       console.log("Message received. ", payload);
       this.currentMessage.next(payload)
     });
   }
-  savenotificationToken(newToken,currentUserID) {
-        this.httpClient.post(`http://localhost:3000/api/v1/notification/notification_tokens`,
-        {
-          token: newToken,
-          user_id: currentUserID
-        })
-        .subscribe(
-          (data: any) => {
-            console.log(data);
-          }
-        )
-
-      localStorage.setItem('notification_token', newToken);
-  }
-  updatenotificationToken(newToken,currentUserID) {
-    
-    const headers =  new HttpHeaders({
-      'Content-Type': 'application/json',
-        });
-
-    this.httpClient.put(`http://localhost:3000/api/v1/notification/notification_tokens/`+localStorage.getItem('notification_token'),
+  savenotificationToken(newToken, currentUserID) {
+    this.httpClient.post(`http://localhost:3000/api/v1/notification/notification_tokens`,
       {
         token: newToken,
         user_id: currentUserID
-
-      },{headers})
+      })
       .subscribe(
         (data: any) => {
           console.log(data);
         }
       )
 
-      localStorage.setItem('notification_token', newToken);
+    localStorage.setItem('notification_token', newToken);
+  }
+  updatenotificationToken(newToken, currentUserID) {
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    this.httpClient.put(`http://localhost:3000/api/v1/notification/notification_tokens/` + localStorage.getItem('notification_token'),
+      {
+        token: newToken,
+        user_id: currentUserID
+
+      }, { headers })
+      .subscribe(
+        (data: any) => {
+          console.log(data);
+        }
+      )
+
+    localStorage.setItem('notification_token', newToken);
   }
 
 
-  
-   getNotificationMessages(navbar): Observable<Array<Notification>> {
-     //get latest 5 notification messages For login user to show in navbar
-     if (navbar == "navbar-notifications"){
+
+  getNotificationMessages(navbar): Observable<Array<Notification>> {
+    //get latest 5 notification messages For login user to show in navbar
+    if (navbar == "navbar-notifications") {
       const route = `/notification/notification_messages/get_user_notifications?status=navbar-notifications`;
       return this.apiService.get(route);
-     }else
-     {
-        //get latest all notification messages For login user
+    } else {
+      //get latest all notification messages For login user
       const route = `/notification/notification_messages/get_user_notifications`;
       return this.apiService.get(route);
-     }
-    
+    }
+
   }
 
+  //update unseen notifications messages to be seen
   updateUnseenNotificationMessages(): Observable<Array<Notification>> {
-     const route = `/notification/notification_messages/update_seen_notification`;
-     return this.apiService.put(route); 
- }
-
-  
-  
-
+    const route = `/notification/notification_messages/update_seen_notification`;
+    return this.apiService.put(route);
+  }
 
   //get no of unseen messages for login user
-
-   getNoUnseenNotificationMessages(): Observable<Array<Notification>> {
+  getNoUnseenNotificationMessages(): Observable<Array<Notification>> {
     const route = `/notification/notification_messages/get_no_unseen_notification_messages`;
     return this.apiService.get(route);
   }

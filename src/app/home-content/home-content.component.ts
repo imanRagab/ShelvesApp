@@ -33,12 +33,14 @@ export class HomeContentComponent implements OnInit {
     this.userService.currentUser.subscribe(
       (userData: User) => {
         this.currentUser = userData;
+        
         if(this.currentUser.name) {
           this.userLoggedIn = true;
           this.getRecommendedBooks();
         }
       }
     );   
+    
     this.recommendedBooks = [];
     this.latestBooks = [];
     this.getLatestBooks();

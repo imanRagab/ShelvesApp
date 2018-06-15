@@ -13,4 +13,5 @@ export interface Book {
     user: User;
     bid_user: User;
     book_images: Array<any>;
+    bid_duration: string;
 }

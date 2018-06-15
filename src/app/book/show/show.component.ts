@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {
@@ -20,11 +21,14 @@ export class ShowComponent implements OnInit {
   currentUser: User;
   canModify: boolean;
   similarBooks: Array<Book>;
+  orderForm: FormGroup;
+  orderFormErrors = {};
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
     private router: Router,
     private userService: UserService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -32,6 +36,9 @@ export class ShowComponent implements OnInit {
     this.similarBooks = [];
     this.getBook();
     this.getSimilarBooks(); 
+    this.orderForm = this.fb.group({
+      'price': ['', [Validators.required, Validators.min(this.book.price)]]
+    });
   }
 
   // get book data
@@ -41,7 +48,7 @@ export class ShowComponent implements OnInit {
     this.bookService.getBook(book_id).subscribe(
       result => {
         this.book = result['book'];
-        // console.log(this.book);
+        console.log(this.book)
         // Load the current user's data
         this.userService.currentUser.subscribe(
           (userData: User) => {
@@ -57,5 +64,20 @@ export class ShowComponent implements OnInit {
   }
 
   getSimilarBooks() {
+  }
+
+  updateBidPrice(){
+
+  }
+  // submit order form
+  submitOrder() {
+    console.log("sd");
+    console.log(this.orderForm.value);
+ 
+   
+
+   // this.updateBidPrice();
+
+  
   }
 }

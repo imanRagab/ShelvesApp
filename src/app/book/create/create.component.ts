@@ -38,14 +38,15 @@ export class CreateComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.bookForm = this.fb.group({
-      'name': ['', Validators.required],
-      'description': ['', [
+      'name': ['book name', Validators.required],
+      'description': ['book description', [
         Validators.required,
         Validators.minLength(50),
       ]],
-      'category_id': ['', Validators.required],
-      'book_images_attributes': [''],
-      'book_images_files': ['']
+      'category_id': [1, Validators.required],
+      'price': [null, Validators.required],
+      'quantity': [1, Validators.required],
+      'transcation': ['Free Share', Validators.required]
     });
    }
 
@@ -66,18 +67,11 @@ export class CreateComponent implements OnInit {
     this.userService.currentUser.subscribe(
       (userData: User) => {
         this.currentUser = userData;
-        // add form control for username if this is the register page
+        // add form control for price & quantity if the user is a bookstore user
         if (this.currentUser.role === 'Book store') {
+          this.bookForm.controls['transcation'].setValue('Sell');
           this.isBookStore = true;
-          this.bookForm.addControl('price', new FormControl('', Validators.required));
-          this.bookForm.addControl('quantity', new FormControl('', Validators.required));
         } 
-        else {
-          this.bookForm.addControl('transaction', new FormControl('', Validators.required));
-          if(this.formType == "edit") {
-            this.bookForm.controls['transaction'].setValue(this.book.transaction); 
-          }
-        }
       }
     );  
     
@@ -93,13 +87,13 @@ export class CreateComponent implements OnInit {
               this.bookForm.controls['name'].setValue(this.book.name);
               this.bookForm.controls['description'].setValue(this.book.description);
               this.bookForm.controls['category_id'].setValue(this.book.category['id']);
-              this.bookForm.controls['book_images_attributes'].setValue(this.book.book_images);
+              this.bookForm.controls['transcation'].setValue(this.book['transcation']);           
+              this.bookForm.controls['price'].setValue(this.book['price']);           
               for(let bookImage of this.book.book_images) {
                 this.bookImages.push(`${environment.api_host}` + bookImage.image.url);
               }
-              if(this.book.transaction == "Sell By Bids"){
+              if(this.book['transcation'] == "Sell By Bids"){
                 this.isBids = true;
-                this.bookForm.addControl('price', new FormControl(this.book.price));
               } 
             },
             error => {
@@ -150,6 +144,9 @@ export class CreateComponent implements OnInit {
   // get selected files
   onFileChange(e) {
 
+    if(!this.imagesChanged)
+      this.bookForm.addControl('book_images_attributes', new FormControl('', Validators.required));
+
     this.imagesChanged = true;
     this.bookImages = [];
     for (let file of e.target.files) { 
@@ -173,32 +170,31 @@ export class CreateComponent implements OnInit {
     );
   }
 
-  // change form according to transaction
+  // change form according to transcation
   onTransactionChange(){
     
-    let transcation = this.bookForm.get('transaction').value;
+    let transcation = this.bookForm.get('transcation').value;
     if(transcation == "Sell By Bids"){
       this.isBids = true;
-      this.bookForm.addControl('price', new FormControl());
     }  
     else {
+      this.bookForm.controls['price'].setValue(null);           
       this.isBids = false;
-      this.bookForm.removeControl('price');
     }  
   }
 
   // submit book function create/update
   submitBook() {
+    if(this.imagesChanged)
+      this.bookForm.get('book_images_attributes').setValue(this.bookImages);
+
+    console.log(this.bookForm.value)
 
     if(this.formType == "edit") {
-      this.imagesChanged
-    ?this.bookForm.get('book_images_attributes').setValue(this.bookImages)
-    :this.bookForm.get('book_images_attributes').setValue(this.book.book_images);
       this.updateBook();
     }
 
     else {
-      this.bookForm.get('book_images_attributes').setValue(this.bookImages)
       this.createBook();
     }
 

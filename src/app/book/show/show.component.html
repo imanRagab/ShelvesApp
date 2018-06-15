@@ -1,144 +1,194 @@
 <div class="before">
 
-    </div>
-    <div class="container ">
-    
-        <!--Author box-->
-        <div class="author-box  d-flex align-items-start">
-            <!--Name-->
-            <!-- <h3 class="h3-responsive text-center">About author</h3>
+</div>
+<div class="container ">
+
+    <!--Author box-->
+    <div class="author-box  d-flex align-items-start">
+        <!--Name-->
+        <!-- <h3 class="h3-responsive text-center">About author</h3>
             <hr> -->
-    
-            <!--Avatar-->
-            <div class="col-lg-4 col-md-6 col-sm-2 " height="100px">
-                <img src="assets/images/download.png" class="img-fluid z-depth-2">
-    
-            </div>
-    
-            <!--Author Data-->
-            <div class=" col-8 col-sm-10">
-    
-                <div class="personal-sm col-lg-8">
-                    <ul>
-                        <!--book Name-->
-                        <li>
-                            <p><strong>{{ book?.name }}</strong></p>
-                            <hr>
-                        </li>
-                        <li> <label for="" class="font-weight-bold">Category :&nbsp;</label>{{ book?.category.name }}</li>
-                        <li> <label for="" class="font-weight-bold">Description :&nbsp;</label>{{ book?.description }}</li>
-                        <li> <label for="" class="font-weight-bold">For :&nbsp;</label>{{ book?.transcation }}</li>
-                        <li *ngIf="book?.price"> <label for="" class="font-weight-bold">Price :&nbsp;</label>{{ book?.price }}<label class="font-weight-bold">&nbsp;L.E</label> </li>
-                        <li> <label for="" class="font-weight-bold">Quantity :&nbsp;</label>{{ book?.quantity }}</li>
-                        <li> <label for="" class="font-weight-bold">For bid till : </label> 15-7-2018 </li> 
-                    <!--Rating-->
-                    <!-- <p-rating [(ngModel)]="val" formControlName="score"></p-rating> -->
-                    <li *ngIf="canModify"> <button type="button" class="btn peach waves-light" routerLink="/books/edit/{{ book?.id }}" mdbWavesEffect>
-                        Edit
-                    </button>
+
+        <!--Avatar-->
+        <div class="col-lg-4 col-md-6 col-sm-2 " height="100px">
+            <img src="http://localhost:3000{{book?.book_images[0]?.image?.url}}" class="img-fluid z-depth-2">
+
+        </div>
+
+        <!--Author Data-->
+        <div class=" col-8 col-sm-10">
+
+            <div class="personal-sm col-lg-8">
+                <ul [ngSwitch]="book?.transcation">
+                    <!--book Name-->
+                    <li>
+                        <h3>
+                            <strong>{{ book?.name }}</strong>
+                        </h3>
+                        <hr>
                     </li>
-                    <li *ngIf="!canModify"> <button type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample" (click)="fluid.show()" mdbWavesEffect>
-                            Order now
+                    <li>
+                        <label for="" class="font-weight-bold">Category :&nbsp;</label>{{ book?.category.name }}</li>
+                    <li>
+                        <label for="" class="font-weight-bold">Description :&nbsp;</label>{{ book?.description }}</li>
+                    <li>
+                        <label for="" class="font-weight-bold">For :&nbsp;</label>{{ book?.transcation }}</li>
+                    <li *ngIf="book?.price">
+                        <label for="" class="font-weight-bold">Price :&nbsp;</label>{{ book?.price }}
+                        <label class="font-weight-bold">&nbsp;L.E</label>
+                    </li>
+                    <li>
+                        <label for="" class="font-weight-bold">Quantity :&nbsp;</label>{{ book?.quantity }}</li>
+                    <li>
+                        <label for="" class="font-weight-bold">For bid till : </label> 15-7-2018 </li>
+                    <!--Rating-->
+                    <!-- <li> <label for="" class="font-weight-bold">Rate : </label>
+                        <p-rating [(ngModel)]="val" class="rates"></p-rating>
+                    </li> -->
+                    <!-- <p-rating [(ngModel)]="val" formControlName="score"></p-rating> -->
+                    <li *ngIf="canModify">
+                        <button type="button" class="btn peach waves-light" routerLink="/books/edit/{{ book?.id }}" mdbWavesEffect>
+                            Edit
                         </button>
+                    </li>
+                    <li *ngIf="!canModify" >
+                        <button *ngSwitchCase="'Exchange'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample" (click)="fluid.show()"
+                            mdbWavesEffect>
+                            Order now For Exchange
+                        </button>
+                       
+
+                        <div mdbModal #fluid="mdb-modal" class="modal fade bottom" id="fullHeightModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-full-height modal-bottom" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title w-100" id="myModalLabel">Choose books for exchange</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="fluid.hide()">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p> Choose from your shelf which books you need to exchange with...
+                                        </p>
+                                        <ul>
+                                            <li class="view overlay hm-white-slight zoom">
+                                                <input type="checkbox" id="cb1" />
+                                                <label for="cb1">
+                                                    <img src="assets/images/Young_Adult_Romance_Book_if_i_stay.jpg" />
+                                                </label>
+                                            </li>
+                                            <li class="view overlay hm-white-slight zoom">
+                                                <input type="checkbox" id="cb2" />
+                                                <label for="cb2">
+                                                    <img src="assets/images/9780751550047.jpg" />
+                                                </label>
+                                            </li>
+                                            <li class="view overlay hm-white-slight zoom">
+                                                <input type="checkbox" id="cb3" />
+                                                <label for="cb3">
+                                                    <img src="assets/images/books-trophy-child.jpg" />
+                                                </label>
+                                            </li>
+                                            <li class="view overlay hm-white-slight zoom">
+                                                <input type="checkbox" id="cb4" />
+                                                <label for="cb4">
+                                                    <img src="assets/images/41865.jpg" />
+                                                </label>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                    <div class="modal-footer justify-content-center">
+                                        <button type="button" class="btn btn-danger waves-light" data-dismiss="modal" (click)="fluid.hide()" mdbWavesEffect>Close</button>
+                                        <button type="button" class="btn btn-primary waves-light" mdbWavesEffect>Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+
+                    
+                    <li *ngIf="!canModify" >
+                           
+                            <button *ngSwitchCase="'Sell By Bids'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample" (click)="fluid2.show()"
+                                mdbWavesEffect>
+                                Order now For Sell By Bids
+                            </button>
     
-                            <div mdbModal #fluid="mdb-modal" class="modal fade bottom" id="fullHeightModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div mdbModal #fluid2="mdb-modal" class="modal fade bottom" id="fullHeightModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-full-height modal-bottom" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title w-100" id="myModalLabel">Choose books for exchange</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="fluid.hide()">
+                                            <h4 class="modal-title w-100" id="myModalLabel">Order For Sell By Bids</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="fluid2.hide()">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                         </div>
                                         <div class="modal-body">
-                                            <p> Choose from your shelf which books you need to exchange with...
-                                            </p>
-                                            <ul>
-                                                <li class="view overlay hm-white-slight zoom"><input type="checkbox" id="cb1" />
-                                                    <label for="cb1"><img src="assets/images/Young_Adult_Romance_Book_if_i_stay.jpg" /></label>
-                                                </li>
-                                                <li class="view overlay hm-white-slight zoom"><input type="checkbox" id="cb2" />
-                                                    <label for="cb2"><img src="assets/images/9780751550047.jpg" /></label>
-                                                </li>
-                                                <li class="view overlay hm-white-slight zoom"><input type="checkbox" id="cb3" />
-                                                    <label for="cb3"><img src="assets/images/books-trophy-child.jpg" /></label>
-                                                </li>
-                                                <li class="view overlay hm-white-slight zoom"><input type="checkbox" id="cb4" />
-                                                    <label for="cb4"><img src="assets/images/41865.jpg" /></label>
-                                                </li>
-                                            </ul>
+                                            
+                                                   
+                                            
+                                                 <form [formGroup]="orderForm" (ngSubmit)="submitOrder()" class="form-horizontal" role="form">
+    
+                                                    <div class="form-group col-md-8">
+                                                        <label for="txtarea"  >Current Bid Price</label> {{ book?.price}}
+                                                        <label for="txtarea"  >Enter Bid Price</label>
+                                                        <input formControlName="price" type="number" class="form-control"  name="price" />
+                                                    </div>
+                                                    <div class="modal-footer justify-content-center">
+                                                        <button type="button" class="btn btn-danger waves-light" data-dismiss="modal" (click)="fluid2.hide()" mdbWavesEffect>Close</button>
+                                                        <button type="submit" class="btn btn-primary waves-light" mdbWavesEffect>Save changes</button>
+                                                    </div>
+                                                  
+                                                </form>
     
                                         </div>
-                                        <div class="modal-footer justify-content-center">
-                                            <button type="button" class="btn btn-danger waves-light" data-dismiss="modal" (click)="fluid.hide()" mdbWavesEffect>Close</button>
-                                            <button type="button" class="btn btn-primary waves-light" mdbWavesEffect>Save changes</button>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
-                        </li>
-                    </ul>
-    
-    
-                </div>
-    
+                       </li>
+                        
+                </ul>
+
+
             </div>
-    
-    
+
         </div>
-        <!--/.Author box-->
-        <h2 class="col-lg-12 mt-5 title"> Similar to this book</h2>
+
+
+    </div>
+    <!--/.Author box-->
+    <div class="row">
+        <h2 class="col-lg-12 mt-3 title">Book images</h2>
         <hr class="mb-5 col-lg-12">
-        <div class="container animated bounceInUp mt-5 " id="content">
+        <div class="container animated bounceInUp " id="content">
             <div class="row">
-    
+
                 <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-r " *ngFor="let book of similarBooks">
-    
-                <!--Card-->
+                <div class="col-lg-3 col-md-6 mb-r " *ngFor="let bookImage of book?.book_images | slice:1">
+
+                    <!--Card-->
                     <div class="card card-cascade narrower">
 
                         <!--Card image-->
                         <div class="view overlay hm-white-slight zoom">
-                            <img src="http://localhost:3000{{ book.book_images[0].image.url }}" class="img-fluid" alt="">
-                            <a routerLink="/books/{{ book.id }}">
+                            <img src="http://localhost:3000{{bookImage?.image?.url}}" class="img-fluid" alt="">
+                            <a>
                                 <div class="mask"></div>
                             </a>
                         </div>
                         <!--/.Card image-->
-        
-                        <!--Card content-->
-                        <div class="card-body no-padding text-center">
-        
-                            <!--Category & Title-->
-                            <h5>{{ book.category.name }}</h5>
-                            <h4 class="card-title"><strong><a href="">{{ book.name }}</a></strong></h4>
-                            <h4> <span class="badge  lighten-1">{{ book.transcation }}</span></h4>
-                            <!--Description-->
-                            <p class="card-text">{{ (book.description.length>50)? (book.description | slice:0:50)+'...':(book.description) }}
-                            </p>
-        
-                            <!--Card footer-->
-                            <div class="card-footer">
-        
-                                <span class="right">
-            
-                            <a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><i class="fa fa-user pr-2"></i></a>
-                        </span>
-                                <span class="left"><strong>{{ book.user[0].name }}</strong></span>
-                            </div>
-        
-                        </div>
-                        <!--/.Card content-->
-        
+
+
+
                     </div>
                     <!--/.Card-->
-    
+
                 </div>
                 <!--Grid column-->
-    
             </div>
-    
         </div>
-    
     </div>
