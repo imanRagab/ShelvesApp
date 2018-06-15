@@ -158,6 +158,54 @@
                         </div>
                     </li>
 
+
+                    <li *ngIf="!canModify">
+                            <button *ngSwitchCase="'Sell'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"
+                                (click)="fluid3.show()" mdbWavesEffect>
+                                Order now For Sell
+                            </button>
+    
+    
+                            <div mdbModal #fluid3="mdb-modal" class="modal fade bottom" id="fullHeightModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-full-height modal-bottom" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title w-100" id="myModalLabel">Choose books for exchange</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="fluid3.hide()">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                                <form [formGroup]="orderSellForm" (ngSubmit)="submitSellOrder()" class="form-horizontal" role="form">
+                                                        <div class="alert alert-success" *ngIf="message">
+                                                            <span>{{ message }}</span>
+                                                        </div>
+                                                        <div class="alert alert-danger" *ngIf="error">
+                                                            <span>{{ error }}</span>
+                                                        </div>
+                                                        <div class="form-group col-md-8">
+                                                            <label for="txtarea">Book Price :  {{ book?.price }}</label>
+                                                            <label for="txtarea">Book quantity : {{ book?.quantity }}</label> 
+                                                            <label for="txtarea">Enter number of books wanted to sell </label>
+                                                            <input formControlName="quantity" type="number" class="form-control" name="quantity" [(ngModel)]="quantity" />
+                                                            <p> Total Price : {{ quantity  }} </p>
+                                                           
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-danger waves-light" data-dismiss="modal" (click)="fluid2.hide()"  (click)="reload()"  mdbWavesEffect>Close</button>
+                                                            <button type="submit" class="btn btn-primary waves-light"   mdbWavesEffect>Save changes</button>
+                                                        </div>
+            
+                                                    </form>
+    
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
                 </ul>
 
 

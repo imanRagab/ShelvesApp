@@ -65,4 +65,11 @@ export class BookService {
     const route = `/book/books/${bookID}/update_bid`;
     return this.apiService.put(route, {price: price});
   }
+
+  //order book for sell
+  
+  orderToSellBook(bookID,quantity): Observable<Book> {
+    const route = `/book/books/${bookID}/orders`;
+    return this.apiService.post(route, {quantity: quantity});
+  }
 }
