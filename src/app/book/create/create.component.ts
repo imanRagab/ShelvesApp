@@ -63,28 +63,32 @@ export class CreateComponent implements OnInit {
     const book_id = parseInt(this.route.snapshot.paramMap.get('id'));
 
     this.bookImages = [];
-
-    // Load the current user's data
-    this.userService.currentUser.subscribe(
-      (userData: User) => {
-        this.currentUser = userData;
-        // add form control for price & quantity if the user is a bookstore user
-        if (this.currentUser.role === 'Book store') {
-          this.bookForm.controls['transcation'].setValue('Sell');
-          this.isBookStore = true;
-        } 
-      }
-    );  
     
     // check if edit book
     this.route.url.subscribe(data => {
       if(data[data.length - 2].path == "edit"){
         this.formType = "edit";
+
         // get book data
         if(book_id){
           this.bookService.getBook(book_id).subscribe(
             result => {
+              
               this.book = result['book'];
+              // Load the current user's data
+              this.userService.currentUser.subscribe(
+                (userData: User) => {
+                  this.currentUser = userData;
+                  if(this.book.user[0].id != this.currentUser.id && this.formType == 'edit')
+                    this.router.navigateByUrl('/');
+
+                  // add form control for price & quantity if the user is a bookstore user
+                  if (this.currentUser.role === 'Book store') {
+                    this.bookForm.controls['transcation'].setValue('Sell');
+                    this.isBookStore = true;
+                  } 
+                }
+              );  
               this.bookForm.controls['name'].setValue(this.book.name);
               this.bookForm.controls['description'].setValue(this.book.description);
               this.bookForm.controls['category_id'].setValue(this.book.category['id']);

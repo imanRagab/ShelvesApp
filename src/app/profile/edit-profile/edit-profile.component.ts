@@ -38,14 +38,12 @@ export class EditProfileComponent implements OnInit {
     this.editForm = this.fb.group(
       {
       'name': [ , Validators.required],
-      'gender': [, Validators.required],
       'postal_code': [ , Validators.required],
       'building_number': [ , Validators.required],
       'street': [ , Validators.required],
       'region': [ , Validators.required],
       'city': [ , Validators.required],
-      'phone': [, Validators.required],
-      'interests': [[], Validators.required]
+      'phone': [, Validators.required]
     });
   }
 
@@ -69,13 +67,9 @@ export class EditProfileComponent implements OnInit {
           this.currentUser = userData;
           this.userRole = this.currentUser.role;          
           this.userImage = `${environment.api_host}` + this.currentUser.profile_picture['url'];
-          for(let intrest of this.currentUser.interests) {
-            this.userInterests.push(intrest['id']);
-          }
+
           this.editForm.patchValue({
             name: this.currentUser.name,
-            gender: this.currentUser.gender,
-            interests: this.currentUser.interests
           });
           if(this.currentUser.addresse) {
             this.editForm.patchValue({
@@ -92,7 +86,11 @@ export class EditProfileComponent implements OnInit {
             });
           }
           if(this.userRole == 'Normal user'){
-            this.editForm.addControl('gender', new FormControl(this.currentUser.gender,Validators.required));
+            for(let interest of this.currentUser.interests) {
+              this.userInterests.push(interest['id']);
+            }
+            this.editForm.addControl('gender', new FormControl(this.currentUser.gender, Validators.required));
+            this.editForm.addControl('interests', new FormControl(this.userInterests, Validators.required));
           }
         }
       }
@@ -133,6 +131,7 @@ export class EditProfileComponent implements OnInit {
 
     this.userService.update(this.editForm.value, this.currentUser.id).subscribe(
       result => {
+        alert('Profile updated successfully');
         this.router.navigateByUrl('/userprofile');
       },
       error => {
