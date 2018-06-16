@@ -40,7 +40,7 @@
 
                         </span>
                     </h4>
-                    
+
 
                     <!--Card footer-->
                     <div class="card-footer">
@@ -102,7 +102,13 @@
                     <h4>
                         <span class="badge  lighten-1">{{ book?.transcation }}</span>
                     </h4>
-                    <p-rating [(ngModel)]="val"></p-rating>
+                    <h4>
+                        <!--  <span > Avg rate: {{ book?.rate }}</span> -->
+                        <span class="stars" style="margin: 0 auto; ">
+                            <span [style.width.%]="book?.rate/5*100"></span>
+
+                        </span>
+                    </h4>
 
                     <!--Card footer-->
                     <div class="card-footer">
