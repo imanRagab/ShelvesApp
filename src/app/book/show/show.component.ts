@@ -16,7 +16,7 @@ import {
   styleUrls: ['./show.component.scss']
 })
 export class ShowComponent implements OnInit {
-
+  val: number;
   book: Book;
   currentUser: User;
   canModify: boolean;
@@ -35,6 +35,7 @@ export class ShowComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.error = "";
     this.message= "";
     this.similarBooks = [];

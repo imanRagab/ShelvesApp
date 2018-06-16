@@ -32,10 +32,19 @@
                         <li> <label for="" class="font-weight-bold">Quantity :&nbsp;</label>{{ book?.quantity }}</li>
                         <li *ngIf="book?.bid_duration"> <label for="" class="font-weight-bold">For bid till :&nbsp;</label> {{ book?.bid_duration }} </li> 
                     <!--Rating-->
-                    <!-- <li> <label for="" class="font-weight-bold">Rate : </label>
-                        <p-rating [(ngModel)]="val" class="rates"></p-rating>
-                    </li> -->
-                    <!-- <p-rating [(ngModel)]="val" formControlName="score"></p-rating> -->
+                
+
+                    
+                    <form [formGroup]="rateForm" (ngSubmit)="submitRate()" class="form-horizontal" role="form">
+                            <li> <label for="" class="font-weight-bold">Rate : </label>
+                                <p-rating [(ngModel)]="val" class="rates"></p-rating>
+                            </li> 
+                            <button type="button" class="btn peach waves-light"  mdbWavesEffect>
+                                Give A rate
+                            </button>
+                        </form>
+
+                        {{val}}
                     <li *ngIf="canModify">
                         <button type="button" class="btn peach waves-light" routerLink="/books/edit/{{ book?.id }}" mdbWavesEffect>
                             Edit
