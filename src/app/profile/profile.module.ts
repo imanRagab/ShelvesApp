@@ -7,6 +7,7 @@ import { SharedModule } from '../shared';
 import { AppRoutingModule } from '../app-routing.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import {RatingModule} from 'primeng/rating';
 @NgModule({
   imports: [
     SharedModule,
@@ -15,6 +16,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     ReactiveFormsModule,
     AppRoutingModule,
     MDBBootstrapModule.forRoot(), 
+    RatingModule
   ],
   declarations: [UserProfileComponent, EditProfileComponent]
 })
