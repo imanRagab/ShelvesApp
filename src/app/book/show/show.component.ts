@@ -6,7 +6,9 @@ import {
   Book,
   BookService,
   User,
-  UserService
+  UserService,
+  Comment,
+  CommentService,
 } from '../../shared';
 
 
@@ -27,12 +29,15 @@ export class ShowComponent implements OnInit {
   error: string;
   message: string;
   orderFormErrors = {};
+  comments: Array<Comment>;
+  commentForm: FormGroup;
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
     private router: Router,
     private userService: UserService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private commentService: CommentService,
   ) { }
 
   ngOnInit() {
@@ -47,6 +52,13 @@ export class ShowComponent implements OnInit {
     });
     this.orderSellForm = this.fb.group({
       'quantity': ['', [Validators.required]]
+    });
+    this.comments = [];
+    this.commentForm = this.fb.group({
+      'comment': ['book description', [
+        Validators.required,
+        Validators.minLength(2),
+      ]]
     });
   }
 
@@ -174,6 +186,28 @@ export class ShowComponent implements OnInit {
 
   reload(){
     location.reload()
+  }
+  // Create comment
+  createComment() {
+    const comment = this.commentForm.value;
+    this.commentService
+    .createComment(this.book.id,comment.comment)
+    .subscribe(
+      result => {
+        this.router.navigateByUrl(`/books/${this.book.id}`);
+    },
+      error => {
+        alert("Couldn\'t create the comment!")
+        this.router.navigateByUrl('/books/${this.book.id}');
+        // console.log(error);
+      }
+    );
+  }
+
+  // submit commet function create/update
+  submitComment() {
+    this.createComment();
+
   }
  
 }

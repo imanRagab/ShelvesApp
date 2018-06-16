@@ -6,4 +6,5 @@ export * from './category.service';
 export * from './cities.service'
 export * from './messaging.service';
 export * from './no-auth-guard.service'
-export * from './auth-guard.service'
+export * from './auth-guard.service';
+export * from './comment.service';
