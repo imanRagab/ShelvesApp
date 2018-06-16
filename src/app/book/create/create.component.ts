@@ -44,9 +44,10 @@ export class CreateComponent implements OnInit {
         Validators.minLength(50),
       ]],
       'category_id': [1, Validators.required],
-      'price': [null, Validators.required],
+      'price': [null, ],
       'quantity': [1, Validators.required],
-      'transcation': ['Free Share', Validators.required]
+      'transcation': ['Free Share', ],
+      'bid_duration': ['', ]
     });
    }
 
@@ -62,33 +63,39 @@ export class CreateComponent implements OnInit {
     const book_id = parseInt(this.route.snapshot.paramMap.get('id'));
 
     this.bookImages = [];
-
-    // Load the current user's data
-    this.userService.currentUser.subscribe(
-      (userData: User) => {
-        this.currentUser = userData;
-        // add form control for price & quantity if the user is a bookstore user
-        if (this.currentUser.role === 'Book store') {
-          this.bookForm.controls['transcation'].setValue('Sell');
-          this.isBookStore = true;
-        } 
-      }
-    );  
     
     // check if edit book
     this.route.url.subscribe(data => {
       if(data[data.length - 2].path == "edit"){
         this.formType = "edit";
+
         // get book data
         if(book_id){
           this.bookService.getBook(book_id).subscribe(
             result => {
+              
               this.book = result['book'];
+              // Load the current user's data
+              this.userService.currentUser.subscribe(
+                (userData: User) => {
+                  this.currentUser = userData;
+                  if(this.book.user[0].id != this.currentUser.id && this.formType == 'edit')
+                    this.router.navigateByUrl('/');
+
+                  // add form control for price & quantity if the user is a bookstore user
+                  if (this.currentUser.role === 'Book store') {
+                    this.bookForm.controls['transcation'].setValue('Sell');
+                    this.isBookStore = true;
+                  } 
+                }
+              );  
               this.bookForm.controls['name'].setValue(this.book.name);
               this.bookForm.controls['description'].setValue(this.book.description);
               this.bookForm.controls['category_id'].setValue(this.book.category['id']);
               this.bookForm.controls['transcation'].setValue(this.book['transcation']);           
-              this.bookForm.controls['price'].setValue(this.book['price']);           
+              this.bookForm.controls['price'].setValue(this.book['price']);     
+              this.bookForm.controls['bid_duration'].setValue(this.book['bid_duration']);       
+      
               for(let bookImage of this.book.book_images) {
                 this.bookImages.push(`${environment.api_host}` + bookImage.image.url);
               }

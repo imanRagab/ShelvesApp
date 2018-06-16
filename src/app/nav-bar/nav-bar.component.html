@@ -60,7 +60,46 @@
                     </div>
 
                 </form>
-                <a routerLink="/userprofile" class="prof" *ngIf="userLoggedIn"> <i class="fa fa-user-circle "></i></a>
+                <!--Notifications-->
+                <div class="btn-group"  *ngIf="userLoggedIn" dropdown>
+                    <button dropdownToggle type="" class="btndropdown-toggle waves-light" (click)="updateUnSennNotifications()" mdbWavesEffect>
+                        <i class="fa fa-bell"></i>
+                    </button>
+                    <span class="badge yellow" [hidden]="!noUnseenNotifications">{{noUnseenNotifications}}</span>
+
+                    <!--notification badge-->
+                    <div class="dropdown-menu noti ">
+                        <div class="notiHeader">
+                            <h5 class="col-lg-8">Notifications</h5>
+                            <a class="col-lg-4 ">
+                                <span>Dismiss</span>
+                            </a>
+                        </div>
+                        <div class="divider dropdown-divider"></div>
+                        <ul>
+                            <div *ngFor="let notification of userNotifications">
+                                <li>
+                                    <img width="70px" style="float: left;" src="{{ notification?.icon }}" class="img-fluid rounded-circle z-depth-2">
+                                    <a class="dropdown-item" href="{{ notification?.click_action }}">{{ notification?.body }}</a>
+                                    <label>{{notification?.created_at}}</label>
+                                </li>
+
+                                <li>
+                                    <div class="divider dropdown-divider"></div>
+                                </li>
+                            </div>
+
+                            <li class="text-center">
+                                <a href="/showNotifications">
+                                    <span> See All</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <a routerLink="/userprofile" class="prof" *ngIf="userLoggedIn">
+                    <i class="fa fa-user-circle "></i>
+                </a>
             </links>
             <!-- Collapsible content -->
 

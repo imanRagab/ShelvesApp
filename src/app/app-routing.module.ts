@@ -8,6 +8,7 @@ import {HomeContentComponent} from './home-content/home-content.component';
 import { UserProfileComponent } from './profile/user-profile/user-profile.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { BookListComponent } from './book/book-list/book-list.component';
+import { ShowNotificationsComponent } from './notifications/show-notifications/show-notifications.component'
 
 import { NoAuthGuardService } from './shared/services/no-auth-guard.service';
 import { AuthGuardService } from './shared/services/auth-guard.service';
@@ -64,7 +65,11 @@ const routes: Routes = [
   {
     path: 'books',
     component : BookListComponent
-  }
+   },
+   {
+     path: 'showNotifications',
+     component : ShowNotificationsComponent
+   }
 
 ];
 

@@ -65,4 +65,32 @@ export class BookService {
     const route = `/book/books/${id}/exchange`;
     return this.apiService.get(route)
   }
+  //updateBid For Book
+
+  updateBidForBook(bookID,price): Observable<Book> {
+    const route = `/book/books/${bookID}/update_bid`;
+    return this.apiService.put(route, {price: price});
+  }
+
+  //order book for sell
+  
+  orderToSellBook(bookID,quantity): Observable<Book> {
+    const route = `/book/books/${bookID}/orders`;
+    return this.apiService.post(route, {quantity: quantity});
+  }
+
+
+  //exchange_request
+  exchange_request(books :Object,order :number): Observable<any>
+  {
+    const route = `/book/books/${order}/exchange_request`;
+    return this.apiService.post(route,books)
+  }
+
+  //request free share 
+  requestFree(Book_id :number): Observable<any>
+  {
+    const route = `/book/books/${Book_id}/orders`;
+    return this.apiService.post(route)
+  }
 }

@@ -27,18 +27,18 @@ export class NavBarComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private userService: UserService,
-    private messageService:  MessagingService,
+    private messageService: MessagingService,
     private route: ActivatedRoute
   ) {
-   }
+  }
 
   ngOnInit() {
     this.firstCatArray = [];
-    this.secondCatArray = []; 
+    this.secondCatArray = [];
     this.thirdCatArray = [];
     this.userNotifications = [];
-    this.noUnseenNotifications= null;
-   
+    this.noUnseenNotifications = null;
+
 
     // get list of book categories
     this.getCategories();
@@ -48,77 +48,87 @@ export class NavBarComponent implements OnInit {
     this.userService.currentUser.subscribe(
       (userData: User) => {
         this.currentUser = userData;
-        if(this.currentUser.name) {
+        if (this.currentUser.name) {
           this.userLoggedIn = true;
-          this.getUnSeenNotifications();
-          this.getNotifications(); 
+          // this.getUnSeenNotifications();
+          // this.getNotifications();
         }
       }
-    ); 
+    );
 
-     
   }
-    // get list of all categories
-    getCategories() {
-      this.categoryService.getCategories().subscribe(
-        result => {
-          result = result['data'];
-          for(let i = 0; i < result.length; i++){
-            if(i <= result.length/3)
-              {
-                this.firstCatArray.push(result[i]);
-                
-              }
-            else if(i <= result.length*2/3)
-              {
+  // get list of all categories
+  getCategories() {
+    this.categoryService.getCategories().subscribe(
+      result => {
+        result = result['data'];
+        for (let i = 0; i < result.length; i++) {
+          if (i <= result.length / 3) {
+            this.firstCatArray.push(result[i]);
 
-                this.secondCatArray.push(result[i]);
-              }
-            else
-              {
-                this.thirdCatArray.push(result[i]);
-                
-              }
           }
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
-     //get all user notification messages
-     getNotifications(){
-      this.messageService.getNotificationMessages().subscribe(
-        result => {
-          if(result['status']  != 'FAIL'){
-            this.userNotifications = result['notification_messages'];
-            
+          else if (i <= result.length * 2 / 3) {
+
+            this.secondCatArray.push(result[i]);
           }
-        },
-        error => {
-          console.log(error);
-        }
-      );
-     }
+          else {
+            this.thirdCatArray.push(result[i]);
 
-
-     //get no of unseen notification messages
-
-     getUnSeenNotifications(){
-      this.messageService.getNoUnseenNotificationMessages().subscribe(
-        result => {
-          if(result['status']  != 'FAIL'){
-            this.noUnseenNotifications = result['no_unseen_notification_messages'];
-            //console.log(this.noUnseenNotifications);
           }
-        },
-        error => {
-          console.log(error);
         }
-      );
-     }
-    // logout current user
-    logout() {
-      this.userService.purgeAuth();
-    }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  //get all user notification messages
+  getNotifications() {
+    this.messageService.getNotificationMessages("navbar-notifications").subscribe(
+      result => {
+        if (result['status'] != 'FAIL') {
+          this.userNotifications = result['notification_messages'];
+
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+
+  //get no of unseen notification messages
+
+  getUnSeenNotifications() {
+    this.messageService.getNoUnseenNotificationMessages().subscribe(
+      result => {
+        if (result['status'] != 'FAIL') {
+          this.noUnseenNotifications = result['no_unseen_notification_messages'];
+
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  //Update Unseen Notifications Messages to be seen
+  updateUnSennNotifications() {
+    this.messageService.updateUnseenNotificationMessages().subscribe(
+      result => {
+        if (result['status'] != 'FAIL') {
+          this.noUnseenNotifications = 0;
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  // logout current user
+  logout() {
+    this.userService.purgeAuth();
+  }
 }

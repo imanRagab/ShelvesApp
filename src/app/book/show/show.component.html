@@ -1,12 +1,12 @@
 <div class="before">
 
-    </div>
-    <div class="container ">
-    
-        <!--Author box-->
-        <div class="author-box  d-flex align-items-start">
-            <!--Name-->
-            <!-- <h3 class="h3-responsive text-center">About author</h3>
+</div>
+<div class="container ">
+
+    <!--Author box-->
+    <div class="author-box  d-flex align-items-start">
+        <!--Name-->
+        <!-- <h3 class="h3-responsive text-center">About author</h3>
             <hr> -->
     
             <!--Avatar-->
@@ -18,8 +18,8 @@
             <!--Author Data-->
             <div class=" col-8 col-sm-10">
     
-                <div class="personal-sm col-lg-8">
-                    <ul>
+                <div class="personal-sm col-lg-8" >
+                    <ul [ngSwitch]="book?.transcation">
                         <!--book Name-->
                         <li>
                             <h3><strong>{{ book?.name }}</strong></h3>
@@ -30,89 +30,216 @@
                         <li> <label for="" class="font-weight-bold">For :&nbsp;</label>{{ book?.transcation }}</li>
                         <li *ngIf="book?.price"> <label for="" class="font-weight-bold">Price :&nbsp;</label>{{ book?.price }}<label class="font-weight-bold">&nbsp;L.E</label> </li>
                         <li> <label for="" class="font-weight-bold">Quantity :&nbsp;</label>{{ book?.quantity }}</li>
-                        <li> <label for="" class="font-weight-bold">For bid till : </label> 15-7-2018 </li> 
+                        <li *ngIf="book?.bid_duration"> <label for="" class="font-weight-bold">For bid till :&nbsp;</label> {{ book?.bid_duration }} </li> 
                     <!--Rating-->
-                    <li> <label for="" class="font-weight-bold">Rate : </label>
+                    <!-- <li> <label for="" class="font-weight-bold">Rate : </label>
                         <p-rating [(ngModel)]="val" class="rates"></p-rating>
-                    </li>
+                    </li> -->
                     <!-- <p-rating [(ngModel)]="val" formControlName="score"></p-rating> -->
-                    <li *ngIf="canModify"> <button type="button" class="btn peach waves-light" routerLink="/books/edit/{{ book?.id }}" mdbWavesEffect>
-                        Edit
-                    </button>
-                    </li>
-                    <li *ngIf="!canModify"> <button type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample" (click)="fluid.show();getExchangeableBooks()" mdbWavesEffect>
-                            Order now
+                    <li *ngIf="canModify">
+                        <button type="button" class="btn peach waves-light" routerLink="/books/edit/{{ book?.id }}" mdbWavesEffect>
+                            Edit
                         </button>
+                    </li>
+                    <li *ngIf="!canModify">
+                        <button *ngSwitchCase="'Exchange'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"
+                            (click)="fluid.show();getExchangeableBooks()" mdbWavesEffect>
+                            Order now For Exchange
+                        </button>
+
+
+                        <div mdbModal #fluid="mdb-modal" class="modal fade bottom" id="fullHeightModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-full-height modal-bottom" role="document">
+                                <div class="modal-content">
+                                    <div *ngIf="error ; then errorBlock; else elseBlock"></div>
+                                    <ng-template #errorBlock>
+                                            <div class="alert alert-danger">
+                                                    <span>{{ error }}</span>
+                                                </div>
+                                    </ng-template> 
+                                    <ng-template #elseBlock>
+                                            
+                                    <div class="modal-header">
+                                        <h4 class="modal-title w-100" id="myModalLabel">Choose books for exchange</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="fluid.hide()">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p> Choose from your shelf which books you need to exchange with...
+                                        </p>
+                                        <ul> 
+                                                <ng-template ngFor let-item [ngForOf]="exchangeableBooks" let-i="index">
+                                                    <li class="view overlay hm-white-slight zoom">
+                                                             <input type="checkbox" id="{{item[0].id}}" name="exBook" (change)="chooseBook($event,item[0])"/>
+                                                        <label for=""><img src="http://localhost:3000{{item[0]?.image?.url}}" /></label>  
+                                                       
+                                                    </li>
+                                                </ng-template>
+                                        </ul>
+
+                                    </div>
+                                   
+                                            <div class="alert alert-success" *ngIf="message">
+                                                    <span>{{message}}</span>
+                                                </div>
+                           
+                                    <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-danger waves-light" data-dismiss="modal" (click)="fluid.hide()" mdbWavesEffect>Close</button>
+                                            <button type="button" class="btn btn-primary waves-light" (click)=" requestExchange()" mdbWavesEffect>Send Request</button>
+                                    </div>
+                                </ng-template>
+                           
+
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                  
+                    <li *ngIf="!canModify">
+
+                        <button *ngSwitchCase="'Sell By Bids'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"
+                            (click)="fluid2.show()" mdbWavesEffect>
+                            Order now For Sell By Bids
+                        </button>
+
+                        <div mdbModal #fluid2="mdb-modal" class="modal fade bottom" id="fullHeightModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-full-height modal-bottom" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title w-100" id="myModalLabel">Order For Sell By Bids</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="fluid2.hide()" (click)="reload()">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+
+
+                                        <form [formGroup]="orderForm" (ngSubmit)="submitOrder()" class="form-horizontal" role="form">
+                                            <div class="alert alert-success" *ngIf="message">
+                                                <span>{{ message }}</span>
+                                            </div>
+                                            <div class="alert alert-danger" *ngIf="error">
+                                                <span>{{ error }}</span>
+                                            </div>
+                                            <div class="form-group col-md-8">
+                                                <label for="txtarea">Current Bid Price</label> {{ book?.price}}
+                                                <label for="txtarea">Enter Bid Price</label>
+                                                <input formControlName="price" type="number" class="form-control" name="price" [(ngModel)]="price" />
+                                            </div>
+                                            <div class="modal-footer justify-content-center">
+                                                <button type="button" class="btn btn-danger waves-light" data-dismiss="modal" (click)="fluid2.hide()"  (click)="reload()"  mdbWavesEffect>Close</button>
+                                                <button type="submit" class="btn btn-primary waves-light"   mdbWavesEffect>Save changes</button>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+
+
+                    <li *ngIf="!canModify">
+
+                            <button *ngSwitchCase="'Free Share'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"  (click)=" OrderFree()">
+                                Order now for free
+                            </button>
     
-                            <div mdbModal #fluid="mdb-modal" class="modal fade bottom" id="fullHeightModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        </li>
+
+                        
+                    <li *ngIf="!canModify">
+                            <button *ngSwitchCase="'Sell'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"
+                                (click)="fluid3.show()" mdbWavesEffect>
+                                Order now For Sell
+                            </button>
+    
+    
+                            <div mdbModal #fluid3="mdb-modal" class="modal fade bottom" id="fullHeightModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                aria-hidden="true">
                                 <div class="modal-dialog modal-full-height modal-bottom" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h4 class="modal-title w-100" id="myModalLabel">Choose books for exchange</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="fluid.hide()">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="fluid3.hide()">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
                                         </div>
                                         <div class="modal-body">
-                                            <p> Choose from your shelf which books you need to exchange with...
-                                            </p>
-                                            <ul>
-                                                <ng-template ngFor let-item [ngForOf]="exchangeableBooks" let-i="index">
-                                                    <li  class="view overlay hm-white-slight zoom">
-                                                        <input type="checkbox" id="{{item.id}}" />
-                                                    <label for=""><img src="http://localhost:3000{{book?.book_images[0]?.image?.url}}"/> </label>
-                                                
-                                                </li>
-                                                </ng-template>
-                                            </ul>
+                                                <form [formGroup]="orderSellForm" (ngSubmit)="submitOrder()" class="form-horizontal" role="form">
+                                                        <div class="alert alert-success" *ngIf="message">
+                                                            <span>{{ message }}</span>
+                                                        </div>
+                                                        <div class="alert alert-danger" *ngIf="error">
+                                                            <span>{{ error }}</span>
+                                                        </div>
+                                                        <div class="form-group col-md-8">
+                                                            <label for="txtarea">Book Price :  {{ book?.price }}</label>
+                                                            <label for="txtarea">Book quantity : {{ book?.quantity }}</label> 
+                                                            <label for="txtarea">Enter number of books wanted to sell </label>
+                                                            <input formControlName="quantity" type="number" class="form-control" name="quantity" [(ngModel)]="quantity" />
+                                                            <p> Total Price : {{ quantity * book?.price }} </p>
+                                                           
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-danger waves-light" data-dismiss="modal" (click)="fluid3.hide()"  (click)="reload()"  mdbWavesEffect>Close</button>
+                                                            <button type="submit" class="btn btn-primary waves-light"   mdbWavesEffect>Save changes</button>
+                                                        </div>
+            
+                                                    </form>
     
                                         </div>
-                                        <div class="modal-footer justify-content-center">
-                                            <button type="button" class="btn btn-danger waves-light" data-dismiss="modal" (click)="fluid.hide()" mdbWavesEffect>Close</button>
-                                            <button type="button" class="btn btn-primary waves-light" mdbWavesEffect>Save changes</button>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
                         </li>
-                    </ul>
-    
-    
-                </div>
-    
+
+                </ul>
+
+
             </div>
-    
-    
+
         </div>
-           <!--/.Author box-->
+
+
+    </div>
+    <!--/.Author box-->
     <div class="row">
-            <h2 class="col-lg-12 mt-3 title">Book images</h2>
-            <hr class="mb-5 col-lg-12">
-            <div class="container animated bounceInUp " id="content">
-                <div class="row">
-    
-                    <!--Grid column-->
-                    <div class="col-lg-3 col-md-6 mb-r " *ngFor="let bookImage of book?.book_images | slice:1">
-    
-                        <!--Card-->
-                        <div class="card card-cascade narrower">
-    
-                            <!--Card image-->
-                            <div class="view overlay hm-white-slight zoom">
-                                <img src="http://localhost:3000{{bookImage?.image?.url}}" class="img-fluid" alt="">
-                                <a>
-                                    <div class="mask"></div>
-                                </a>
-                            </div>
-                            <!--/.Card image-->
-    
-    
-    
+        <h2 class="col-lg-12 mt-3 title">Book images</h2>
+        <hr class="mb-5 col-lg-12">
+        <div class="container animated bounceInUp " id="content">
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-lg-3 col-md-6 mb-r " *ngFor="let bookImage of book?.book_images | slice:1">
+
+                    <!--Card-->
+                    <div class="card card-cascade narrower">
+
+                        <!--Card image-->
+                        <div class="view overlay hm-white-slight zoom">
+                            <img src="http://localhost:3000{{bookImage?.image?.url}}" class="img-fluid" alt="">
+                            <a>
+                                <div class="mask"></div>
+                            </a>
                         </div>
-                        <!--/.Card-->
-    
+                        <!--/.Card image-->
+
+
+
                     </div>
-                    <!--Grid column-->
+                    <!--/.Card-->
+
                 </div>
+                <!--Grid column-->
             </div>
         </div>
+    </div>

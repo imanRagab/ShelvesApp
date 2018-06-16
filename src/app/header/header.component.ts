@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
         this.currentUser = userData;
         if(this.currentUser.name) {
           this.userLoggedIn = true;
+         
         }
       }
     );   
