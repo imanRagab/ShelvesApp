@@ -165,7 +165,7 @@ export class ShowComponent implements OnInit {
         }
     },
       error => {
-        alert("Couldn\'t make Bid on this Book")
+        alert("Couldn\'t add rate on this Book")
         this.router.navigateByUrl('/');
          console.log(error);
       }

@@ -24,6 +24,8 @@ export class UserProfileComponent implements OnInit {
   mySubscription: any;
   userId: string;
   rateVal: number;
+  error: string;
+  message: string;
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -33,6 +35,8 @@ export class UserProfileComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.error="";
+    this.message="";
     this.profileUser = <User>{};
     this.userImage = {};
     this.userLoggedIn = false;
@@ -89,6 +93,27 @@ export class UserProfileComponent implements OnInit {
 
   //add rate to user
   submitRate(){
-   
+    console.log(this.rateVal);
+    let rate = this.rateVal;
+    this.userService
+    .addRate(this.userId,rate)
+    .subscribe(
+      result => {
+        console.log(result);
+        if( result['status'] == 'FAIL' ) {
+          this.error = result['message']
+        }
+        else {
+          if( result['message'] ) {
+            this.message = result['message']
+           this.rateVal= null;
+          }
+         
+        }
+    },
+      error => {
+         console.log(error);
+      }
+    );
   }
 }
