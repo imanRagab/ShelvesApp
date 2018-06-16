@@ -113,6 +113,12 @@ export class UserService {
     return this.apiService.post(route, resetForm);
   }
 
+  // create new password
+  newPassword(resetToken, newPasswordForm): Observable<any> {
+    const route = `/user/password_resets/${resetToken}`;
+    return this.apiService.put(route, newPasswordForm);
+  }
+
   // get user profile data
   getUserProfile(id): Observable<User> {
     const route = `/user/users/${id}`;
