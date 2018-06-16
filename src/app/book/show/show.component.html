@@ -35,16 +35,16 @@
                 
 
                     
-                    <form [formGroup]="rateForm" (ngSubmit)="submitRate()" class="form-horizontal" role="form">
+                    
                             <li> <label for="" class="font-weight-bold">Rate : </label>
-                                <p-rating [(ngModel)]="val" class="rates"></p-rating>
-                            </li> 
-                            <button type="button" class="btn peach waves-light"  mdbWavesEffect>
+                                <p-rating [(ngModel)]="val" class="rates" ></p-rating>
+                            </li> {{val}}
+                            <button type="button" [hidden]="!val"  (click)="submitRate()" class="btn peach waves-light"  mdbWavesEffect>
                                 Give A rate
                             </button>
-                        </form>
+                        
 
-                        {{val}}
+                        
                     <li *ngIf="canModify">
                         <button type="button" class="btn peach waves-light" routerLink="/books/edit/{{ book?.id }}" mdbWavesEffect>
                             Edit

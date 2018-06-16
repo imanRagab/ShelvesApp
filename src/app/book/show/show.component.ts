@@ -21,6 +21,7 @@ export class ShowComponent implements OnInit {
   currentUser: User;
   canModify: boolean;
   similarBooks: Array<Book>;
+  rateForm: FormGroup;
   orderForm: FormGroup;
   orderSellForm: FormGroup;
   error: string;
@@ -141,6 +142,11 @@ export class ShowComponent implements OnInit {
       this.orderBookForSell();
     }  
         
+  }
+
+  //submit rate value
+  submitRate(){
+    console.log(this.val);
   }
 
   reload(){
