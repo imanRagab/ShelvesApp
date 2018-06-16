@@ -23,6 +23,7 @@ export class UserProfileComponent implements OnInit {
   userImage: object;
   mySubscription: any;
   userId: string;
+  rateVal: number;
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -84,5 +85,10 @@ export class UserProfileComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  //add rate to user
+  submitRate(){
+   
   }
 }

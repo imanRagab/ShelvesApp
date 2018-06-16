@@ -33,7 +33,13 @@
                         <h4>
                             <span class="badge  lighten-1">{{ book?.transcation }}</span>
                         </h4>
-                        <p-rating [(ngModel)]="val"></p-rating>
+                        <h4>
+                                <span > Avg rate: {{ book?.rate }}</span> {{ book?.rate/5*100 }} 
+                                <span class="stars alignright">
+                                        <span [ngStyle]="{'width': '$book?.rate/5*100'}" ></span>
+                                    </span> 
+                            </h4>
+                        <!-- <p-rating [(ngModel)]=" book?.rate " ></p-rating> -->
     
                         <!--Card footer-->
                         <div class="card-footer">

@@ -41,9 +41,9 @@
 
                     
                     
-                            <li> <label for="" class="font-weight-bold">Rate : </label>
+                            <li *ngIf="!canModify"> <label for="" class="font-weight-bold">Rate : </label>
                                 <p-rating [(ngModel)]="rateVal" class="rates" ></p-rating>
-                            </li> {{rateVal}}
+                            </li>
                             <button type="button" [hidden]="!rateVal"  (click)="submitRate()" class="btn peach waves-light"  mdbWavesEffect>
                                 Give A rate
                             </button>

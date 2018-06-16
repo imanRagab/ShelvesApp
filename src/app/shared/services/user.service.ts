@@ -123,4 +123,10 @@ export class UserService {
     const route = `/user/users/${id}/get_user_books`;
     return this.apiService.get(route);
   }  
+
+   //add rate on a user
+   addRate(userID,rate): Observable<Book> {
+    const route = `/user/users/${userID}/user_rates`;
+    return this.apiService.post(route, {rate: rate});
+  }
 }

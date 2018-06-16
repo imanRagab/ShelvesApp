@@ -28,6 +28,12 @@
                         <li *ngIf="profileUser.phone"><i class="fa fa-phone" aria-hidden="true">&nbsp;
                         </i>
                         <span>{{ profileUser?.phone?.phone }}</span>
+                        <li> <label for="" class="font-weight-bold">Rate : </label>
+                            <p-rating [(ngModel)]="rateVal" class="rates" ></p-rating>
+                        </li>
+                        <button type="button" [hidden]="!rateVal"  (click)="submitRate()" class="btn peach waves-light"  mdbWavesEffect>
+                            Give A rate
+                        </button>
                         <!-- <span *ngFor="let phone of profileUser.phones | slice:1"> - {{ phone?.phone }}</span> -->
                         </li>
                     </ul>

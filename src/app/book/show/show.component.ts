@@ -159,7 +159,7 @@ export class ShowComponent implements OnInit {
         else {
           if( result['message'] ) {
             this.message = result['message']
-           
+           this.rateVal= null;
           }
          
         }
