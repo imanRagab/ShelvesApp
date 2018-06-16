@@ -93,4 +93,10 @@ export class BookService {
     const route = `/book/books/${Book_id}/orders`;
     return this.apiService.post(route)
   }
+  //add rate on a book
+  addRate(bookID,rate): Observable<Book> {
+    const route = `/book/books/${bookID}/rates`;
+    return this.apiService.post(route, {rate: rate});
+  }
+
 }

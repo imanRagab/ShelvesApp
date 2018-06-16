@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import {
   User,
@@ -18,21 +18,29 @@ export class UserProfileComponent implements OnInit {
 
   profileUser: User;
   userLoggedIn: Boolean;
+  currentUser: User;
   userRole: string;
   userBooks: Array<Book>
   userImage: object;
   mySubscription: any;
-  userId: string;
+  userId: number;
+  rateVal: number;
+  error: string;
+  message: string;
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
+    private router: Router
   ) {
       // get user id from url
-      this.userId = this.route.snapshot.paramMap.get('id');
+      this.userId = parseInt(this.route.snapshot.paramMap.get('id'));
    }
 
   ngOnInit() {
+    this.error="";
+    this.message="";
     this.profileUser = <User>{};
+    this.currentUser = <User>{};
     this.userImage = {};
     this.userLoggedIn = false;
     this.loadProfileUser();
@@ -59,18 +67,30 @@ export class UserProfileComponent implements OnInit {
       ); 
     }
     else {
-      this.userService.getUserProfile(this.userId).subscribe(
-        result => {
-          this.profileUser = result['user'];
-          this.profileUser.phone = result['phones'][0];
-          this.profileUser.addresse = result['addresses'][0];
-          this.profileUser.interests = result['interests'];
-          this.userImage['url'] = `${environment.api_host}` + this.profileUser.profile_picture['url'];
-          this.userRole = this.profileUser.role;
-          this.loadUserBooks();  
+      this.userService.currentUser.subscribe(
+        (userData: User) => {
+          if(userData.name){
+            this.currentUser = userData;
+            if(this.currentUser.id == this.userId) // profile of current user
+              this.router.navigateByUrl('/userprofile');
+            else {
+
+              // profile of another user 
+              this.userService.getUserProfile(this.userId).subscribe(
+                result => {
+                  this.profileUser = result['user'];
+                  this.profileUser.phone = result['phones'][0];
+                  this.profileUser.addresse = result['addresses'][0];
+                  this.profileUser.interests = result['interests'];
+                  this.userImage['url'] = `${environment.api_host}` + this.profileUser.profile_picture['url'];
+                  this.userRole = this.profileUser.role;
+                  this.loadUserBooks();  
+                }
+              );
+            }
+          }
         }
-      );
-    
+      );    
     }
   }
 
@@ -82,6 +102,32 @@ export class UserProfileComponent implements OnInit {
       }, 
       error => {
         console.log(error);
+      }
+    );
+  }
+
+  //add rate to user
+  submitRate(){
+    console.log(this.rateVal);
+    let rate = this.rateVal;
+    this.userService
+    .addRate(this.userId,rate)
+    .subscribe(
+      result => {
+        console.log(result);
+        if( result['status'] == 'FAIL' ) {
+          this.error = result['message']
+        }
+        else {
+          if( result['message'] ) {
+            this.message = result['message']
+           this.rateVal= null;
+          }
+         
+        }
+    },
+      error => {
+         console.log(error);
       }
     );
   }

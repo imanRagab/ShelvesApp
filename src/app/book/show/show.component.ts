@@ -16,15 +16,16 @@ import {
   styleUrls: ['./show.component.scss']
 })
 export class ShowComponent implements OnInit {
-
+  rateVal: number;
   book: Book;
   currentUser: User;
   canModify: boolean;
   similarBooks: Array<Book>;
   exchangeableBooks: Array<Book>;
+  rateForm: FormGroup;
   orderForm: FormGroup;
   orderSellForm: FormGroup;
-  exchangeForm: FormGroup;
+
   error: string;
   message: string;
   orderFormErrors = {};
@@ -40,6 +41,7 @@ export class ShowComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.error = "";
     this.message= "";
     this.similarBooks = [];
@@ -167,6 +169,34 @@ export class ShowComponent implements OnInit {
       this.orderBookForSell();
     }  
         
+  }
+
+  //submit rate value
+  submitRate(){
+    console.log(this.rateVal);
+    let rate = this.rateVal;
+    this.bookService
+    .addRate(this.book.id,rate)
+    .subscribe(
+      result => {
+        console.log(result);
+        if( result['status'] == 'FAIL' ) {
+          this.error = result['message']
+        }
+        else {
+          if( result['message'] ) {
+            this.message = result['message']
+           this.rateVal= null;
+          }
+         
+        }
+    },
+      error => {
+        alert("Couldn\'t add rate on this Book")
+        this.router.navigateByUrl('/');
+         console.log(error);
+      }
+    );
   }
 
   reload(){

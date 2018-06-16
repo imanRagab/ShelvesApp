@@ -17,7 +17,12 @@
     
             <!--Author Data-->
             <div class=" col-8 col-sm-10">
-    
+                    <div class="alert alert-success" *ngIf="message">
+                            <span>{{ message }}</span>
+                        </div>
+                        <div class="alert alert-danger" *ngIf="error">
+                            <span>{{ error }}</span>
+                        </div>
                 <div class="personal-sm col-lg-8" >
                     <ul [ngSwitch]="book?.transcation">
                         <!--book Name-->
@@ -32,10 +37,19 @@
                         <li> <label for="" class="font-weight-bold">Quantity :&nbsp;</label>{{ book?.quantity }}</li>
                         <li *ngIf="book?.bid_duration"> <label for="" class="font-weight-bold">For bid till :&nbsp;</label> {{ book?.bid_duration }} </li> 
                     <!--Rating-->
-                    <!-- <li> <label for="" class="font-weight-bold">Rate : </label>
-                        <p-rating [(ngModel)]="val" class="rates"></p-rating>
-                    </li> -->
-                    <!-- <p-rating [(ngModel)]="val" formControlName="score"></p-rating> -->
+                
+
+                    
+                    
+                            <li *ngIf="!canModify"> <label for="" class="font-weight-bold">Rate : </label>
+                                <p-rating [(ngModel)]="rateVal" class="rates" ></p-rating>
+                            </li>
+                            <button type="button" [hidden]="!rateVal"  (click)="submitRate()" class="btn peach waves-light"  mdbWavesEffect>
+                                Give A rate
+                            </button>
+                        
+
+                        
                     <li *ngIf="canModify">
                         <button type="button" class="btn peach waves-light" routerLink="/books/edit/{{ book?.id }}" mdbWavesEffect>
                             Edit

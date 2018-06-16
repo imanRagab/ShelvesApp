@@ -7,7 +7,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { BookListComponent } from './book-list/book-list.component';
-//import {RatingModule} from 'primeng/rating';
+import {RatingModule} from 'primeng/rating';
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { BookListComponent } from './book-list/book-list.component';
     ReactiveFormsModule,
     RouterModule,
     MDBBootstrapModule.forRoot(),
-   // RatingModule
+   RatingModule
   ],
   declarations: [ShowComponent, CreateComponent, BookListComponent]
 })

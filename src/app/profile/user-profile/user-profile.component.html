@@ -2,35 +2,64 @@
 
     <!--Author box-->
     <div class="author-box  d-flex align-items-center">
+
         <!--Name-->
         <!-- <h3 class="h3-responsive text-center">About author</h3>
         <hr> -->
 
         <!--Avatar-->
         <div class="col-lg-2 col-md-6 col-sm-2 ">
-        <img src="{{ userImage.url }}" class="img-fluid rounded-circle z-depth-2" *ngIf="profileUser?.profile_picture?.url">
-        <img src="assets/images/blank__240x240.gif" class="img-fluid rounded-circle z-depth-2" *ngIf="!profileUser?.profile_picture?.url">
-        <div class="d-flex justify-content-center  mt-5" *ngIf="userLoggedIn">
-            <button class="btn peach avatar" routerLink="/editprofile">Edit Profile</button>
-        </div>
+
+            <img src="{{ userImage.url }}" class="img-fluid rounded-circle z-depth-2" *ngIf="profileUser?.profile_picture?.url">
+            <img src="assets/images/blank__240x240.gif" class="img-fluid rounded-circle z-depth-2" *ngIf="!profileUser?.profile_picture?.url">
+            <div class="d-flex justify-content-center  mt-5" *ngIf="userLoggedIn">
+                <button class="btn peach avatar" routerLink="/editprofile">Edit Profile</button>
+            </div>
         </div>
         <!--Author Data-->
         <div class=" col-12 col-sm-10">
-            <p><strong>{{ profileUser?.name }}</strong></p>
+            <div class="alert alert-success" *ngIf="message">
+                <span>{{ message }}</span>
+            </div>
+            <div class="alert alert-danger" *ngIf="error">
+                <span>{{ error }}</span>
+            </div>
+            <p>
+                <strong>{{ profileUser?.name }}</strong>
+            </p>
 
             <div class="personal-sm">
-                    <ul>
-                        <li *ngIf="userRole == 'Normal user'"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{ profileUser?.gender }}</li>
-                        <li *ngIf="profileUser.addresse"><i class="fa fa-location-arrow" aria-hidden="true"></i>&nbsp;                      
-                        <span>{{ profileUser?.addresse?.building_number + " " + profileUser?.addresse?.street
-                            + " st. " + profileUser?.addresse?.city + ", " + profileUser?.addresse?.region }}</span>
-                        </li>
-                        <li *ngIf="profileUser.phone"><i class="fa fa-phone" aria-hidden="true">&nbsp;
+                <ul>
+                    <li *ngIf="userRole == 'Normal user'">
+                        <i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{ profileUser?.gender }}</li>
+                    <li *ngIf="profileUser.addresse">
+                        <i class="fa fa-location-arrow" aria-hidden="true"></i>&nbsp;
+                        <span>{{ profileUser?.addresse?.building_number + " " + profileUser?.addresse?.street + " st. " + profileUser?.addresse?.city
+                            + ", " + profileUser?.addresse?.region }}</span>
+                    </li>
+                    <li *ngIf="profileUser.phone">
+                        <i class="fa fa-phone" aria-hidden="true">&nbsp;
                         </i>
                         <span>{{ profileUser?.phone?.phone }}</span>
+
                         <!-- <span *ngFor="let phone of profileUser.phones | slice:1"> - {{ phone?.phone }}</span> -->
-                        </li>
-                    </ul>
+                    </li>
+                <li>
+                        <label for="" class="font-weight-bold">Rate :
+                                <span class="stars" style="margin: 0 auto; ">
+                                    <span [style.width.%]="profileUser?.rate/5*100"></span>
+    
+                                </span>
+                        </label>
+                </li>
+                    <li [hidden]="!userId">
+                        
+                        <p-rating [(ngModel)]="rateVal" class="rates"></p-rating>
+                    </li>
+                    <button type="button" [hidden]="!rateVal" (click)="submitRate()" class="btn peach waves-light" mdbWavesEffect>
+                        Give A rate
+                    </button>
+                </ul>
 
             </div>
 
@@ -46,8 +75,8 @@
             <!--Grid column-->
             <div class="col-lg-3 col-md-6 mb-r " *ngFor="let book of userBooks" style="margin-bottom: 20px">
 
-            <!--Card-->
-            <div class="card card-cascade narrower">
+                <!--Card-->
+                <div class="card card-cascade narrower">
 
                     <!--Card image-->
                     <div class="view overlay hm-white-slight zoom">
@@ -57,31 +86,41 @@
                         </a>
                     </div>
                     <!--/.Card image-->
-    
+
                     <!--Card content-->
                     <div class="card-body no-padding text-center">
-    
+
                         <!--Category & Title-->
                         <h5>{{ book?.category?.name }}</h5>
-                        <h4 class="card-title"><strong><a href="">{{ book?.name }}</a></strong></h4>
-                        <h4> <span class="badge  lighten-1">{{ book?.transcation }}</span></h4>
+                        <h4 class="card-title">
+                            <strong>
+                                <a href="">{{ book?.name }}</a>
+                            </strong>
+                        </h4>
+                        <h4>
+                            <span class="badge  lighten-1">{{ book?.transcation }}</span>
+                        </h4>
                         <!--Description-->
                         <p class="card-text">{{ (book?.description.length>50)? (book?.description | slice:0:50)+'...':(book?.description) }}
                         </p>
-    
+
                         <!--Card footer-->
                         <div class="card-footer">
-    
+
                             <span class="right">
-        
-                          <a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><i class="fa fa-user pr-2"></i></a>
-                      </span>
-                            <span class="left"><strong>{{ book?.user[0]?.name }}</strong></span>
+
+                                <a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist">
+                                    <i class="fa fa-user pr-2"></i>
+                                </a>
+                            </span>
+                            <span class="left">
+                                <strong>{{ book?.user[0]?.name }}</strong>
+                            </span>
                         </div>
-    
+
                     </div>
                     <!--/.Card content-->
-    
+
                 </div>
                 <!--/.Card-->
 

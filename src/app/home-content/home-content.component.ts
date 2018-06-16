@@ -91,4 +91,12 @@ export class HomeContentComponent implements OnInit {
         this.recommendedBooks[i] = temp;
       }    
     }
+
+    getStars(ratingNumber){
+      // Get the value
+      var val = parseFloat(ratingNumber);
+      // Turn value into number/100
+      var size = val/5*100;
+      return size + '%';
+    } 
 }

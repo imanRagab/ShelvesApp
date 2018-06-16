@@ -113,6 +113,12 @@ export class UserService {
     return this.apiService.post(route, resetForm);
   }
 
+  // create new password
+  newPassword(resetToken, newPasswordForm): Observable<any> {
+    const route = `/user/password_resets/${resetToken}`;
+    return this.apiService.put(route, newPasswordForm);
+  }
+
   // get user profile data
   getUserProfile(id): Observable<User> {
     const route = `/user/users/${id}`;
@@ -123,4 +129,10 @@ export class UserService {
     const route = `/user/users/${id}/get_user_books`;
     return this.apiService.get(route);
   }  
+
+   //add rate on a user
+   addRate(userID,rate): Observable<Book> {
+    const route = `/user/users/${userID}/user_rates`;
+    return this.apiService.post(route, {rate: rate});
+  }
 }

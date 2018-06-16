@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import { AuthComponent } from './auth/auth.component';
+import { NewPasswordComponent } from './auth/new-password/new-password.component';
 import { ShowComponent } from './book/show/show.component';
 import { CreateComponent } from './book/create/create.component';
 import {HomeContentComponent} from './home-content/home-content.component';
@@ -26,6 +27,11 @@ const routes: Routes = [
   {
     path: 'register',
     component: AuthComponent,
+    canActivate: [NoAuthGuardService]
+  },
+  {
+    path: 'newpassword',
+    component: NewPasswordComponent,
     canActivate: [NoAuthGuardService]
   },
   {
