@@ -16,7 +16,7 @@ import {
   styleUrls: ['./show.component.scss']
 })
 export class ShowComponent implements OnInit {
-  val: number;
+  rateVal: number;
   book: Book;
   currentUser: User;
   canModify: boolean;
@@ -146,7 +146,30 @@ export class ShowComponent implements OnInit {
 
   //submit rate value
   submitRate(){
-    console.log(this.val);
+    console.log(this.rateVal);
+    let rate = this.rateVal;
+    this.bookService
+    .addRate(this.book.id,rate)
+    .subscribe(
+      result => {
+        console.log(result);
+        if( result['status'] == 'FAIL' ) {
+          this.error = result['message']
+        }
+        else {
+          if( result['message'] ) {
+            this.message = result['message']
+           
+          }
+         
+        }
+    },
+      error => {
+        alert("Couldn\'t make Bid on this Book")
+        this.router.navigateByUrl('/');
+         console.log(error);
+      }
+    );
   }
 
   reload(){
