@@ -7,6 +7,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AuthComponent } from './auth.component';
 import { SharedModule } from '../shared';
 import { AppRoutingModule } from '../app-routing.module';
+import { NewPasswordComponent } from './new-password/new-password.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { AppRoutingModule } from '../app-routing.module';
     MDBBootstrapModule.forRoot(), 
   ],
   declarations: [
-    AuthComponent
+    AuthComponent,
+    NewPasswordComponent
   ],
   providers: [
   ]
