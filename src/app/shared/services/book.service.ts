@@ -58,4 +58,11 @@ export class BookService {
     const route = `/book/books/`;
     return this.apiService.get(route + params);
   }
+
+  //get exchangeable books 
+  getExchangeableBooks(id :number): Observable<Array<Book>>
+  {
+    const route = `/book/books/${id}/exchange`;
+    return this.apiService.get(route)
+  }
 }

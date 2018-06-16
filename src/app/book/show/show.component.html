@@ -40,7 +40,7 @@
                         Edit
                     </button>
                     </li>
-                    <li *ngIf="!canModify"> <button type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample" (click)="fluid.show()" mdbWavesEffect>
+                    <li *ngIf="!canModify"> <button type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample" (click)="fluid.show();getExchangeableBooks()" mdbWavesEffect>
                             Order now
                         </button>
     
@@ -57,18 +57,13 @@
                                             <p> Choose from your shelf which books you need to exchange with...
                                             </p>
                                             <ul>
-                                                <li class="view overlay hm-white-slight zoom"><input type="checkbox" id="cb1" />
-                                                    <label for="cb1"><img src="assets/images/Young_Adult_Romance_Book_if_i_stay.jpg" /></label>
+                                                <ng-template ngFor let-item [ngForOf]="exchangeableBooks" let-i="index">
+                                                    <li  class="view overlay hm-white-slight zoom">
+                                                        <input type="checkbox" id="{{item.id}}" />
+                                                    <label for=""><img src="http://localhost:3000{{book?.book_images[0]?.image?.url}}"/> </label>
+                                                
                                                 </li>
-                                                <li class="view overlay hm-white-slight zoom"><input type="checkbox" id="cb2" />
-                                                    <label for="cb2"><img src="assets/images/9780751550047.jpg" /></label>
-                                                </li>
-                                                <li class="view overlay hm-white-slight zoom"><input type="checkbox" id="cb3" />
-                                                    <label for="cb3"><img src="assets/images/books-trophy-child.jpg" /></label>
-                                                </li>
-                                                <li class="view overlay hm-white-slight zoom"><input type="checkbox" id="cb4" />
-                                                    <label for="cb4"><img src="assets/images/41865.jpg" /></label>
-                                                </li>
+                                                </ng-template>
                                             </ul>
     
                                         </div>

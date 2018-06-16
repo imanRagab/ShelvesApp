@@ -20,6 +20,7 @@ export class ShowComponent implements OnInit {
   currentUser: User;
   canModify: boolean;
   similarBooks: Array<Book>;
+  exchangeableBooks: Array<Book>;
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
@@ -56,6 +57,17 @@ export class ShowComponent implements OnInit {
     );   
   }
 
+//get exchangeable books
+  getExchangeableBooks()
+  {
+    const wanted_book_id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.bookService.getExchangeableBooks(wanted_book_id).subscribe(
+      data => this.exchangeableBooks=data['exchangeable_books'],
+      error => {
+        console.log(error);
+       }
+    );
+  }
   getSimilarBooks() {
   }
 }
