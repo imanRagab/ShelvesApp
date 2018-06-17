@@ -297,13 +297,14 @@
                 </div>
                 <!--End Comment actions-->
                 <!--Reply-->
-                <div class="media mt-3">
+                <div class="media mt-3" *ngFor="let reply of comment.replies">
                     <a class="d-flex pr-3" href="#">
-                        <img src="assets/images/dorothy-puscas-445419-unsplash.jpg" alt="Generic placeholder image">
+                        <img src="assets/images/41865.jpg" alt="Generic placeholder image">
                     </a>
                     <div class="media-body">
-                        <h5 class="mt-0">Amira Adel</h5>
-                        Cras sit amet nibh libero, in gravida nulla tempus vinunc ac nisi vulputate fringilla.
+                        <h5 class="mt-0">{{reply.user[0].name}}</h5>
+                        <span>{{reply.created_at}}</span>
+                        <p>{{reply.reply}}</p>
                     </div>
                 </div>
             </div>
