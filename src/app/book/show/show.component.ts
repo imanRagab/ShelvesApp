@@ -9,6 +9,7 @@ import {
   UserService,
   Comment,
   CommentService,
+  Reply,
 } from '../../shared';
 
 
@@ -31,6 +32,11 @@ export class ShowComponent implements OnInit {
   orderFormErrors = {};
   comments: Array<Comment>;
   commentForm: FormGroup;
+  comment: Object;
+  reply: Object;
+  commentError: string;
+  replyError: string;
+  replyForm: FormGroup;
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
@@ -61,6 +67,14 @@ export class ShowComponent implements OnInit {
       ]]
     });
     this.showComments();
+    this.commentError = "";
+    this.replyError = "";
+    this.replyForm = this.fb.group({
+      'reply':['',[
+        Validators.required,
+        Validators.minLength(2)
+      ]]
+    });
   }
 
   // get book data
@@ -197,7 +211,12 @@ export class ShowComponent implements OnInit {
       result => {
         console.log(result);
         if( result['status'] == 'FAIL' ) {
-          this.error = result['message']
+          this.commentError = result['message'];
+        }else{
+          this.commentError = "";
+          this.comment = result["comment"];
+          this.comments.splice(0,0,this.comment as Comment);
+          this.commentForm.reset();
         }
         this.router.navigateByUrl(`/books/${this.book.id}`);
     },
@@ -214,6 +233,8 @@ export class ShowComponent implements OnInit {
     this.createComment();
 
   }
+
+  // return all comments
   showComments(){
     const book_id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.commentService
@@ -235,5 +256,40 @@ export class ShowComponent implements OnInit {
     );
 
   }
+
+  // Create comment
+  createReply(commentId: number) {
+    const reply = this.replyForm.value;
+    this.commentService
+    .createReply(this.book.id,commentId,reply.reply)
+    .subscribe(
+      result => {
+        console.log(result);
+        if( result['status'] == 'FAIL' ) {
+          this.replyError = result['message'];
+        }else{
+          this.replyError = "";
+          this.reply = result["reply"];
+          // push reply to it's comment
+          this.comments
+          .filter(Comment => Comment.id == commentId)[0]
+          .replies.push(this.reply);
+          this.replyForm.reset();
+        }
+        this.router.navigateByUrl(`/books/${this.book.id}`);
+    },
+      error => {
+        alert("Couldn\'t create the reply!")
+        this.router.navigateByUrl('/books/${this.book.id}');
+        // console.log(error);
+      }
+    );
+  }  
+
+  // submit reply function create/update
+  submitReply(commentId: number) {
+    this.createReply(commentId);;
+  }
+
  
 }
