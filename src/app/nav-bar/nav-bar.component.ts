@@ -50,20 +50,12 @@ export class NavBarComponent implements OnInit {
         this.currentUser = userData;
         if (this.currentUser.name) {
           this.userLoggedIn = true;
-<<<<<<< HEAD
-          // this.getUnSeenNotifications();
-          // this.getNotifications();
-        }
-      }
-    );
-=======
           
         }
       }
     );
     this.getUnSeenNotifications();
     this.getNotifications();
->>>>>>> 6f46ca8d0abfe7e5f9343f14a18b1b4e3f18f952
 
   }
   // get list of all categories
