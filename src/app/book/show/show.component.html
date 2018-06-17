@@ -263,12 +263,12 @@
     <div class="row">
 
         <!--Commented-->
-        <div class="media">
-            <img class="d-flex mr-3 " src="assets/images/freestocks-org-209880-unsplash.jpg" alt="Generic placeholder image">
+        <div class="media" *ngFor="let comment of comments">
+            <img class="d-flex mr-3 " src="assets/images/5346.jpg" alt="Generic placeholder image">
             <div class="media-body ">
-                <h5 class="mt-0">Monica Magdy</h5>
-                <p> Cras sit amet nibh libero, in gravida nulla. Nulla vetudin.Fusce condimentum nunc ac nisi faucibus.
-                </p>
+                <h5 class="mt-0">{{comment.user[0].name}}</h5>
+                <span>{{comment.created_at}}</span>
+                <p>{{comment.comment}}</p>
                 <!--Comment actions-->
                 <button class="actionbBtn">Reply</button>
                 <button class=" waves-light actionbBtn" (click)="style.show()" mdbWavesEffect>Delete</button>

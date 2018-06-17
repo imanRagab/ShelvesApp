@@ -55,11 +55,12 @@ export class ShowComponent implements OnInit {
     });
     this.comments = [];
     this.commentForm = this.fb.group({
-      'comment': ['book description', [
+      'comment': ['', [
         Validators.required,
         Validators.minLength(2),
       ]]
     });
+    this.showComments();
   }
 
   // get book data
@@ -194,6 +195,10 @@ export class ShowComponent implements OnInit {
     .createComment(this.book.id,comment.comment)
     .subscribe(
       result => {
+        console.log(result);
+        if( result['status'] == 'FAIL' ) {
+          this.error = result['message']
+        }
         this.router.navigateByUrl(`/books/${this.book.id}`);
     },
       error => {
@@ -204,9 +209,30 @@ export class ShowComponent implements OnInit {
     );
   }
 
-  // submit commet function create/update
+  // submit comment function create/update
   submitComment() {
     this.createComment();
+
+  }
+  showComments(){
+    const book_id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.commentService
+    .showComments(book_id)
+    .subscribe(
+      result => {
+        console.log(result);
+        for(let i = 0; i < result['comments'].length; i++){
+          this.comments.push(result['comments'][i]);
+        }
+        console.log(this.comments);
+        this.router.navigateByUrl(`/books/${this.book.id}`);
+    },
+      error => {
+        alert("Couldn\'t create the comment!")
+        this.router.navigateByUrl('/books/${this.book.id}');
+         console.log(error);
+      }
+    );
 
   }
  
