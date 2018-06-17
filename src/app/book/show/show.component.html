@@ -271,13 +271,13 @@
                 <p>{{comment.comment}}</p>
                 <!--Comment actions-->
                 <ng-container >
+                    <button class=" waves-light actionbBtn" (click)="style.show()" mdbWavesEffect>Delete</button>
                     <div class="md-form col-lg-8 mb-5">
                         <form [formGroup]="replyForm" (ngSubmit)="submitReply(comment.id)"  role="form">
                             <i class="fa fa-pencil prefix fa-rotate-270"></i>
                             <textarea mdbInputDirective type="text" id="form9" class="md-textarea form-control " rows="1"  name="reply" formControlName="reply" minLength="2"></textarea>
                             <label for="form9">Write a reply...</label>
                             <button class="actionbBtn" >Reply</button>
-                            <button class=" waves-light actionbBtn" (click)="style.show()" mdbWavesEffect>Delete</button>
                             <span style="color:red " id="comment.id">{{ replyError }}</span>
                         </form>
                     </div>
@@ -298,7 +298,7 @@
                             </div>
                             <div class="modal-footer justify-content-center">
 
-                                <a type="button" class="btn  btn-primary waves-light" mdbWavesEffect>Yes</a>
+                                <a type="button" class="btn  btn-primary waves-light" mdbWavesEffect (click)="deleteComment(comment.id)">Yes</a>
                                 <a type="button" class="btn btn-danger" data-dismiss="modal" (click)="style.hide()" mdbWavesEffect>Cancel</a>
                             </div>
                         </div>

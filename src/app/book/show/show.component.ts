@@ -257,7 +257,34 @@ export class ShowComponent implements OnInit {
 
   }
 
-  // Create comment
+  // delete comment
+  deleteComment(commentId: number){
+     console.log("test");
+     this.commentService
+     .deleteComment(this.book.id,commentId)
+     .subscribe(
+      result => {
+        console.log(result);
+        if( result['status'] == 'FAIL' ) {
+          this.commentError = result['message'];
+        }else{
+          this.commentError = "";
+          // delete comment from page
+          var index= this.comments.indexOf(this.comments
+          .filter(Comment => Comment.id == commentId)[0]);
+          this.comments.splice(index,1);
+        }
+        this.router.navigateByUrl(`/books/${this.book.id}`);
+    },
+      error => {
+        alert("Couldn\'t delete the comment!")
+        this.router.navigateByUrl('/books/${this.book.id}');
+        // console.log(error);
+      }
+     );
+  }
+
+  // Create reply
   createReply(commentId: number) {
     const reply = this.replyForm.value;
     this.commentService
@@ -290,6 +317,6 @@ export class ShowComponent implements OnInit {
   submitReply(commentId: number) {
     this.createReply(commentId);;
   }
-
+  
  
 }

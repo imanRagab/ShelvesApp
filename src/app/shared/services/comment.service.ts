@@ -30,7 +30,12 @@ export class CommentService {
     return this.apiService.get(route);
   }
 
-
+  // delete comment
+  deleteComment(bookId :number,commentId: number): Observable<Comment>{
+    const route = `/book/books/${bookId}/comments/${commentId}`;
+    return this.apiService.delete(route);
+  }
+  
   // create reply
   createReply(bookId :number,commentId :number,reply :object): Observable<Reply>{
     const route = `/book/books/${bookId}/comments/${commentId}/replies`;
