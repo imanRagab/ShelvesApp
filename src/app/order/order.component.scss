@@ -1,0 +1,109 @@
+    .before {
+        height: 150px;
+    }
+    
+    .badge {
+        background-color: #ff4f4f;
+    }
+    
+    .userImg {
+        .rounded-circle {
+            width: 100px;
+            height: 100px;
+        }
+    }
+    
+    .BidOrder {
+        .orderImg {
+            margin-left: 72px;
+        }
+    }
+    
+    .sellOrder {
+        .orderImg {
+            margin-left: 13%;
+        }
+        // label {
+        //     margin-left: 25%;
+        // }
+    }
+    
+    .orderImg {
+        width: 177px;
+        height: 235px;
+    }
+    
+    i {
+        font-size: 40px;
+        color: #ff4f4f;
+        margin-left: 27%;
+    }
+    
+    .personal-sm {
+        ul {
+            list-style: none;
+            display: inline-block;
+            .orderImg {
+                width: 177px;
+                height: 235px;
+            }
+        }
+    }
+    
+    ul {
+        list-style-type: none;
+    }
+    
+    li {
+        display: inline-block;
+    }
+    
+    input[type="checkbox"][id^="cb"] {
+        display: none;
+    }
+    
+    label {
+        border: 1px solid #fff;
+        padding: 6px;
+        display: block;
+        position: relative;
+        margin: 5px;
+        cursor: pointer;
+        &:before {
+            background-color: white;
+            color: white;
+            content: " ";
+            display: block;
+            border-radius: 50%;
+            border: 1px solid grey;
+            position: absolute;
+            top: -11px;
+            left: -11px;
+            width: 25px;
+            height: 25px;
+            text-align: center;
+            line-height: 28px;
+            transition-duration: 0.4s;
+            transform: scale(0);
+        }
+        img {
+            height: 300px;
+            width: 200px;
+            transition-duration: 0.2s;
+            transform-origin: 80% 80%;
+        }
+    }
+    
+     :checked+label {
+        border-color: #ddd;
+        img {
+            transform: scale(0.9);
+            box-shadow: 0 0 5px #333;
+            z-index: 2;
+        }
+        &:before {
+            content: "✓";
+            background-color: grey;
+            transform: scale(1);
+        }
+    }
