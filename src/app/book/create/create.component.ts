@@ -78,6 +78,7 @@ export class CreateComponent implements OnInit {
               // Load the current user's data
               this.userService.currentUser.subscribe(
                 (userData: User) => {
+                  
                   this.currentUser = userData;
                   if(this.book.user[0].id != this.currentUser.id && this.formType == 'edit')
                     this.router.navigateByUrl('/');
@@ -108,6 +109,19 @@ export class CreateComponent implements OnInit {
             }
           );
         }
+      }
+      else {
+        // Load the current user's data
+        this.userService.currentUser.subscribe(
+          (userData: User) => {            
+            this.currentUser = userData;
+            // add form control for price & quantity if the user is a bookstore user
+            if (this.currentUser.role === 'Book store') {
+              this.bookForm.controls['transcation'].setValue('Sell');
+              this.isBookStore = true;
+            } 
+          }
+        );  
       }
     });
   }

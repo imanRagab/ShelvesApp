@@ -37,17 +37,18 @@ export class NewPasswordComponent implements OnInit {
   createNewPassword() {
     
     // check if two passwords match
-    let password = this.newPasswordForm.get('password');
-    let password_confirmation = this.newPasswordForm.get('password_confirmation');
+    let password = this.newPasswordForm.get('password').value;
+    let password_confirmation = this.newPasswordForm.get('password_confirmation').value;
 
     if(password === password_confirmation) {
+
       this.userService.newPassword(this.passwordResetToken, this.newPasswordForm.value).subscribe(
         result => {
           alert("Password changed successfully.")
           this.router.navigateByUrl('/');
         },
         error => {
-          this.error = error;
+          this.error = error.error;
           console.log(error);
         }
       );

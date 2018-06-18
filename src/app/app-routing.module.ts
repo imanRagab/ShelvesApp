@@ -71,11 +71,11 @@ const routes: Routes = [
   {
     path: 'books',
     component : BookListComponent
-  },
-  {
-    path: 'showNotifications',
-    component : ShowNotificationsComponent
-  }
+   },
+   {
+     path: 'showNotifications',
+     component : ShowNotificationsComponent
+   }
 
 ];
 
