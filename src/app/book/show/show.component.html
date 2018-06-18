@@ -57,7 +57,7 @@
                     </li>
                     <li *ngIf="!canModify">
                         <button *ngSwitchCase="'Exchange'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"
-                            (click)="fluid.show()" mdbWavesEffect>
+                            (click)="fluid.show();getExchangeableBooks()" mdbWavesEffect>
                             Order now For Exchange
                         </button>
 
@@ -66,6 +66,14 @@
                             aria-hidden="true">
                             <div class="modal-dialog modal-full-height modal-bottom" role="document">
                                 <div class="modal-content">
+                                    <div *ngIf="error ; then errorBlock; else elseBlock"></div>
+                                    <ng-template #errorBlock>
+                                            <div class="alert alert-danger">
+                                                    <span>{{ error }}</span>
+                                                </div>
+                                    </ng-template> 
+                                    <ng-template #elseBlock>
+                                            
                                     <div class="modal-header">
                                         <h4 class="modal-title w-100" id="myModalLabel">Choose books for exchange</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="fluid.hide()">
@@ -75,45 +83,34 @@
                                     <div class="modal-body">
                                         <p> Choose from your shelf which books you need to exchange with...
                                         </p>
-                                        <ul>
-                                            <li class="view overlay hm-white-slight zoom">
-                                                <input type="checkbox" id="cb1" />
-                                                <label for="cb1">
-                                                    <img src="assets/images/Young_Adult_Romance_Book_if_i_stay.jpg" />
-                                                </label>
-                                            </li>
-                                            <li class="view overlay hm-white-slight zoom">
-                                                <input type="checkbox" id="cb2" />
-                                                <label for="cb2">
-                                                    <img src="assets/images/9780751550047.jpg" />
-                                                </label>
-                                            </li>
-                                            <li class="view overlay hm-white-slight zoom">
-                                                <input type="checkbox" id="cb3" />
-                                                <label for="cb3">
-                                                    <img src="assets/images/books-trophy-child.jpg" />
-                                                </label>
-                                            </li>
-                                            <li class="view overlay hm-white-slight zoom">
-                                                <input type="checkbox" id="cb4" />
-                                                <label for="cb4">
-                                                    <img src="assets/images/41865.jpg" />
-                                                </label>
-                                            </li>
+                                        <ul> 
+                                                <ng-template ngFor let-item [ngForOf]="exchangeableBooks" let-i="index">
+                                                    <li class="view overlay hm-white-slight zoom">
+                                                             <input type="checkbox" id="{{item[0].id}}" name="exBook" (change)="chooseBook($event,item[0])"/>
+                                                        <label for=""><img src="http://localhost:3000{{item[0]?.image?.url}}" /></label>  
+                                                       
+                                                    </li>
+                                                </ng-template>
                                         </ul>
 
                                     </div>
+                                   
+                                            <div class="alert alert-success" *ngIf="message">
+                                                    <span>{{message}}</span>
+                                                </div>
+                           
                                     <div class="modal-footer justify-content-center">
-                                        <button type="button" class="btn btn-danger waves-light" data-dismiss="modal" (click)="fluid.hide()" mdbWavesEffect>Close</button>
-                                        <button type="button" class="btn btn-primary waves-light" mdbWavesEffect>Save changes</button>
+                                            <button type="button" class="btn btn-danger waves-light" data-dismiss="modal" (click)="fluid.hide()" mdbWavesEffect>Close</button>
+                                            <button type="button" class="btn btn-primary waves-light" (click)=" requestExchange()" mdbWavesEffect>Send Request</button>
                                     </div>
+                                </ng-template>
+                           
+
                                 </div>
                             </div>
                         </div>
                     </li>
-
-
-
+                  
                     <li *ngIf="!canModify">
 
                         <button *ngSwitchCase="'Sell By Bids'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"
@@ -162,6 +159,16 @@
                     </li>
 
 
+
+                    <li *ngIf="!canModify">
+
+                            <button *ngSwitchCase="'Free Share'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"  (click)=" OrderFree()">
+                                Order now for free
+                            </button>
+    
+                        </li>
+
+                        
                     <li *ngIf="!canModify">
                             <button *ngSwitchCase="'Sell'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"
                                 (click)="fluid3.show()" mdbWavesEffect>

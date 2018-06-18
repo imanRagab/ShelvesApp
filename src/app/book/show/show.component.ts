@@ -24,12 +24,15 @@ export class ShowComponent implements OnInit {
   currentUser: User;
   canModify: boolean;
   similarBooks: Array<Book>;
+  exchangeableBooks: Array<Book>;
   rateForm: FormGroup;
   orderForm: FormGroup;
   orderSellForm: FormGroup;
+
   error: string;
   message: string;
   orderFormErrors = {};
+<<<<<<< HEAD
   comments: Array<Comment>;
   commentForm: FormGroup;
   comment: Object;
@@ -37,6 +40,11 @@ export class ShowComponent implements OnInit {
   commentError: string;
   replyError: string;
   replyForm: FormGroup;
+=======
+  myObject: Book
+  exchange_order_id: number
+  chosen_books = { "books": []}
+>>>>>>> 73f3f12d45c901abe0d0aab2790accec7d66f206
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
@@ -99,6 +107,28 @@ export class ShowComponent implements OnInit {
     );   
   }
 
+//get exchangeable books
+  getExchangeableBooks()
+  {
+    const wanted_book_id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.bookService.getExchangeableBooks(wanted_book_id).subscribe(
+      data => {
+        if(data['status'] == 'SUCCESS'){
+          this.exchangeableBooks=data['exchangeable_books'];
+          this.exchange_order_id=data['order_id'];
+        }
+        else{
+          this.error = data['message']
+        }
+       
+    },
+      error => {
+       
+        this.router.navigateByUrl('/');
+       
+       }
+    );
+  }
   getSimilarBooks() {
   }
 
@@ -292,4 +322,56 @@ export class ShowComponent implements OnInit {
   }
   
  
+  chooseBook(e , item: Book)
+  {
+    console.log(e.explicitOriginalTarget.checked)
+    if(e.explicitOriginalTarget.checked){
+     this.chosen_books.books.push({"id": item.id})
+    }
+    else{
+
+     let index = this.chosen_books.books.indexOf(item.id);
+
+     this.chosen_books.books.splice(index, 1);
+    }
+    console.log(this.chosen_books)
+  }
+  //send request for exchange
+  requestExchange()
+  {
+    this.bookService.exchange_request(this.chosen_books,this.exchange_order_id).subscribe(
+      data => {
+        if(data['status'] == 'Success'){
+          this.message=data['message']
+        }
+       
+    },
+      error => {
+        console.log(error);
+       }
+    );
+  }
+  //order free Share 
+  OrderFree()
+  {
+    this.bookService.requestFree(this.book.id).subscribe(
+
+      result => {
+        if( result['status'] == 'FAIL' ) {
+          alert(result['message']) 
+        }
+        else {
+          if( result['message'] ) {
+           alert(result['message'])
+           
+          }
+         
+        }
+    },
+      error => {
+        this.router.navigateByUrl('/');
+      
+      }
+    );
+  }
 }
