@@ -97,9 +97,21 @@
                         </ul>
                     </div>
                 </div>
-                <a routerLink="/userprofile" class="prof" *ngIf="userLoggedIn">
+                <!-- <a routerLink="/userprofile" class="prof" *ngIf="userLoggedIn">
                     <i class="fa fa-user-circle "></i>
-                </a>
+                </a> -->
+                <div class="btn-group profile " dropdown *ngIf="userLoggedIn">
+                    <button dropdownToggle type="" class="btndropdown-toggle waves-light " mdbWavesEffect>
+                        <!-- <i class="fa fa-user-circle"></i> -->
+                        <img src="{{ userImage.url }}" class="img-fluid rounded-circle z-depth-2" *ngIf="currentUser?.profile_picture?.url">
+                    </button>
+                    <div class="dropdown-menu dropdown-primary fadeInDropdown">
+                        <a class="dropdown-item" routerLink="/userprofile">My Profile</a>
+                        <a class="dropdown-item" routerLink="/editprofile">Settings</a>
+                        <div class="divider dropdown-divider"></div>
+                        <a class="dropdown-item" (click)="logout()">Sign Out</a>
+                    </div>
+                </div>
             </links>
             <!-- Collapsible content -->
 

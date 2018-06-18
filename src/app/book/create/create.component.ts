@@ -209,8 +209,6 @@ export class CreateComponent implements OnInit {
     if(this.imagesChanged)
       this.bookForm.get('book_images_attributes').setValue(this.bookImages);
 
-    console.log(this.bookForm.value)
-
     if(this.formType == "edit") {
       this.updateBook();
     }

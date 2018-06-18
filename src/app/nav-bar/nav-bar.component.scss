@@ -1,7 +1,6 @@
-.navColor {
-    background-color: #ff4f4f;
-}
-
+// .rgba-red-strong {
+//     background-color: rgba(244, 67, 54, 0.95);
+// }
 .addBookBtn {
     color: aliceblue;
     background-color: transparent;
@@ -9,12 +8,18 @@
     margin-right: 18px;
 }
 
-.prof {
+.search {
+    width: 260px;
+}
+
+.profile {
     i {
         color: floralwhite;
         font-size: 30px;
-        margin-right: -18px;
-        margin-left: 20px;
+    }
+    .dropdown-menu {
+        left: -50px;
+        top: 69px;
     }
 }
 
@@ -52,9 +57,15 @@ i.fa.fa-bell {
     }
 }
 
+.btn-group,
+.btn-group-vertical {
+    left: 30px;
+}
+
 .noti.dropdown-menu.fadeInDropdown {
-    margin-left: -168px;
-    margin-top: 35px;
+    margin-left: -180px;
+    width: 345px;
+    margin-top: 36px;
     ul {
         margin-left: -20px;
         margin-right: 20px;
@@ -68,12 +79,49 @@ i.fa.fa-bell {
         margin-left: 3px;
         display: inline-block;
     }
+    .dropdown-item[_ngcontent-c1]:hover,
+    .dropdown-item[_ngcontent-c1]:focus {
+        background: none;
+    }
 }
 
 .notiHeader {
     span {
         color: blue;
     }
+}
+
+
+/******* ScrollBar ************/
+
+.scrollbar {
+    margin-left: auto;
+    height: 300px;
+    width: 65px;
+    background: #fff;
+    overflow-y: scroll;
+    margin-bottom: 25px;
+}
+
+.force-overflow {
+    min-height: 450px;
+}
+
+.scrollbar-warning::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+
+.scrollbar-warning::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+.scrollbar-warning::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #FF8800;
 }
 
 

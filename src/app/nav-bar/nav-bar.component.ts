@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 import {
   Category,
@@ -23,12 +24,14 @@ export class NavBarComponent implements OnInit {
   userLoggedIn: Boolean;
   userNotifications: Array<Notification>;
   noUnseenNotifications: Number;
+  userImage: object;
 
   constructor(
     private categoryService: CategoryService,
     private userService: UserService,
     private messageService: MessagingService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
   }
 
@@ -38,7 +41,7 @@ export class NavBarComponent implements OnInit {
     this.thirdCatArray = [];
     this.userNotifications = [];
     this.noUnseenNotifications = null;
-
+    this.userImage = {};
 
     // get list of book categories
     this.getCategories();
@@ -50,12 +53,12 @@ export class NavBarComponent implements OnInit {
         this.currentUser = userData;
         if (this.currentUser.name) {
           this.userLoggedIn = true;
-          
+          this.userImage['url'] = `${environment.api_host}` + this.currentUser.profile_picture['url'];
         }
       }
     );
-    this.getUnSeenNotifications();
-    this.getNotifications();
+    // this.getUnSeenNotifications();
+    // this.getNotifications();
 
   }
   // get list of all categories
@@ -131,5 +134,9 @@ export class NavBarComponent implements OnInit {
   // logout current user
   logout() {
     this.userService.purgeAuth();
+    this.userLoggedIn = false;
+    window.location.reload();
+    this.router.navigateByUrl('/');
+
   }
 }
