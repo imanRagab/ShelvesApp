@@ -1,12 +1,38 @@
-.before{
-    height: 80px;
+.before {
+    height: 200px;
 }
-.notiList{
-ul{
-    list-style: none;
-    display: inline-block;
-    li{
-        display: inline-block
+
+.notiList {
+    ul {
+        list-style: none;
+        display: inline-block;
+        li {
+            display: inline-block;
+        }
     }
 }
+
+.news {
+    display: inline-flex;
+    vertical-align: baseline;
+    img.rounded-circle {
+        width: 80px;
+        height: 80px;
+    }
+    a {
+        color: #007bff;
+        margin-right: 20px;
+    }
+    .brief {
+        margin-left: 50px;
+        span,
+        .date {
+            color: gray;
+        }
+    }
+    ul {
+        li {
+            display: block;
+        }
+    }
 }
