@@ -32,7 +32,6 @@ export class ShowComponent implements OnInit {
   error: string;
   message: string;
   orderFormErrors = {};
-<<<<<<< HEAD
   comments: Array<Comment>;
   commentForm: FormGroup;
   comment: Object;
@@ -40,11 +39,9 @@ export class ShowComponent implements OnInit {
   commentError: string;
   replyError: string;
   replyForm: FormGroup;
-=======
   myObject: Book
   exchange_order_id: number
   chosen_books = { "books": []}
->>>>>>> 73f3f12d45c901abe0d0aab2790accec7d66f206
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
