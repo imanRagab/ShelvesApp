@@ -264,7 +264,7 @@
 
         <!--Commented-->
         <div class="media">
-            <img class="d-flex mr-3 " src="assets/images/5346.jpg" alt="Generic placeholder image">
+            <img class="d-flex mr-3 " src="http://localhost:3000{{ comment?.user[0]?.profile_picture?.url }}" alt="Generic placeholder image">
             <div class="media-body ">
                 <h5 class="mt-0">{{comment.user[0].name}}</h5>
                 <span>{{comment.created_at}}</span>
@@ -285,7 +285,7 @@
                 <!--Reply-->
                 <div class="media mt-3" *ngFor="let reply of comment.replies">
                     <a class="d-flex pr-3" href="#">
-                        <img src="assets/images/41865.jpg" alt="Generic placeholder image">
+                        <img src="http://localhost:3000{{ reply?.user[0]?.profile_picture?.url }}" alt="Generic placeholder image">
                     </a>
                     <div class="media-body">
                         <h5 class="mt-0">{{reply.user[0].name}}</h5>

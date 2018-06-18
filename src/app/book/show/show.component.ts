@@ -246,11 +246,11 @@ export class ShowComponent implements OnInit {
           this.comments.push(result['comments'][i]);
         }
         console.log(this.comments);
-        this.router.navigateByUrl(`/books/${this.book.id}`);
+        this.router.navigateByUrl(`/books/${book_id}`);
     },
       error => {
         alert("Couldn\'t create the comment!")
-        this.router.navigateByUrl('/books/${this.book.id}');
+        this.router.navigateByUrl('/books/${book_id}');
          console.log(error);
       }
     );
