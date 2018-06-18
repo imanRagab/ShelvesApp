@@ -6,7 +6,10 @@ import {
   Book,
   BookService,
   User,
-  UserService
+  UserService,
+  Comment,
+  CommentService,
+  Reply,
 } from '../../shared';
 
 
@@ -29,15 +32,26 @@ export class ShowComponent implements OnInit {
   error: string;
   message: string;
   orderFormErrors = {};
+<<<<<<< HEAD
+  comments: Array<Comment>;
+  commentForm: FormGroup;
+  comment: Object;
+  reply: Object;
+  commentError: string;
+  replyError: string;
+  replyForm: FormGroup;
+=======
   myObject: Book
   exchange_order_id: number
   chosen_books = { "books": []}
+>>>>>>> 73f3f12d45c901abe0d0aab2790accec7d66f206
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
     private router: Router,
     private userService: UserService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private commentService: CommentService,
   ) { }
 
   ngOnInit() {
@@ -52,6 +66,22 @@ export class ShowComponent implements OnInit {
     });
     this.orderSellForm = this.fb.group({
       'quantity': ['', [Validators.required]]
+    });
+    this.comments = [];
+    this.commentForm = this.fb.group({
+      'comment': ['', [
+        Validators.required,
+        Validators.minLength(2),
+      ]]
+    });
+    this.showComments();
+    this.commentError = "";
+    this.replyError = "";
+    this.replyForm = this.fb.group({
+      'reply':['',[
+        Validators.required,
+        Validators.minLength(2)
+      ]]
     });
   }
 
@@ -202,6 +232,95 @@ export class ShowComponent implements OnInit {
   reload(){
     location.reload()
   }
+  // Create comment
+  createComment() {
+    const comment = this.commentForm.value;
+    this.commentService
+    .createComment(this.book.id,comment.comment)
+    .subscribe(
+      result => {
+        console.log(result);
+        if( result['status'] == 'FAIL' ) {
+          this.commentError = result['message'];
+        }else{
+          this.commentError = "";
+          this.comment = result["comment"];
+          this.comments.splice(0,0,this.comment as Comment);
+          this.commentForm.reset();
+        }
+        this.router.navigateByUrl(`/books/${this.book.id}`);
+    },
+      error => {
+        alert("Couldn\'t create the comment!")
+        this.router.navigateByUrl('/books/${this.book.id}');
+        // console.log(error);
+      }
+    );
+  }
+
+  // submit comment function create/update
+  submitComment() {
+    this.createComment();
+
+  }
+
+  // return all comments
+  showComments(){
+    const book_id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.commentService
+    .showComments(book_id)
+    .subscribe(
+      result => {
+        console.log(result);
+        for(let i = 0; i < result['comments'].length; i++){
+          this.comments.push(result['comments'][i]);
+        }
+        console.log(this.comments);
+        this.router.navigateByUrl(`/books/${book_id}`);
+    },
+      error => {
+        alert("Couldn\'t create the comment!")
+        this.router.navigateByUrl('/books/${book_id}');
+         console.log(error);
+      }
+    );
+
+  }
+
+  // Create reply
+  createReply(commentId: number) {
+    const reply = this.replyForm.value;
+    this.commentService
+    .createReply(this.book.id,commentId,reply.reply)
+    .subscribe(
+      result => {
+        console.log(result);
+        if( result['status'] == 'FAIL' ) {
+          this.replyError = result['message'];
+        }else{
+          this.replyError = "";
+          this.reply = result["reply"];
+          // push reply to it's comment
+          this.comments
+          .filter(Comment => Comment.id == commentId)[0]
+          .replies.push(this.reply);
+          this.replyForm.reset();
+        }
+        this.router.navigateByUrl(`/books/${this.book.id}`);
+    },
+      error => {
+        alert("Couldn\'t create the reply!")
+        this.router.navigateByUrl('/books/${this.book.id}');
+        // console.log(error);
+      }
+    );
+  }  
+
+  // submit reply function create/update
+  submitReply(commentId: number) {
+    this.createReply(commentId);;
+  }
+  
  
   chooseBook(e , item: Book)
   {

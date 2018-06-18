@@ -246,14 +246,62 @@
                             </a>
                         </div>
                         <!--/.Card image-->
-
-
-
                     </div>
                     <!--/.Card-->
-
                 </div>
                 <!--Grid column-->
             </div>
         </div>
     </div>
+     <!--Comments-->
+     <div class="row mt-5">
+        <h3 class="col-lg-8 pb-3 dotted">Comments</h3>
+        <div class="md-form col-lg-8 mb-5">
+          <form [formGroup]="commentForm" (ngSubmit)="submitComment()"  role="form">
+            <i class="fa fa-pencil prefix fa-rotate-270"></i>
+            <textarea mdbInputDirective type="text" id="form8" class="md-textarea form-control " rows="3" name="comment" formControlName="comment" minLength="2"></textarea>
+            <label for="form8">Write a comment...</label>
+            <button class="actionbBtn col-lg-2">Submit</button>
+            <span style="color:red">{{ commentError }}</span>
+          </form>
+        </div>
+
+    </div>
+    <div class="row" *ngFor="let comment of comments">
+
+        <!--Commented-->
+        <div class="media">
+            <img class="d-flex mr-3 " src="http://localhost:3000{{ comment?.user[0]?.profile_picture?.url }}" alt="Generic placeholder image">
+            <div class="media-body ">
+                <h5 class="mt-0">{{comment.user[0].name}}</h5>
+                <span>{{comment.created_at}}</span>
+                <p>{{comment.comment}}</p>
+                <!--Comment actions-->
+                <ng-container >
+                    <div class="md-form col-lg-8 mb-5">
+                        <form [formGroup]="replyForm" (ngSubmit)="submitReply(comment.id)"  role="form">
+                            <i class="fa fa-pencil prefix fa-rotate-270"></i>
+                            <textarea mdbInputDirective type="text" id="form9" class="md-textarea form-control " rows="1"  name="reply" formControlName="reply" minLength="2"></textarea>
+                            <label for="form9">Write a reply...</label>
+                            <button class="actionbBtn" >Reply</button>
+                            <span style="color:red " id="comment.id">{{ replyError }}</span>
+                        </form>
+                    </div>
+                </ng-container>
+                <!--End Comment actions-->
+                <!--Reply-->
+                <div class="media mt-3" *ngFor="let reply of comment.replies">
+                    <a class="d-flex pr-3" href="#">
+                        <img src="http://localhost:3000{{ reply?.user[0]?.profile_picture?.url }}" alt="Generic placeholder image">
+                    </a>
+                    <div class="media-body">
+                        <h5 class="mt-0">{{reply.user[0].name}}</h5>
+                        <span>{{reply.created_at}}</span>
+                        <p>{{reply.reply}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
