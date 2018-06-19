@@ -10,7 +10,8 @@ import { UserProfileComponent } from './profile/user-profile/user-profile.compon
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { BookListComponent } from './book/book-list/book-list.component';
 import { ShowNotificationsComponent } from './notifications/show-notifications/show-notifications.component'
-
+import { StoresComponent } from './stores/stores.component'
+import { DeliveryPlacesComponent } from './delivery-places/delivery-places.component'
 import { NoAuthGuardService } from './shared/services/no-auth-guard.service';
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import {OrderComponent} from './order/order.component'
@@ -77,7 +78,15 @@ const routes: Routes = [
      component : ShowNotificationsComponent
    },
    {
-    path: 'order',
+    path: 'stores',
+    component: StoresComponent
+  },
+  {
+    path: 'DeliveryPlaces',
+    component: DeliveryPlacesComponent
+},
+{
+    path: 'order/:id',
     component: OrderComponent,
     canActivate: [AuthGuardService]
   }

@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpTokenInterceptor } from './interceptors/http-token-interceptor';
-
+import {OrderService} from './services/order.service'
 
 import {
     JwtService,
@@ -29,6 +29,7 @@ import {
     JwtService,
     ApiService,
     UserService,
+    OrderService,
     BookService,
     CategoryService,
     {
