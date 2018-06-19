@@ -82,7 +82,9 @@
             </li>
 
             <!--Numbers-->
-            <li class="page-item" *ngFor="let page of pages"><button class="page-link" [disabled]="currentPage == page+1" mdbWavesEffect (click)="pageClick(page+1)">{{page + 1}}</button></li>
+            <li
+            [attr.class]="currentPage == page+1?'page-item active':'page-item'"
+            *ngFor="let page of pages"><button class="page-link" [disabled]="currentPage == page+1" mdbWavesEffect (click)="pageClick(page+1)">{{page + 1}}</button></li>
             <!--Arrow right-->
             <li class="page-item">
                 <button class="page-link" mdbWavesEffect aria-label="Next" [disabled]="currentPage >= totalPages" (click)="pageClick(currentPage+1)">

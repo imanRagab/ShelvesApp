@@ -22,7 +22,14 @@ export class DeliveryPlacesComponent implements OnInit {
     private workSpaceService: WorkSpacesService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) { 
+    this.route.queryParams.subscribe(params => {        
+      if(params['page'])
+        this.currentPage = parseInt(params['page']);
+      else
+        this.currentPage = 1;
+    });
+  }
 
   ngOnInit() {
     this.paginationMeta = {};
