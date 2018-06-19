@@ -53,6 +53,7 @@ export class HomeContentComponent implements OnInit {
       result => {
         if(result['status']  != 'FAIL'){
           this.latestBooks = result['books'];
+          //console.log(this.latestBooks);
         }
       },
       error => {

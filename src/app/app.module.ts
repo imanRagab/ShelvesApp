@@ -26,6 +26,8 @@ import {
 import { HomeContentComponent } from './home-content/home-content.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShowNotificationsComponent } from './notifications/show-notifications/show-notifications.component';
+import { StoresComponent } from './stores/stores.component';
+import { DeliveryPlacesComponent } from './delivery-places/delivery-places.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { ShowNotificationsComponent } from './notifications/show-notifications/s
     HomeContentComponent,
     FooterComponent,
     ShowNotificationsComponent,
+    StoresComponent,
+    DeliveryPlacesComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

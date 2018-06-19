@@ -58,9 +58,11 @@ export class UserProfileComponent implements OnInit {
         (userData: User) => {
           if(userData.name){
             this.profileUser = userData;
+            console.log(this.profileUser);
             this.userLoggedIn = true;
             this.userRole = this.profileUser.role;
             this.userImage['url'] = `${environment.api_host}` + this.profileUser.profile_picture['url'];
+            console.log(this.userImage);
             this.loadUserBooks();
           }
         }
