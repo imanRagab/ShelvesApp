@@ -8,3 +8,4 @@ export * from './messaging.service';
 export * from './no-auth-guard.service'
 export * from './auth-guard.service';
 export * from './comment.service';
+export * from './work-spaces.service';

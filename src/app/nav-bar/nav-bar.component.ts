@@ -57,8 +57,8 @@ export class NavBarComponent implements OnInit {
         }
       }
     );
-   // this.getUnSeenNotifications();
-    //this.getNotifications();
+    this.getUnSeenNotifications();
+    this.getNotifications();
     
   }
   // get list of all categories

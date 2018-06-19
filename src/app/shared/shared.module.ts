@@ -15,7 +15,8 @@ import {
     CategoryService,
     MessagingService, 
     NoAuthGuardService,
-    AuthGuardService
+    AuthGuardService,
+    WorkSpacesService,
 } from './services';
 
 @NgModule({
@@ -39,7 +40,8 @@ import {
     },
     MessagingService,
     NoAuthGuardService,
-    AuthGuardService
+    AuthGuardService,
+    WorkSpacesService,
   ]
 })
 export class SharedModule { }
