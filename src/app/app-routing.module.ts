@@ -84,7 +84,7 @@ const routes: Routes = [
   {
     path: 'DeliveryPlaces',
     component: DeliveryPlacesComponent
-},
+},  
 {
     path: 'order/:id',
     component: OrderComponent,
