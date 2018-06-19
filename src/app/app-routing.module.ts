@@ -77,7 +77,7 @@ const routes: Routes = [
      component : ShowNotificationsComponent
    },
    {
-    path: 'order',
+    path: 'order/:id',
     component: OrderComponent,
     canActivate: [AuthGuardService]
   }
