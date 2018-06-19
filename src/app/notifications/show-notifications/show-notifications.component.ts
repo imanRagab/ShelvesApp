@@ -25,7 +25,7 @@ export class ShowNotificationsComponent implements OnInit {
       result => {
         if(result['status']  != 'FAIL'){
           this.userNotifications = result['notification_messages'];
-          
+          console.log(this.userNotifications);
         }
       },
       error => {

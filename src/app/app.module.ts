@@ -26,6 +26,7 @@ import {
 import { HomeContentComponent } from './home-content/home-content.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShowNotificationsComponent } from './notifications/show-notifications/show-notifications.component';
+import { OrderComponent } from './order/order.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ShowNotificationsComponent } from './notifications/show-notifications/s
     HomeContentComponent,
     FooterComponent,
     ShowNotificationsComponent,
+    OrderComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

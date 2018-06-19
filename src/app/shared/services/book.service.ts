@@ -59,6 +59,12 @@ export class BookService {
     return this.apiService.get(route + params);
   }
 
+  //get exchangeable books 
+  getExchangeableBooks(id :number): Observable<Array<Book>>
+  {
+    const route = `/book/books/${id}/exchange`;
+    return this.apiService.get(route)
+  }
   //updateBid For Book
 
   updateBidForBook(bookID,price): Observable<Book> {
@@ -73,6 +79,20 @@ export class BookService {
     return this.apiService.post(route, {quantity: quantity});
   }
 
+
+  //exchange_request
+  exchange_request(books :Object,order :number): Observable<any>
+  {
+    const route = `/book/books/${order}/exchange_request`;
+    return this.apiService.post(route,books)
+  }
+
+  //request free share 
+  requestFree(Book_id :number): Observable<any>
+  {
+    const route = `/book/books/${Book_id}/orders`;
+    return this.apiService.post(route)
+  }
   //add rate on a book
   addRate(bookID,rate): Observable<Book> {
     const route = `/book/books/${bookID}/rates`;

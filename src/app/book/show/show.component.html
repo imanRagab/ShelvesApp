@@ -57,7 +57,7 @@
                     </li>
                     <li *ngIf="!canModify">
                         <button *ngSwitchCase="'Exchange'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"
-                            (click)="fluid.show()" mdbWavesEffect>
+                            (click)="fluid.show();getExchangeableBooks()" mdbWavesEffect>
                             Order now For Exchange
                         </button>
 
@@ -66,6 +66,14 @@
                             aria-hidden="true">
                             <div class="modal-dialog modal-full-height modal-bottom" role="document">
                                 <div class="modal-content">
+                                    <div *ngIf="error ; then errorBlock; else elseBlock"></div>
+                                    <ng-template #errorBlock>
+                                            <div class="alert alert-danger">
+                                                    <span>{{ error }}</span>
+                                                </div>
+                                    </ng-template> 
+                                    <ng-template #elseBlock>
+                                            
                                     <div class="modal-header">
                                         <h4 class="modal-title w-100" id="myModalLabel">Choose books for exchange</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="fluid.hide()">
@@ -75,45 +83,34 @@
                                     <div class="modal-body">
                                         <p> Choose from your shelf which books you need to exchange with...
                                         </p>
-                                        <ul>
-                                            <li class="view overlay hm-white-slight zoom">
-                                                <input type="checkbox" id="cb1" />
-                                                <label for="cb1">
-                                                    <img src="assets/images/Young_Adult_Romance_Book_if_i_stay.jpg" />
-                                                </label>
-                                            </li>
-                                            <li class="view overlay hm-white-slight zoom">
-                                                <input type="checkbox" id="cb2" />
-                                                <label for="cb2">
-                                                    <img src="assets/images/9780751550047.jpg" />
-                                                </label>
-                                            </li>
-                                            <li class="view overlay hm-white-slight zoom">
-                                                <input type="checkbox" id="cb3" />
-                                                <label for="cb3">
-                                                    <img src="assets/images/books-trophy-child.jpg" />
-                                                </label>
-                                            </li>
-                                            <li class="view overlay hm-white-slight zoom">
-                                                <input type="checkbox" id="cb4" />
-                                                <label for="cb4">
-                                                    <img src="assets/images/41865.jpg" />
-                                                </label>
-                                            </li>
+                                        <ul> 
+                                                <ng-template ngFor let-item [ngForOf]="exchangeableBooks" let-i="index">
+                                                    <li class="view overlay hm-white-slight zoom">
+                                                             <input type="checkbox" id="{{item[0].id}}" name="exBook" (change)="chooseBook($event,item[0])"/>
+                                                        <label for=""><img src="http://localhost:3000{{item[0]?.image?.url}}" /></label>  
+                                                       
+                                                    </li>
+                                                </ng-template>
                                         </ul>
 
                                     </div>
+                                   
+                                            <div class="alert alert-success" *ngIf="message">
+                                                    <span>{{message}}</span>
+                                                </div>
+                           
                                     <div class="modal-footer justify-content-center">
-                                        <button type="button" class="btn btn-danger waves-light" data-dismiss="modal" (click)="fluid.hide()" mdbWavesEffect>Close</button>
-                                        <button type="button" class="btn btn-primary waves-light" mdbWavesEffect>Save changes</button>
+                                            <button type="button" class="btn btn-danger waves-light" data-dismiss="modal" (click)="fluid.hide()" mdbWavesEffect>Close</button>
+                                            <button type="button" class="btn btn-primary waves-light" (click)=" requestExchange()" mdbWavesEffect>Send Request</button>
                                     </div>
+                                </ng-template>
+                           
+
                                 </div>
                             </div>
                         </div>
                     </li>
-
-
-
+                  
                     <li *ngIf="!canModify">
 
                         <button *ngSwitchCase="'Sell By Bids'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"
@@ -143,7 +140,7 @@
                                                 <span>{{ error }}</span>
                                             </div>
                                             <div class="form-group col-md-8">
-                                                <label for="txtarea">Current Bid Price</label> {{ book?.price}}
+                                                <label for="txtarea">Current Bid Price: {{ book?.price}}</label> 
                                                 <label for="txtarea">Enter Bid Price</label>
                                                 <input formControlName="price" type="number" class="form-control" name="price" [(ngModel)]="price" />
                                             </div>
@@ -162,6 +159,16 @@
                     </li>
 
 
+
+                    <li *ngIf="!canModify">
+
+                            <button *ngSwitchCase="'Free Share'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"  (click)=" OrderFree()">
+                                Order now for free
+                            </button>
+    
+                        </li>
+
+                        
                     <li *ngIf="!canModify">
                             <button *ngSwitchCase="'Sell'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"
                                 (click)="fluid3.show()" mdbWavesEffect>
@@ -174,7 +181,7 @@
                                 <div class="modal-dialog modal-full-height modal-bottom" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title w-100" id="myModalLabel">Choose books for exchange</h4>
+                                            <h4 class="modal-title w-100" id="myModalLabel">Order Book For Sell</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="fluid3.hide()">
                                                 <span aria-hidden="true">×</span>
                                             </button>
@@ -239,14 +246,62 @@
                             </a>
                         </div>
                         <!--/.Card image-->
-
-
-
                     </div>
                     <!--/.Card-->
-
                 </div>
                 <!--Grid column-->
             </div>
         </div>
     </div>
+     <!--Comments-->
+     <div class="row mt-5">
+        <h3 class="col-lg-8 pb-3 dotted">Comments</h3>
+        <div class="md-form col-lg-8 mb-5">
+          <form [formGroup]="commentForm" (ngSubmit)="submitComment()"  role="form">
+            <i class="fa fa-pencil prefix fa-rotate-270"></i>
+            <textarea mdbInputDirective type="text" id="form8" class="md-textarea form-control " rows="3" name="comment" formControlName="comment" minLength="2"></textarea>
+            <label for="form8">Write a comment...</label>
+            <button class="actionbBtn col-lg-2">Submit</button>
+            <span style="color:red">{{ commentError }}</span>
+          </form>
+        </div>
+
+    </div>
+    <div class="row" *ngFor="let comment of comments">
+
+        <!--Commented-->
+        <div class="media">
+            <img class="d-flex mr-3 " src="http://localhost:3000{{ comment?.user[0]?.profile_picture?.url }}" alt="Generic placeholder image">
+            <div class="media-body ">
+                <h5 class="mt-0">{{comment.user[0].name}}</h5>
+                <span>{{comment.created_at}}</span>
+                <p>{{comment.comment}}</p>
+                <!--Comment actions-->
+                <ng-container >
+                    <div class="md-form col-lg-8 mb-5">
+                        <form [formGroup]="replyForm" (ngSubmit)="submitReply(comment.id)"  role="form">
+                            <i class="fa fa-pencil prefix fa-rotate-270"></i>
+                            <textarea mdbInputDirective type="text" id="form9" class="md-textarea form-control " rows="1"  name="reply" formControlName="reply" minLength="2"></textarea>
+                            <label for="form9">Write a reply...</label>
+                            <button class="actionbBtn" >Reply</button>
+                            <span style="color:red " id="comment.id">{{ replyError }}</span>
+                        </form>
+                    </div>
+                </ng-container>
+                <!--End Comment actions-->
+                <!--Reply-->
+                <div class="media mt-3" *ngFor="let reply of comment.replies">
+                    <a class="d-flex pr-3" href="#">
+                        <img src="http://localhost:3000{{ reply?.user[0]?.profile_picture?.url }}" alt="Generic placeholder image">
+                    </a>
+                    <div class="media-body">
+                        <h5 class="mt-0">{{reply.user[0].name}}</h5>
+                        <span>{{reply.created_at}}</span>
+                        <p>{{reply.reply}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
