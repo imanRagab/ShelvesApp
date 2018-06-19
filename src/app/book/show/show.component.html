@@ -256,7 +256,7 @@
      <!--Comments-->
      <div class="row mt-5">
         <h3 class="col-lg-8 pb-3 dotted">Comments</h3>
-        <div class="md-form col-lg-8 mb-5">
+        <div class="md-form col-lg-8 mb-5" *ngIf="userLoggedIn">
           <form [formGroup]="commentForm" (ngSubmit)="submitComment()"  role="form">
             <i class="fa fa-pencil prefix fa-rotate-270"></i>
             <textarea mdbInputDirective type="text" id="form8" class="md-textarea form-control " rows="3" name="comment" formControlName="comment" minLength="2"></textarea>
@@ -276,9 +276,10 @@
                 <h5 class="mt-0">{{comment.user[0].name}}</h5>
                 <span>{{comment.created_at}}</span>
                 <p>{{comment.comment}}</p>
+                <button class="actionbBtn" (click)="editComment(comment.id,comment.comment)" *ngIf="comment.user[0].id == currentUser.id">Edit</button>
                 <!--Comment actions-->
                 <ng-container >
-                    <div class="md-form col-lg-8 mb-5">
+                    <div class="md-form col-lg-8 mb-5" *ngIf="userLoggedIn">
                         <form [formGroup]="replyForm" (ngSubmit)="submitReply(comment.id)"  role="form">
                             <i class="fa fa-pencil prefix fa-rotate-270"></i>
                             <textarea mdbInputDirective type="text" id="form9" class="md-textarea form-control " rows="1"  name="reply" formControlName="reply" minLength="2"></textarea>
