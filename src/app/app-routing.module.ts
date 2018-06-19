@@ -13,7 +13,7 @@ import { ShowNotificationsComponent } from './notifications/show-notifications/s
 
 import { NoAuthGuardService } from './shared/services/no-auth-guard.service';
 import { AuthGuardService } from './shared/services/auth-guard.service';
-
+import {OrderComponent} from './order/order.component'
 const routes: Routes = [
   {
     path: '' ,
@@ -75,8 +75,12 @@ const routes: Routes = [
    {
      path: 'showNotifications',
      component : ShowNotificationsComponent
-   }
-
+   },
+   {
+    path: 'order',
+    component: OrderComponent,
+    canActivate: [AuthGuardService]
+  }
 ];
 
 

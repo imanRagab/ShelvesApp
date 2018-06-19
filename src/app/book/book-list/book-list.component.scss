@@ -1,0 +1,40 @@
+.before {
+    height: 40px;
+}
+
+.card {
+    height: 100%;
+    margin-bottom: 20px;
+    .img-fluid {
+        height: 300px;
+        width: 100%;
+    }
+}
+
+.peach {
+    background: linear-gradient(40deg, #ffd86f, #dc3545)!important;
+    border: none;
+}
+
+.viewMoreBtn {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.card-body {
+    .badge {
+        background-color: #ff4f4f;
+    }
+}
+
+.card-footer {
+    i {
+        color: #ff4f4f;
+        font-size: 20px;
+    }
+}
+
+:host /deep/ .ui-rating-cancel {
+    color: transparent;
+}
