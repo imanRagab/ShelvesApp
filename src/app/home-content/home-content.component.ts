@@ -20,6 +20,7 @@ export class HomeContentComponent implements OnInit {
   currentUser: User;
   userLoggedIn: Boolean;
   userHasInterests: Boolean;
+  apiHost: string;
   constructor(
     private bookService: BookService,
     private userService: UserService
@@ -27,6 +28,8 @@ export class HomeContentComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.apiHost = environment.api_host;
 
     this.userHasInterests = false;
     this.userLoggedIn = false;
