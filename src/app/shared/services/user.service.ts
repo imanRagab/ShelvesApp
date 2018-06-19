@@ -141,4 +141,10 @@ export class UserService {
     const route = `/user/users/get_all_book_stores`;
     return this.apiService.get(route);
   }
+
+  // confirm user email
+  confirmEmail(id): Observable<any> {
+    const route = `/user/users/${id}/confirm_email`
+    return this.apiService.get(route);
+  }
 }

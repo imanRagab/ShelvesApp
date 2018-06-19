@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import { AuthComponent } from './auth/auth.component';
+import { ConfirmEmailComponent } from './auth/confirm-email/confirm-email.component';
 import { NewPasswordComponent } from './auth/new-password/new-password.component';
 import { ShowComponent } from './book/show/show.component';
 import { CreateComponent } from './book/create/create.component';
@@ -33,6 +34,11 @@ const routes: Routes = [
   {
     path: 'newpassword',
     component: NewPasswordComponent,
+    canActivate: [NoAuthGuardService]
+  },
+  {
+    path: 'confirmEmail',
+    component: ConfirmEmailComponent,
     canActivate: [NoAuthGuardService]
   },
   {
