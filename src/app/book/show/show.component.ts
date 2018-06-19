@@ -42,6 +42,9 @@ export class ShowComponent implements OnInit {
   myObject: Book
   exchange_order_id: number
   chosen_books = { "books": []}
+  userLoggedIn: Boolean;
+  commentFormType: string;
+  comment_id: number;
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
@@ -80,6 +83,17 @@ export class ShowComponent implements OnInit {
         Validators.minLength(2)
       ]]
     });
+    this.userLoggedIn = false;
+    // Load the current user's data
+    this.userService.currentUser.subscribe(
+      (userData: User) => {
+        this.currentUser = userData;
+        if(this.currentUser.name) {
+          this.userLoggedIn = true;     
+        }
+      }
+    ); 
+    this.commentFormType = "create";
   }
 
   // get book data
@@ -255,10 +269,41 @@ export class ShowComponent implements OnInit {
     );
   }
 
+  // update comment
+  updateComment(){
+    const comment = this.commentForm.value;
+    this.commentService
+    .updateComment(this.book.id,this.comment_id,comment.comment)
+    .subscribe(
+      result => {
+        if( result['status'] == 'FAIL' ) {
+          this.commentError = result['message'];
+        }else{
+          this.commentError = "";
+          this.comment = result["comment"];
+          this.commentFormType = "create";
+          var index= this.comments.indexOf(this.comments
+          .filter(Comment => Comment.id == this.comment_id)[0]);
+          this.comments.splice(index,1,this.comment as Comment);
+          console.log(this.comments);
+          this.commentForm.reset();
+        }
+        this.router.navigateByUrl(`/books/${this.book.id}`);
+    },
+      error => {
+        alert("Couldn\'t create the comment!")
+        this.router.navigateByUrl('/books/${this.book.id}');
+        // console.log(error);
+      }
+    );
+  }
   // submit comment function create/update
   submitComment() {
-    this.createComment();
-
+    if (this.commentFormType == "create"){
+      this.createComment();
+    }else{
+      this.updateComment();
+    }
   }
 
   // return all comments
@@ -370,5 +415,14 @@ export class ShowComponent implements OnInit {
       
       }
     );
+  }
+
+  // edit comment
+  editComment(commentId: number,comment :string){
+    this.comment_id = commentId;
+    this.commentForm.patchValue({
+      comment: comment,
+    });
+    this.commentFormType = "edit";
   }
 }
