@@ -40,7 +40,8 @@
                     <li *ngIf="profileUser.phone">
                         <i class="fa fa-phone" aria-hidden="true">&nbsp;
                         </i>
-                        <span>{{ profileUser?.phone?.phone }}</span>
+                        <span>{{ userPhone }}</span>
+                        <button class="actionbBtn" class="btn peach waves-light" (click)="showPhone()">Show</button>
 
                         <!-- <span *ngFor="let phone of profileUser.phones | slice:1"> - {{ phone?.phone }}</span> -->
                     </li>

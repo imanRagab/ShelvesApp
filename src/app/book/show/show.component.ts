@@ -109,7 +109,6 @@ export class ShowComponent implements OnInit {
     this.bookService.getBook(book_id).subscribe(
       result => {
         this.book = result['book'];
-        console.log(this.book)
         // Load the current user's data
         this.userService.currentUser.subscribe(
           (userData: User) => {
@@ -156,7 +155,6 @@ export class ShowComponent implements OnInit {
     .updateBidForBook(this.book.id,price)
     .subscribe(
       result => {
-        console.log(result);
         if( result['status'] == 'FAIL' ) {
           this.error = result['message']
         }
@@ -171,7 +169,6 @@ export class ShowComponent implements OnInit {
       error => {
         alert("Couldn\'t make Bid on this Book")
         this.router.navigateByUrl('/');
-         console.log(error);
       }
     );
   }
@@ -184,7 +181,6 @@ export class ShowComponent implements OnInit {
     .orderToSellBook(this.book.id,quantity)
     .subscribe(
       result => {
-        console.log(result);
         if( result['status'] == 'FAIL' ) {
           this.error = result['message']
         }
@@ -199,7 +195,6 @@ export class ShowComponent implements OnInit {
       error => {
         alert("Couldn\'t make Bid on this Book")
         this.router.navigateByUrl('/');
-         console.log(error);
       }
     );
   }
@@ -241,7 +236,6 @@ export class ShowComponent implements OnInit {
       error => {
         alert("Couldn\'t add rate on this Book")
         this.router.navigateByUrl('/');
-         console.log(error);
       }
     );
   }
@@ -291,7 +285,6 @@ export class ShowComponent implements OnInit {
           var index= this.comments.indexOf(this.comments
           .filter(Comment => Comment.id == this.comment_id)[0]);
           this.comments.splice(index,1,this.comment as Comment);
-          console.log(this.comments);
           this.commentForm.reset();
         }
         this.router.navigateByUrl(`/books/${this.book.id}`);
@@ -319,17 +312,14 @@ export class ShowComponent implements OnInit {
     .showComments(book_id)
     .subscribe(
       result => {
-        console.log(result);
         for(let i = 0; i < result['comments'].length; i++){
           this.comments.push(result['comments'][i]);
         }
-        console.log(this.comments);
         this.router.navigateByUrl(`/books/${book_id}`);
     },
       error => {
         alert("Couldn\'t create the comment!")
         this.router.navigateByUrl('/books/${book_id}');
-         console.log(error);
       }
     );
 
@@ -342,7 +332,6 @@ export class ShowComponent implements OnInit {
     .createReply(this.book.id,commentId,reply.reply)
     .subscribe(
       result => {
-        console.log(result);
         if( result['status'] == 'FAIL' ) {
           this.replyError = result['message'];
         }else{
@@ -372,7 +361,6 @@ export class ShowComponent implements OnInit {
  
   chooseBook(e , item: Book)
   {
-    console.log(e.explicitOriginalTarget.checked)
     if(e.explicitOriginalTarget.checked){
      this.chosen_books.books.push({"id": item.id})
     }
@@ -382,7 +370,6 @@ export class ShowComponent implements OnInit {
 
      this.chosen_books.books.splice(index, 1);
     }
-    console.log(this.chosen_books)
   }
   //send request for exchange
   requestExchange()
