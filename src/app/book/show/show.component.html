@@ -276,7 +276,7 @@
                 <h5 class="mt-0">{{comment.user[0].name}}</h5>
                 <span>{{comment.created_at}}</span>
                 <p>{{comment.comment}}</p>
-                <button class="actionbBtn" (click)="editComment(comment.id,comment.comment)">Edit</button>
+                <button class="actionbBtn" (click)="editComment(comment.id,comment.comment)" *ngIf="comment.user[0].id == currentUser.id">Edit</button>
                 <!--Comment actions-->
                 <ng-container >
                     <div class="md-form col-lg-8 mb-5" *ngIf="userLoggedIn">
