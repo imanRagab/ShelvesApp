@@ -369,6 +369,7 @@ export class ShowComponent implements OnInit {
     console.log(e.explicitOriginalTarget.checked)
     if(e.explicitOriginalTarget.checked){
      this.chosen_books.books.push({"id": item.id})
+     console.log(this.chosen_books);
     }
     else{
 
@@ -381,6 +382,7 @@ export class ShowComponent implements OnInit {
   //send request for exchange
   requestExchange()
   {
+    console.log(this.chosen_books)
     this.bookService.exchange_request(this.chosen_books,this.exchange_order_id).subscribe(
       data => {
         if(data['status'] == 'Success'){

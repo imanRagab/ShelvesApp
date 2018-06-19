@@ -75,6 +75,7 @@ getExchangeable_books(books: string){
     result => {
       let newBook = result['book'];
       this.exchangeable_books.push(newBook)
+      console.log(this.exchangeable_books);
     },
     error => {
       console.log(error);
