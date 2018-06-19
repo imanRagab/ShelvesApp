@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import { AuthComponent } from './auth/auth.component';
+import { ConfirmEmailComponent } from './auth/confirm-email/confirm-email.component';
 import { NewPasswordComponent } from './auth/new-password/new-password.component';
 import { ShowComponent } from './book/show/show.component';
 import { CreateComponent } from './book/create/create.component';
@@ -10,7 +11,8 @@ import { UserProfileComponent } from './profile/user-profile/user-profile.compon
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { BookListComponent } from './book/book-list/book-list.component';
 import { ShowNotificationsComponent } from './notifications/show-notifications/show-notifications.component'
-
+import { StoresComponent } from './stores/stores.component'
+import { DeliveryPlacesComponent } from './delivery-places/delivery-places.component'
 import { NoAuthGuardService } from './shared/services/no-auth-guard.service';
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import {OrderComponent} from './order/order.component'
@@ -32,6 +34,11 @@ const routes: Routes = [
   {
     path: 'newpassword',
     component: NewPasswordComponent,
+    canActivate: [NoAuthGuardService]
+  },
+  {
+    path: 'confirmEmail',
+    component: ConfirmEmailComponent,
     canActivate: [NoAuthGuardService]
   },
   {
@@ -77,6 +84,14 @@ const routes: Routes = [
      component : ShowNotificationsComponent
    },
    {
+    path: 'stores',
+    component: StoresComponent
+  },
+  {
+    path: 'DeliveryPlaces',
+    component: DeliveryPlacesComponent
+},  
+{
     path: 'order/:id',
     component: OrderComponent,
     canActivate: [AuthGuardService]

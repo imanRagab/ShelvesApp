@@ -26,6 +26,8 @@ import {
 import { HomeContentComponent } from './home-content/home-content.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShowNotificationsComponent } from './notifications/show-notifications/show-notifications.component';
+import { StoresComponent } from './stores/stores.component';
+import { DeliveryPlacesComponent } from './delivery-places/delivery-places.component';
 import { OrderComponent } from './order/order.component';
 
 @NgModule({
@@ -37,7 +39,10 @@ import { OrderComponent } from './order/order.component';
     HomeContentComponent,
     FooterComponent,
     ShowNotificationsComponent,
-    OrderComponent
+    OrderComponent,
+    DeliveryPlacesComponent,
+    StoresComponent,
+
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

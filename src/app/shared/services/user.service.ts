@@ -135,4 +135,16 @@ export class UserService {
     const route = `/user/users/${userID}/user_rates`;
     return this.apiService.post(route, {rate: rate});
   }
+
+  //get all book stores
+  getBookStores(): Observable<User> {
+    const route = `/user/users/get_all_book_stores`;
+    return this.apiService.get(route);
+  }
+
+  // confirm user email
+  confirmEmail(id): Observable<any> {
+    const route = `/user/users/${id}/confirm_email`
+    return this.apiService.get(route);
+  }
 }

@@ -1,0 +1,83 @@
+<div class="before"></div>
+<div class="container">
+
+
+    <!--Section: Blog v.1-->
+
+
+    <!--Section heading-->
+    <h2 class="h1 font-weight-bold text-center mb-5 pt-4">Delivery Places</h2>
+    <!--Section description-->
+    <p class="text-center mb-5 pb-3">Easy get your book.</p>
+
+    <!--Grid row-->
+    <div *ngFor="let workSpace of workSpaces">
+        <div class="row animated fadeInLeft">
+    
+            <!--Grid column-->
+            <div class="col-lg-5 col-xl-5 pb-3">
+                <!--Featured image-->
+                <div class="view overlay rounded z-depth-2 waves-light" mdbWavesEffect>
+                        <img src="{{ workSpaceImage + workSpace?.picture?.url }}" alt="Sample image for first version of blog listing"  class="img-fluid" *ngIf="workSpace?.picture?.url">
+                        <img src="assets/images/blank__240x240.gif" alt="Sample image for first version of blog listing"  class="img-fluid" *ngIf="!workSpace?.picture?.url">
+                    <!-- <img src="assets/images/ALEF-Bookstore-London-710x478.png" alt="Sample image for first version of blog listing" class="img-fluid"> -->
+                    <a>
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+            </div>
+            <!--Grid column-->
+    
+            <!--Grid column-->
+            <div class="col-lg-7 col-xl-7 storeInfo" >
+                <!--Excerpt-->
+                <a href="" class="green-text">
+                   <!--  <h6 class="font-weight-bold pb-1">{{  workSpace?.address }}</h6> -->
+                </a>
+                <h3 class="mb-4 font-weight-bold dark-grey-text">
+                    <strong>{{  workSpace?.name }}</strong>
+                </h3>
+                <ul>
+                    <li> <i class="fa fa-location-arrow" aria-hidden="true"></i>{{ workSpace?.address }}
+                    </li>
+                    <li> <i class="fa fa-globe"></i><a href="
+                        {{ bookStore?.facebook_page }} "> {{ workSpace?.facebook }} </a></li>
+                    <li><i class="fa fa-phone" aria-hidden="true"></i> {{ workSpace?.phone }} </li>
+                    
+                </ul>
+    
+            </div>
+            <!--Grid column-->
+ <!--Grid row-->
+
+
+    </div>
+    <hr class="mb-5 mt-5 pb-3">
+</div>
+
+       <!--Pagination -->
+       <nav class="d-flex justify-content-center mt-5" *ngIf="!noResultsFound">
+        <ul class="pagination pg-red">
+            <!--Arrow left-->
+            <li class="page-item">
+                <button class="page-link" mdbWavesEffect aria-label="Previous" [disabled]="currentPage == 1" (click)="pageClick(currentPage-1)">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </button>
+            </li>
+
+            <!--Numbers-->
+            <li 
+            [attr.class]="currentPage == page+1?'page-item active':'page-item'"
+            *ngFor="let page of pages"><button class="page-link" [disabled]="currentPage == page+1" mdbWavesEffect (click)="pageClick(page+1)">{{page + 1}}</button></li>
+            <!--Arrow right-->
+            <li class="page-item">
+                <button class="page-link" mdbWavesEffect aria-label="Next" [disabled]="currentPage >= totalPages" (click)="pageClick(currentPage+1)">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </button>
+            </li>
+        </ul>
+    </nav>
+    <!--/Pagination red-->
+</div>

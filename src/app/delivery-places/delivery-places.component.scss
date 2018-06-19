@@ -1,0 +1,31 @@
+.before {
+    height: 100px
+}
+
+.view {
+    width: 370px;
+    img {
+        width: 370px;
+        height: 244px;
+    }
+}
+
+.storeInfo {
+    ul {
+        list-style: none;
+        margin-left: -40px;
+        i {
+            padding-right: 10px;
+            font-size: 20px;
+            color: #ff4f4f;
+        }
+        .storeRate {
+            margin-left: 26px;
+            margin-top: 16px;
+            i {
+                color: orange;
+                margin: -4px;
+            }
+        }
+    }
+}

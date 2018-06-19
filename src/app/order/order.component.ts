@@ -60,7 +60,7 @@ const order_id = parseInt(this.route.snapshot.paramMap.get('id'));
           this.canView = (this.currentUser.id === this.order.seller[0].id);
         }
       );
-      this.getExchangeable_books(this.order.exchangeable_books);
+      this.getExchangeable_books(this.order['exchangeable_books']);
     },
     error => {
       console.log(error);
