@@ -24,6 +24,12 @@ export class CommentService {
     return this.apiService.post(route, {comment: comment});
   }
 
+  // update comment
+  updateComment(bookId :number,commentId :number,comment :object): Observable<Comment>{
+    const route = `/book/books/${bookId}/comments/${commentId}`;
+    return this.apiService.put(route, {comment: comment});
+  }
+
   // show comments
   showComments(bookId :number): Observable<Array<Comment>>{
     const route = `/book/books/${bookId}/comments`;

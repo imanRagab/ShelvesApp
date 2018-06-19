@@ -14,7 +14,7 @@ import { StoresComponent } from './stores/stores.component'
 import { DeliveryPlacesComponent } from './delivery-places/delivery-places.component'
 import { NoAuthGuardService } from './shared/services/no-auth-guard.service';
 import { AuthGuardService } from './shared/services/auth-guard.service';
-
+import {OrderComponent} from './order/order.component'
 const routes: Routes = [
   {
     path: '' ,
@@ -85,7 +85,11 @@ const routes: Routes = [
     path: 'DeliveryPlaces',
     component: DeliveryPlacesComponent
 },
-
+{
+    path: 'order/:id',
+    component: OrderComponent,
+    canActivate: [AuthGuardService]
+  }
 ];
 
 
