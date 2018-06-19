@@ -53,7 +53,6 @@ export class NavBarComponent implements OnInit {
         this.currentUser = userData;
         if (this.currentUser.name) {
           this.userLoggedIn = true;
-<<<<<<< HEAD
           this.userImage['url'] = `${environment.api_host}` + this.currentUser.profile_picture['url'];
         }
       }
@@ -61,14 +60,6 @@ export class NavBarComponent implements OnInit {
     // this.getUnSeenNotifications();
     // this.getNotifications();
 
-=======
-          //this.getUnSeenNotifications();
-          //this.getNotifications();
-        }
-      }
-    );
-    
->>>>>>> 3d933889976775ab8ac4ca9f9818de13aaa2d1f8
   }
   // get list of all categories
   getCategories() {
@@ -101,7 +92,8 @@ export class NavBarComponent implements OnInit {
       result => {
         if (result['status'] != 'FAIL') {
           this.userNotifications = result['notification_messages'];
-          console.log(this.userNotifications);        }
+
+        }
       },
       error => {
         console.log(error);
@@ -145,6 +137,5 @@ export class NavBarComponent implements OnInit {
     this.userLoggedIn = false;
     window.location.reload();
     this.router.navigateByUrl('/');
-
   }
 }

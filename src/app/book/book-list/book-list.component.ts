@@ -33,7 +33,7 @@ export class BookListComponent implements OnInit {
         
         this.params = params;
         if(params['page'])
-          this.currentPage = params['page'];
+          this.currentPage = parseInt(params['page']);
         else
           this.currentPage = 1;
         if(params['category'])
