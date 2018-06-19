@@ -55,7 +55,7 @@
                             Edit
                         </button>
                     </li>
-                    <li *ngIf="!canModify">
+                    <li *ngIf="!canModify && userRole">
                         <button *ngSwitchCase="'Exchange'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"
                             (click)="fluid.show();getExchangeableBooks()" mdbWavesEffect>
                             Order now For Exchange
@@ -111,7 +111,7 @@
                         </div>
                     </li>
                   
-                    <li *ngIf="!canModify">
+                    <li *ngIf="!canModify && userRole">
 
                         <button *ngSwitchCase="'Sell By Bids'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"
                             (click)="fluid2.show()" mdbWavesEffect>
@@ -160,7 +160,7 @@
 
 
 
-                    <li *ngIf="!canModify">
+                    <li *ngIf="!canModify && userRole">
 
                             <button *ngSwitchCase="'Free Share'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"  (click)=" OrderFree()">
                                 Order now for free
@@ -169,7 +169,7 @@
                         </li>
 
                         
-                    <li *ngIf="!canModify">
+                    <li *ngIf="!canModify && userRole">
                             <button *ngSwitchCase="'Sell'" type="button" class="btn peach waves-light" data-toggle="modal" data-target="#basicExample"
                                 (click)="fluid3.show()" mdbWavesEffect>
                                 Order now For Sell

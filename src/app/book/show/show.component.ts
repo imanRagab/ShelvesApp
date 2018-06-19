@@ -45,6 +45,7 @@ export class ShowComponent implements OnInit {
   userLoggedIn: Boolean;
   commentFormType: string;
   comment_id: number;
+  userRole: boolean;
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
@@ -88,6 +89,11 @@ export class ShowComponent implements OnInit {
     this.userService.currentUser.subscribe(
       (userData: User) => {
         this.currentUser = userData;
+        if (this.currentUser.role == "Normal user" ){
+          this.userRole = true;
+        }else{
+          this.userRole = false;
+        }
         if(this.currentUser.name) {
           this.userLoggedIn = true;     
         }
