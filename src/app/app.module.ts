@@ -41,6 +41,9 @@ import { OrderComponent } from './order/order.component';
     FooterComponent,
     ShowNotificationsComponent,
     OrderComponent,
+    DeliveryPlacesComponent,
+    StoresComponent,
+
    // ExchangeComponent
   ],
   imports: [
