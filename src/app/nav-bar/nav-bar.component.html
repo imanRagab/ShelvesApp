@@ -102,7 +102,7 @@
                 </a> -->
                 <div class="btn-group profile " dropdown *ngIf="userLoggedIn">
                     <button dropdownToggle type="" class="btndropdown-toggle waves-light " mdbWavesEffect>
-                        <!-- <i class="fa fa-user-circle"></i> -->
+                        <i class="fa fa-user-circle" *ngIf="!currentUser?.profile_picture?.url"></i>
                         <img src="{{ userImage.url }}" class="img-fluid rounded-circle z-depth-2" *ngIf="currentUser?.profile_picture?.url">
                     </button>
                     <div class="dropdown-menu dropdown-primary fadeInDropdown">
