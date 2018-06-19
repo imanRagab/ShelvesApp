@@ -27,6 +27,7 @@ export class UserProfileComponent implements OnInit {
   rateVal: number;
   error: string;
   message: string;
+  apiHost: string;
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -37,6 +38,7 @@ export class UserProfileComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.apiHost = environment.api_host;
     this.error="";
     this.message="";
     this.profileUser = <User>{};
@@ -58,11 +60,9 @@ export class UserProfileComponent implements OnInit {
         (userData: User) => {
           if(userData.name){
             this.profileUser = userData;
-            console.log(this.profileUser);
             this.userLoggedIn = true;
             this.userRole = this.profileUser.role;
             this.userImage['url'] = `${environment.api_host}` + this.profileUser.profile_picture['url'];
-            console.log(this.userImage);
             this.loadUserBooks();
           }
         }

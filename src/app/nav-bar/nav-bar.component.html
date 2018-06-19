@@ -1,8 +1,7 @@
 <div class="container ">
     <div class="row">
         <!--Navbar-->
-        <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark  rgba-red-strong fixed-top " [containerInside]="true">
-
+        <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark  red lighten-1 fixed-top " [containerInside]="true">
             <!-- Navbar brand -->
             <logo>
                 <a class="navbar-brand" href="index.html" routerLink="/">
@@ -102,7 +101,7 @@
                 </a> -->
                 <div class="btn-group profile " dropdown *ngIf="userLoggedIn">
                     <button dropdownToggle type="" class="btndropdown-toggle waves-light " mdbWavesEffect>
-                        <!-- <i class="fa fa-user-circle"></i> -->
+                        <i class="fa fa-user-circle" *ngIf="!currentUser?.profile_picture?.url"></i>
                         <img src="{{ userImage.url }}" class="img-fluid rounded-circle z-depth-2" *ngIf="currentUser?.profile_picture?.url">
                     </button>
                     <div class="dropdown-menu dropdown-primary fadeInDropdown">

@@ -92,7 +92,8 @@ export class NavBarComponent implements OnInit {
       result => {
         if (result['status'] != 'FAIL') {
           this.userNotifications = result['notification_messages'];
-          console.log(this.userNotifications);        }
+
+        }
       },
       error => {
         console.log(error);
@@ -136,6 +137,5 @@ export class NavBarComponent implements OnInit {
     this.userLoggedIn = false;
     window.location.reload();
     this.router.navigateByUrl('/');
-
   }
 }

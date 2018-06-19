@@ -8,6 +8,7 @@ import { AuthComponent } from './auth.component';
 import { SharedModule } from '../shared';
 import { AppRoutingModule } from '../app-routing.module';
 import { NewPasswordComponent } from './new-password/new-password.component';
+import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { NewPasswordComponent } from './new-password/new-password.component';
   ],
   declarations: [
     AuthComponent,
-    NewPasswordComponent
+    NewPasswordComponent,
+    ConfirmEmailComponent
   ],
   providers: [
   ]
