@@ -5,3 +5,4 @@ export * from './notification.model';
 export * from './city.model'
 export * from './comment.model';
 export * from './reply.model';
+export * from './phone.model';

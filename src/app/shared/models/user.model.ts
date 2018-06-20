@@ -1,3 +1,5 @@
+import { Phone } from './phone.model';
+
 export interface User {
     id: number;
     email: string;
@@ -7,7 +9,7 @@ export interface User {
     gender: string;
     role: string;
     rate: number;
-    phone: string;
+    phone: Phone;
     addresse: string;
     interests: Array<object>;
 }

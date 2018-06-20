@@ -32,9 +32,9 @@ export class OrderComponent implements OnInit {
     private orderService: OrderService,
     private userService: UserService,
     private route: ActivatedRoute,
-    private router: Router,
-   
-    private bookService: BookService
+
+    private bookService: BookService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -124,8 +124,10 @@ confirmExOrder()
         this.notConfirmed=true
       }
       this.message=data['message'];
+      alert(this.message);
   }
   );
+  this.router.navigateByUrl('/');
 }
 //dismiss
 dismissEx()
@@ -134,11 +136,11 @@ dismissEx()
     data =>{
       this.canView=false
       this.message=data['message'];
+      alert(this.message);
     }
-  )
-}
-reload(){
-  location.reload()
+  );
+  this.router.navigateByUrl('/');
+
 }
 
 //confirm sell order

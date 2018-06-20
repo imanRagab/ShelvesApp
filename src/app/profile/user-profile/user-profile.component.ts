@@ -28,6 +28,8 @@ export class UserProfileComponent implements OnInit {
   error: string;
   message: string;
   apiHost: string;
+  userPhone: string;
+  phone: Object;
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -46,6 +48,7 @@ export class UserProfileComponent implements OnInit {
     this.userImage = {};
     this.userLoggedIn = false;
     this.loadProfileUser();
+    this.userPhone = "***********";
   }
 
   ngOnDestroy() {
@@ -64,6 +67,7 @@ export class UserProfileComponent implements OnInit {
             this.userRole = this.profileUser.role;
             this.userImage['url'] = `${environment.api_host}` + this.profileUser.profile_picture['url'];
             this.loadUserBooks();
+            console.log(this.profileUser);
           }
         }
       ); 
@@ -132,5 +136,12 @@ export class UserProfileComponent implements OnInit {
          console.log(error);
       }
     );
+  }
+  showPhone(){
+    if ( this.userPhone == "***********" ){
+      this.userPhone = this.profileUser.phone.phone;
+    }else{
+      this.userPhone = "***********";
+    }
   }
 }
