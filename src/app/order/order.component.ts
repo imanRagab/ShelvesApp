@@ -150,6 +150,11 @@ this.orderService.confirmSell(this.order.book[0].id,this.order.id).subscribe(
   data =>{
     this.message=data['message'];
     console.log(this.message);
+    setTimeout(() => 
+    {
+      this.router.navigateByUrl('/books/'+this.order.book[0].id);
+    },
+    4000);
   }
 )
 }

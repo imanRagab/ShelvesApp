@@ -40,8 +40,8 @@
         <div class="userImg">
             <a>
                     
-                <img src="assets/images/blank__240x240.gif" class="img-fluid rounded-circle z-depth-2 mb-2" *ngIf="userImage">
-                <img src="{{userImage.url}}" class="img-fluid rounded-circle z-depth-2 mb-2" *ngIf="!userImage">
+                <img src="assets/images/blank__240x240.gif" class="img-fluid rounded-circle z-depth-2 mb-2" *ngIf="!userImage">
+                <img src="{{userImage.url}}" class="img-fluid rounded-circle z-depth-2 mb-2" *ngIf="userImage">
                 <h4><strong>{{order.user[0].name}}</strong></h4>
             </a>
         </div>
@@ -115,11 +115,11 @@
             <div class="personal-sm">
     
                 <h5 class="mb-4 text-center">Wanted to buy your book </h5>
-                <label class="text-center"> <strong>Quantity : <span>{{order.quantity}}</span></strong>  </label>
-        <label class="text-center"> <strong>Total Price : <span>{{order.price}} L.E</span></strong>  </label>
+                <label class="text-center"> <strong>Quantity : <span>{{order?.quantity}}</span></strong>  </label>
+        <label class="text-center"> <strong>Total Price : <span>{{order?.price}} L.E</span></strong>  </label>
 
           
-                <a> <img src="http://localhost:3000" class="orderImg z-depth-2"></a>
+        <a routerLink="/books/{{ order?.book[0]?.id }}" > <img src="http://localhost:3000{{order?.book_images[0]?.image?.url}}" class="orderImg z-depth-2"></a>
     
             </div>
     
