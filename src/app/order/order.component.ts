@@ -23,6 +23,7 @@ export class OrderComponent implements OnInit {
   userImage: Object;
   exchangeable_books: Array<Book>;
   exchangeable_book: number;
+  orderConfirmed: boolean;
  
   confirmed: boolean;
   notConfirmed: boolean;
@@ -31,6 +32,7 @@ export class OrderComponent implements OnInit {
     private orderService: OrderService,
     private userService: UserService,
     private route: ActivatedRoute,
+
     private bookService: BookService,
     private router: Router
   ) { }
@@ -51,8 +53,22 @@ const order_id = parseInt(this.route.snapshot.paramMap.get('id'));
     result => {
       console.log(result)
       this.order = result['order'];
-      this.userImage['url'] = `${environment.api_host}` + this.order.user[0].profile_picture['url'];
-    
+     
+      if (this.order.state == "confirmed"){
+      
+        this.orderConfirmed = true;
+      }else{
+       
+        this.orderConfirmed = false;
+      }
+      if (this.order.user[0].profile_picture['url'])
+      {
+        this.userImage['url'] = `${environment.api_host}` + this.order.user[0].profile_picture['url'];
+      }else{
+        this.userImage['url']=null;
+      }
+     
+    console.log(this.order);
       // Load the current user's data
       this.userService.currentUser.subscribe(
         (userData: User) => {
@@ -76,6 +92,7 @@ getExchangeable_books(books: string){
     result => {
       let newBook = result['book'];
       this.exchangeable_books.push(newBook)
+      console.log(this.exchangeable_books);
     },
     error => {
       console.log(error);
@@ -124,6 +141,34 @@ dismissEx()
   );
   this.router.navigateByUrl('/');
 
+}
+
+//confirm sell order
+confirmSellOrder(){
+console.log(this.order.book[0].id);
+this.orderService.confirmSell(this.order.book[0].id,this.order.id).subscribe(
+  data =>{
+    this.message=data['message'];
+    console.log(this.message);
+  }
+)
+}
+
+//dismiss sell order
+dismissSellOrder(){
+console.log("dismiss");
+
+this.orderService.dismissSell(this.order.book[0].id,this.order.id).subscribe(
+  data =>{
+    this.message=data['message'];
+    setTimeout(() => 
+      {
+        this.router.navigateByUrl('/books/'+this.order.book[0].id);
+      },
+      4000);
+    console.log(this.message);
+  }
+)
 }
 
 }

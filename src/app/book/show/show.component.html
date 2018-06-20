@@ -199,7 +199,7 @@
                                                             <label for="txtarea">Book quantity : {{ book?.quantity }}</label> 
                                                             <label for="txtarea">Enter number of books wanted to sell </label>
                                                             <input formControlName="quantity" type="number" class="form-control" name="quantity" [(ngModel)]="quantity" />
-                                                            <p> Total Price : {{ quantity * book?.price }} </p>
+                                                            <p *ngIf="quantity"> Total Price : {{ quantity * book?.price }} </p>
                                                            
                                                         </div>
                                                         <div class="modal-footer justify-content-center">

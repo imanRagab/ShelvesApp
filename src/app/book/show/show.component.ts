@@ -206,9 +206,20 @@ export class ShowComponent implements OnInit {
     if (this.book.transcation == "Sell By Bids")
     {
       this.updateBidPrice();
+      setTimeout(() => 
+      {
+        this.reload();
+      },
+      3000);
     }else if (this.book.transcation == "Sell")
     {
       this.orderBookForSell();
+      setTimeout(() => 
+      {
+          this.reload();
+      },
+      3000);
+     
     }  
         
   }
@@ -363,6 +374,7 @@ export class ShowComponent implements OnInit {
   {
     if(e.explicitOriginalTarget.checked){
      this.chosen_books.books.push({"id": item.id})
+     console.log(this.chosen_books);
     }
     else{
 
@@ -374,6 +386,7 @@ export class ShowComponent implements OnInit {
   //send request for exchange
   requestExchange()
   {
+    console.log(this.chosen_books)
     this.bookService.exchange_request(this.chosen_books,this.exchange_order_id).subscribe(
       data => {
         if(data['status'] == 'Success'){
