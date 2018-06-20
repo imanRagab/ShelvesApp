@@ -5,7 +5,7 @@ export interface Order{
     user: User;
     book: Book;
     seller: User;
-    state: number;
+    state: string;
     transaction: number;
     price: number;
     quantity: number;

@@ -205,9 +205,20 @@ export class ShowComponent implements OnInit {
     if (this.book.transcation == "Sell By Bids")
     {
       this.updateBidPrice();
+      setTimeout(() => 
+      {
+        this.reload();
+      },
+      3000);
     }else if (this.book.transcation == "Sell")
     {
       this.orderBookForSell();
+      setTimeout(() => 
+      {
+          this.reload();
+      },
+      3000);
+     
     }  
         
   }

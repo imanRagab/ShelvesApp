@@ -54,11 +54,12 @@ export class NavBarComponent implements OnInit {
         if (this.currentUser.name) {
           this.userLoggedIn = true;
           this.userImage['url'] = `${environment.api_host}` + this.currentUser.profile_picture['url'];
+          this.getUnSeenNotifications();
+          this.getNotifications();
         }
       }
     );
-    // this.getUnSeenNotifications();
-    // this.getNotifications();
+    
     
   }
   // get list of all categories
