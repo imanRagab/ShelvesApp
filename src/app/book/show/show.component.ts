@@ -370,15 +370,15 @@ export class ShowComponent implements OnInit {
   }
   
  
-  chooseBook(e , item: Book)
+  chooseBook(e , item: number)
   {
     if(e.explicitOriginalTarget.checked){
-     this.chosen_books.books.push({"id": item.id})
+     this.chosen_books.books.push({"id": item})
      console.log(this.chosen_books);
     }
     else{
 
-     let index = this.chosen_books.books.indexOf(item.id);
+     let index = this.chosen_books.books.indexOf(item);
 
      this.chosen_books.books.splice(index, 1);
     }

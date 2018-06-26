@@ -40,8 +40,8 @@
         <div class="userImg">
             <a>
                     
-                <img src="assets/images/blank__240x240.gif" class="img-fluid rounded-circle z-depth-2 mb-2" *ngIf="userImage">
-                <img src="{{userImage.url}}" class="img-fluid rounded-circle z-depth-2 mb-2" *ngIf="!userImage">
+                <img src="assets/images/blank__240x240.gif" class="img-fluid rounded-circle z-depth-2 mb-2" *ngIf="!userImage">
+                <img src="{{userImage.url}}" class="img-fluid rounded-circle z-depth-2 mb-2" *ngIf="userImage">
                 <h4><strong>{{order.user[0].name}}</strong></h4>
             </a>
         </div>
@@ -73,6 +73,8 @@
                         <ng-template ngFor let-item [ngForOf]="exchangeable_books" let-i="index">
                                 <li><input type="radio" id="{{item.id}}" name="exb" value="{{item.id}}"/>
                                     <label for="cb1"><img class="orderImg z-depth-2 mr-2 mb-2" src="http://localhost:3000{{item?.book_images[0]?.image?.url}}"  /></label>
+                                
+    
                                 </li>
                             </ng-template>
 

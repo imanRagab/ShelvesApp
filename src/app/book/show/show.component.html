@@ -86,7 +86,7 @@
                                         <ul> 
                                                 <ng-template ngFor let-item [ngForOf]="exchangeableBooks" let-i="index">
                                                     <li class="view overlay hm-white-slight zoom">
-                                                             <input type="checkbox" id="{{item[0].id}}" name="exBook" (change)="chooseBook($event,item[0])"/>
+                                                             <input type="checkbox" id="{{item[0].book_id}}" name="exBook" (change)="chooseBook($event,item[0].book_id)"/>
                                                         <label for=""><img src="http://localhost:3000{{item[0]?.image?.url}}" /></label>  
                                                        
                                                     </li>
