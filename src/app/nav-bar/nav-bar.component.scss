@@ -1,3 +1,7 @@
+.navbar-nav {
+    font-weight: bolder;
+}
+
 .addBookBtn {
     color: aliceblue;
     background-color: transparent;
@@ -17,10 +21,6 @@
     .dropdown-menu {
         left: -50px;
         top: 69px;
-    }
-    img{
-        width: 80px;
-        height: 32px;
     }
 }
 
@@ -110,6 +110,9 @@ i.fa.fa-bell {
         }
     }
 }
+
+
+/****** Scroll Navbar *******/
 
 
 /******* ScrollBar ************/
