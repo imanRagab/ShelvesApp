@@ -16,8 +16,9 @@
     }
     .banner-content {
         .icon-bar {
-            right: 0%;
+            right: 8%;
             position: absolute;
+            width: 30px;
             a {
                 display: block;
                 text-align: center;
@@ -26,7 +27,7 @@
                 color: white;
                 font-size: 25px;
                  :hover {
-                    color: rgb(255, 0, 85);
+                    color: #ff4f4f;
                 }
             }
         }
@@ -34,7 +35,7 @@
             position: absolute;
             color: #fafafa;
             top: 30%;
-            width: 30%;
+            width: 45%;
         }
         .peach {
             background: linear-gradient(40deg, #ffd86f, #dc3545)!important;
@@ -47,7 +48,7 @@
     bottom: 10%;
     z-index: 2;
     position: absolute;
-    left: 42%;
+    left: 40%;
     .btn {
         background-color: transparent;
         border: 1px solid aliceblue;
@@ -55,7 +56,7 @@
         color: aliceblue;
         &:hover {
             background-color: aliceblue;
-            color: red;
+            color: #ff4f4f;
         }
         &:active {
             background-color: aliceblue;
@@ -121,8 +122,4 @@ i:hover {
 i:hover:after {
     transform: scale(1);
     opacity: 1;
-}
-
-.modal-open {
-    z-index: 9999;
 }

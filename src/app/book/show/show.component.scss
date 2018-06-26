@@ -30,6 +30,10 @@
     margin-right: 50px;
 }
 
+:host /deep/ .ui-rating a {
+    color: #ff9800;
+}
+
 
 /******** order button modal **********/
 
@@ -89,6 +93,18 @@
     }
 }
 
+
+/********** Bid Offer *************/
+
+.bidOffer {
+    input {
+        width: 120px;
+    }
+}
+
+
+/************Comments*************/
+
 .dotted {
     border-bottom: 1px dashed #ff4f4f5e;
 }
@@ -108,8 +124,4 @@
         height: 65px;
         border-radius: 50%;
     }
-}
-
-:host /deep/ .ui-rating a {
-    color: #ffc800;
 }

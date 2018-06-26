@@ -2,8 +2,23 @@
     height: 40px;
 }
 
+$robotoFont: Roboto,
+sans-serif;
+body {
+    font-display: $robotoFont;
+}
+
+// .mis-slider {
+//     background-color: #d536361a;
+//     li {
+//         img {
+//             border-radius: 40px;
+//         }
+//     }
+// }
 .card {
     height: 100%;
+    margin-bottom: 20px;
     .img-fluid {
         height: 300px;
         width: 100%;
@@ -23,26 +38,17 @@
 
 .card-body {
     .badge {
-        background-color: crimson;
+        background-color: #ff4f4f;
     }
 }
 
 .card-footer {
     i {
-        color: crimson;
+        color: #ff4f4f;
         font-size: 20px;
     }
 }
 
-span.stars, span.stars span {
-    display: block;
-   /* Download the star image here: http://stackoverflow.com/questions/1987524/turn-a-number-into-star-rating-display-using-jquery-and-css */
-    background: url('https://apppresser.com/wp-content/uploads/2015/11/stars.png') 0 -16px repeat-x;
-    width: 80px;
-    height: 16px;
+:host /deep/ .ui-rating-cancel {
+    color: transparent;
 }
-
-span.stars span {
-    background-position: 0 0;
-}
-

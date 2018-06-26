@@ -1,11 +1,11 @@
 <div class="container ">
     <div class="row">
         <!--Navbar-->
-        <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark  red lighten-1 fixed-top " [containerInside]="true">
+        <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark  red lighten-1 fixed-top scrolling-navbar " [containerInside]="true">
             <!-- Navbar brand -->
             <logo>
                 <a class="navbar-brand" href="index.html" routerLink="/">
-                    <img src="assets/images/ShelvesLogo.png" width="110px" height="80px" alt="">
+                    <img src="assets/images/ShelvesLogo.png"  width="100px" height="60px" alt="">
                 </a>
             </logo>
 
@@ -55,7 +55,7 @@
                 <!-- Search form -->
                 <form action="/books" class="form-inline waves-light" mdbWavesEffect>
                     <div class="md-form mt-0 mr-5">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search Your Book" name="search">
+                        <input class="form-control mr-sm-2 search" type="text" placeholder="Search Your Book">
                     </div>
 
                 </form>
@@ -110,36 +110,6 @@
                     </div>
                 </div>
 
-                <!--End Notifications-->
-               <!--      <div class="dropdown-menu fadeInDropdown noti scrollbar scrollbar-warning">
-                        <div class="notiHeader">
-                            <h5 class="col-lg-8">Notifications</h5>
-                            <a class="col-lg-4 ">
-                                <span>Dismiss</span>
-                            </a>
-                        </div>
-                        <div class="divider dropdown-divider"></div>
-                        <ul>
-                            <div *ngFor="let notification of userNotifications">
-                                <li>
-                                    <img width="70px" style="float: left;" src="{{ notification?.icon }}" class="img-fluid rounded-circle z-depth-2">
-                                    <a class="dropdown-item" href="{{ notification?.click_action }}">{{ notification?.body }}</a>
-                                    <label>{{notification?.created_at}}</label>
-                                </li>
-
-                                <li>
-                                    <div class="divider dropdown-divider"></div>
-                                </li>
-                            </div>
-
-                            <li class="text-center">
-                                <a href="/showNotifications">
-                                    <span> See All</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div> -->
                 <!-- <a routerLink="/userprofile" class="prof" *ngIf="userLoggedIn">
                     <i class="fa fa-user-circle "></i>
                 </a> -->
