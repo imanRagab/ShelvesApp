@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { UserService } from '../shared';
 
+
 @Component({
   selector: 'app-auth-page',
   templateUrl: './auth.component.html',
@@ -53,6 +54,7 @@ export class AuthComponent implements OnInit {
     this.isSubmitting = true;
     // this.errors = {errors: {}};
     const credentials = this.authForm.value;
+    //console.log(credentials);
     this.userService
     .attemptAuth(this.authType, credentials)
     .subscribe(
@@ -62,8 +64,10 @@ export class AuthComponent implements OnInit {
         }
         else {
           if( data['message'] ) {
+           
             alert(data['message'])
           }
+          //this.messagingService.savenotificationToken(,)
           this.router.navigateByUrl('/');
         }
     },

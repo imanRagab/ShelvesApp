@@ -79,9 +79,10 @@ export class UserService {
             data.user.addresse = data.addresses[0];
             data.user.interests = data.interests;
             this.setAuth(data.user, data.auth_token);
-            this.messagingService.getPermission(this.getCurrentUser().id)
-            this.messagingService.receiveMessage()
-            this.message = this.messagingService.currentMessage
+            this.messagingService.getPermission(this.getCurrentUser().id);
+            this.messagingService.receiveMessage();
+            this.message = this.messagingService.currentMessage;
+            this.messagingService.savenotificationToken(localStorage.getItem('notification_token'),this.getCurrentUser().id);
           }
         }
         return data;

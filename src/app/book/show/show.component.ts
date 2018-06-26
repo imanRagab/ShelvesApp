@@ -219,6 +219,8 @@ export class ShowComponent implements OnInit {
           this.reload();
       },
       3000);
+
+      
      
     }  
         

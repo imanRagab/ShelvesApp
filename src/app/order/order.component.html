@@ -39,9 +39,9 @@
     <div class="row  d-flex justify-content-center mb-4">
         <div class="userImg">
             <a>
-                    
-                <img src="assets/images/blank__240x240.gif" class="img-fluid rounded-circle z-depth-2 mb-2" *ngIf="!userImage">
-                <img src="{{userImage.url}}" class="img-fluid rounded-circle z-depth-2 mb-2" *ngIf="userImage">
+              
+                <img src="assets/images/blank__240x240.gif" class="img-fluid rounded-circle z-depth-2 mb-2" *ngIf="!userImageExist">
+                <img src="{{userImage.url}}" class="img-fluid rounded-circle z-depth-2 mb-2" *ngIf="userImageExist">
                 <h4><strong>{{order.user[0].name}}</strong></h4>
             </a>
         </div>
@@ -137,17 +137,16 @@
             <div class="personal-sm col-lg-4 col-sm-10">
 
                 <h5 class="mb-4 text-center">Won The Bid For This Book</h5>
-                <label class="text-center"> <strong>For the Price : <span> 34 L.E</span> </strong> </label>
-                <a> <img src="assets/images/jessica-to-oto-o-585175-unsplash.jpg" class="orderImg z-depth-2">
-                </a>
+                <label class="text-center"> <strong>For the Price : <span> {{order?.price}} L.E</span> </strong> </label>
+                <a routerLink="/books/{{ order?.book[0]?.id }}" > <img src="http://localhost:3000{{order?.book_images[0]?.image?.url}}" class="orderImg z-depth-2"></a>
             </div>
 
 
 
         </div>
         <div class="row d-flex justify-content-center mt-5">
-            <button type="button" class="btn btn-danger waves-light col-4" data-dismiss="modal" mdbWavesEffect>Dismiss</button>
-            <button type="button" class="btn btn-primary waves-light col-4" mdbWavesEffect>Confirm</button>
+            <button type="button" class="btn btn-danger waves-light col-4" data-dismiss="modal" (click)="dismissSellOrder()" [hidden]="orderConfirmed" mdbWavesEffect>Dismiss</button>
+            <button type="button" class="btn btn-primary waves-light col-4" (click)="confirmSellOrder()" [hidden]="orderConfirmed" mdbWavesEffect>Confirm</button>
         </div>
     </div>
     <!-- /If It Is A Bid Order  -->

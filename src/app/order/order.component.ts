@@ -26,6 +26,7 @@ export class OrderComponent implements OnInit {
   orderConfirmed: boolean;
  
   confirmed: boolean;
+  userImageExist: boolean;
   notConfirmed: boolean;
   message: string;
   constructor(
@@ -42,6 +43,7 @@ export class OrderComponent implements OnInit {
     this.exchangeable_books=[];
     this.message="";
     this.getOrder();
+    
   }
 
 
@@ -63,9 +65,10 @@ const order_id = parseInt(this.route.snapshot.paramMap.get('id'));
       }
       if (this.order.user[0].profile_picture['url'])
       {
+        this.userImageExist=true;
         this.userImage['url'] = `${environment.api_host}` + this.order.user[0].profile_picture['url'];
       }else{
-        this.userImage['url']=null;
+        this.userImageExist=false;
       }
      
     console.log(this.order);
